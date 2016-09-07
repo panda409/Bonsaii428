@@ -1,0 +1,78 @@
+﻿@model Bonsaii.Models.Brand
+
+@{
+    ViewBag.Title = "编辑厂牌打印";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+@using (Html.BeginForm("Edit", "Brand", FormMethod.Post,
+  new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">厂牌打印管理</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+        <!-- 主内容结束 -->
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.StaffId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.BrandId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.BrandId, (IEnumerable<SelectListItem>)@ViewBag.list, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StaffName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.StaffName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+<script>
+    function tz() {
+        window.location.href = "/Brand/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/Brand/Index";
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

@@ -1,0 +1,78 @@
+﻿@model BonsaiiModels.SubscribeList
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutMainSuperRoot.cshtml";
+}
+
+<h2>删除</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubscribeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubscribeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SQL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SQL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSQLLegal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSQLLegal)
+        </dd>
+
+        <dd>
+            @Html.DisplayNameFor(model => model.MessTitle)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessTitle)
+        </dd>
+
+        <th>
+            @Html.DisplayNameFor(model => model.MessContent)
+        </th>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("返回列表", "SubscribeListIndex")
+        </div>
+    }
+</div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Bonsaii.Models.ParamCodes>
+@{
+    ViewBag.Title = "设置编码规则";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<ul class="nav nav-tabs">
+    <li><a href="" data-toggle="tab" id="active" target="content" >基本参数设置</a></li>
+    <li><a href="" data-toggle="tab" target="content"id="B">设置编码规则</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="C">设置单据性质</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="D">参数类型设置</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="E">考勤参数设置</a></li>
+</ul>
+<div class="content">
+    <!-- 主内容开始 -->
+    <!-- 主内容结束 -->
+    <!--测试iframe-->
+    <iframe scrolling="auto" frameborder="0"
+            style="width:100%;border:none;margin-left:0px;margin-top:0px;"
+            name="content" id="content"
+            src="/StaffBasicParams/Index"
+            onload="this.height=700"></iframe>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $("#add").click(function () {
+        window.location.href = "/ParamCodes/Create"
+    });
+    $("#active").tab("show");
+    $("#active").click(function () {
+        window.frames["content"].document.location = "/StaffBasicParams/Index";
+
+    });
+    $("#B").click(function(){
+        window.frames["content"].document.location = "/ParamCodes/Index";
+    });
+    $("#C").click(function () {
+        window.frames["content"].document.location = "/BillPropertyModels/Index";
+    });
+    $("#D").click(function () {
+        window.frames["content"].document.location = "/StaffParamTypes/Index";
+    });
+    $("#E").click(function(){
+        window.frames["content"].document.location = "/CheckingInParams/HomeIndex";
+    });
+</script>

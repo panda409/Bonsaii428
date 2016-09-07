@@ -1,0 +1,166 @@
+﻿@model IEnumerable<Bonsaii.Models.StaffViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+@*<h2>部门信息列表</h2>
+    <p>
+        @Html.ActionLink("创建部门", "Create")
+    </p>*@
+<p>
+    @Html.ActionLink("创建个人假日", "Create")
+</p>
+<script>
+    
+    function DepartmentId(i) {
+        $("#table1").toggle();
+        $("#monthR").click(function () {
+            var temp = $("#m").text();
+            if ($("#m").text() != "10") {
+                temp = temp.replace("0", "");
+            }
+            var nian = $("#y").text();
+            var staffNumber = i;
+            $.ajax({
+                url: "./ResultHoliday",
+                type: 'POST',
+                data: { month: temp, year: nian, staffNumber: staffNumber },
+                success: (function (data) {
+                    for (var n = 0; n < 31; n++) {
+                        for (var j = 0; j < data.length; j++) {
+                            if ((data[j].Tag.trim() == "1" || data[j].Tag.trim() == "2" || data[j].Tag.trim() == "3" || data[j].Tag.trim() == "4") && data[j].Day.trim() == (n + 1).toString()) {
+                                $("#id" + (n + 1)).append("<br>" + data[j].TagName).css({ 'color': 'red' });
+                            }
+                        }
+                    }
+                })
+            });
+        });
+        $("#monthL").click(function () {
+            var temp = $("#m").text();
+            if ($("#m").text() != "10") {
+                temp = temp.replace("0", "");
+            }
+            var nian = $("#y").text();
+            var staffNumber = i;
+            $.ajax({
+                url: "./ResultHoliday",
+                type: 'POST',
+                data: { month: temp, year: nian, staffNumber: staffNumber },
+                success: (function (data) {
+                    for (var n = 0; n < 31; n++) {
+                        for (var j = 0; j < data.length; j++) {
+                            if ((data[j].Tag.trim() == "1" || data[j].Tag.trim() == "2" || data[j].Tag.trim() == "3" || data[j].Tag.trim() == "4") && data[j].Day.trim() == (n + 1).toString()) {
+                                $("#id" + (n + 1)).append("<br>" + data[j].TagName).css({ 'color': 'red' });
+                            }
+                        }
+                    }
+                })
+            });
+        });
+        var d = new Date();
+        var temp = d.getMonth() + 1;
+        var nian = $("#y").text();
+        if (nian == "") {
+            nian = d.getFullYear();
+        }
+        var staffNumber = i;
+        $.ajax({
+            url: "./ResultHoliday",
+            type: 'POST',
+            data: { month: temp, year: nian, staffNumber: staffNumber },
+            success: (function (data) {
+                console.info(data);
+                for (var n = 0; n < 31; n++) {
+                    for (var j = 0; j < data.length; j++) {
+                        if ((data[j].Tag.trim() == "1" || data[j].Tag.trim() == "2" || data[j].Tag.trim() == "3" || data[j].Tag.trim() == "4") && data[j].Day.trim() == (n + 1).toString()) {
+                            $("#id" + (n + 1)).append("<br>"+data[j].TagName).css({ 'color': 'red' });
+                        }
+                    }
+                }
+
+            })
+        });
+
+    }
+</script>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+
+        <th>日历</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+
+            <td>
+                <div class="sang_Calender">
+                    <button class="btn btn-success" onclick="DepartmentId('@item.StaffNumber')" value="@item.StaffNumber">查看日历</button>
+                </div>
+        </tr>
+    }
+</table>
+<table class="table table-border" id="table1" style="display:none;table-layout:fixed;">
+    
+    <tr>
+        <td>
+            <table border="0" cellspacing="0" bgcolor="#6699FF" cellpadding="0" width="100%">
+              
+                <tr>
+                    <td width="20" height="25"  id="yearL" title="上一年">&lt;&lt;</td>'+
+                   
+                    <td width="80"  id="monthL" title="上一月">&lt;&lt;上一月</td>
+                    <td>
+                       <span id="y" align="center" title="点击选择年份"></span>年<span id="m" title="点击选择月份"></span>月
+                    </td>
+                    <td width="80" id="monthR" title="下一月">下一月&gt;&gt;</td>
+                    <td width="20"  id="yearR" title="下一年">&gt;&gt;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td>
+            <table class="table" border="0" >
+
+                <tr bgcolor="#CCCCFF" height="18"><td align="center">日</td><td align="center">一</td><td align="center">二</td><td align="center">三</td><td align="center">四</td><td align="center">五</td><td align="center">六</td></tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"><td><div id="calenderDay"></div></td></tr>
+    <tr>
+        <td>
+            <table class="table table-border" hidden="hidden">
+              
+                <tr>
+                    <td align="center" height="20" id="hoursL" title="时减少">&lt;&lt;</td>
+                   
+                    <td align="center" id="minL" title="分减少">&lt;</td>
+                    
+                    <td align="center"><span id="h" title="点击选择小时"></span>:<span id="i" title="点击选择分"></span>:<span id="s" title="点击选择秒"></span></td>
+                   
+                    <td align="center" id="minR" title="分增加">&gt;</td>
+                    <td align="center" id="hoursR" title="时增加">&gt;&gt;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script src="~/Scripts/datetime.js"></script>

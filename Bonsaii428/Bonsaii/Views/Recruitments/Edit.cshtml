@@ -1,0 +1,170 @@
+﻿@model Bonsaii.Models.Recruitments
+
+@{
+    ViewBag.Title = "编辑招聘需求";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+@using (Html.BeginForm("Edit", "Recruitments", FormMethod.Post,
+  new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">系统设置</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+        <!-- 主内容结束 -->
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("BillType", (string)@ViewBag.BillType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("BillCode", (string)ViewBag.BillCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.DepartmentName, (IEnumerable<SelectListItem>)ViewBag.DepartmentsList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.Position, (IEnumerable<SelectListItem>)ViewBag.PositionsList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequiredNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("RequiredNumber", (string)@ViewBag.RequiredNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RequiredNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.ListBoxFor(model => model.Gender, (IEnumerable<SelectListItem>)ViewBag.GendersList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("Age", (string)@ViewBag.Age, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.ListBoxFor(model => model.MaritalStatus, (IEnumerable<SelectListItem>)ViewBag.MaritalStatusList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EducationBackground, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.ListBoxFor(model => model.EducationBackground, (IEnumerable<SelectListItem>)ViewBag.EduBackgroundsList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Major, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+
+                    @Html.ListBoxFor(model => model.Major, (IEnumerable<SelectListItem>)ViewBag.MajorsList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WorkExperience, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("WorkExperience", (string)@ViewBag.WorkExperience, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Skill, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("Skill", (string)ViewBag.Skill, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Skill, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Others, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("Others", (string)@ViewBag.Others, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Others, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*遍历，显示那些自定义的字段，因为是Edit方法，所以要显示字段的初始值*@
+            @foreach (var x in @ViewBag.fieldValueList)
+            {
+                <div class="form-group">
+                    @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        <input id="@x.Description" value="@x.Value" class="form-control" name="@x.Description" />
+                    </div>
+                </div>
+
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    function tz() {
+        window.location.href = "/Recruitments/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/Recruitments/Index";
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+</script>

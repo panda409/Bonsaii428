@@ -1,0 +1,151 @@
+﻿@model Bonsaii.Models.StaffSkillViewModel
+
+@{
+    ViewBag.Title = "删除员工技能";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@using (Html.BeginForm("Delete", "StaffSkill", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">员工技能管理</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/StaffSkill/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillTypeNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillTypeNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillTypeName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillTypeName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Department)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Department)
+                </dd>
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.SkillNumber)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SkillNumber)
+                    </dd>*@
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SkillName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SkillName)
+                </dd>
+
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.SkillGrade)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SkillGrade)
+                    </dd>*@
+                <dt>
+                    @Html.DisplayNameFor(model => model.ValidDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ValidDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SkillRemark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SkillRemark)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AuditStatusName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AuditStatusName)
+                </dd>
+
+                @foreach (var temp in @ViewBag.fieldValueList)
+                {
+                    <dt>@Html.DisplayName((string)temp.Description)</dt>
+                    <dd>@temp.Value</dd>
+                }
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div> }
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/StaffSkill/Index";
+    }
+    $("#delete1").click(function () {
+
+        $("#longfor_form").submit();
+
+    });
+</script>

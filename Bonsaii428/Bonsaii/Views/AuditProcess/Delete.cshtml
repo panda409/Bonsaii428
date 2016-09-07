@@ -1,0 +1,114 @@
+﻿@model Bonsaii.Models.Audit.AuditProcess
+
+@{
+    ViewBag.Title = "删除电子签核明细";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/AuditProcess/Delete" id="delete1"><i class="fa fa-trash"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditProcess/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+                @*<dt>
+                    @Html.DisplayNameFor(model => model.SId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TId)
+                </dd>*@
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Info)
+                </dt>
+
+                @foreach (var item in ViewBag.sInfoArray)
+                {
+                    <dd>
+                        @item
+                    </dd>
+                }
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AuditDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AuditDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResultDescription)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ResultDescription)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Comment)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Approver)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Approver)
+                </dd>
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+            </dl>
+            </div>
+    }
+        </div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/AuditProcess/Index";
+    }
+ 
+</script>

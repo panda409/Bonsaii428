@@ -1,0 +1,108 @@
+﻿@model Bonsaii.Models.Works.WorkTimes
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>您确定删除此条基础排班记录吗？</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Works.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Works.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OvettimeHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OvettimeHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AheadMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AheadMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BackMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BackMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LateMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LateMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveEarlyMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveEarlyMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAheadToOvertime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAheadToOvertime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsBackToOvertime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsBackToOvertime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回列表", "Index")
+        </div>
+    }
+</div>

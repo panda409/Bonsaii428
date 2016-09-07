@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Bonsaii.Models.UserModels>
+@{
+    ViewBag.Title = "AdminIndex";
+    Layout = "~/Views/Shared/_LayoutMainSuperRoot.cshtml";
+}
+<h2>平台管理员信息</h2>
+<p>
+    @Html.ActionLink("创建新管理员", "CreateAdmin")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
+        <th>操作</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAvailable)
+            </td>
+            <td>
+                @if (item.IsAvailable)
+                {
+                    @Html.ActionLink("禁用管理员", "SwitchIsAvailable", new { id = item.Id })
+                }
+                @if (!item.IsAvailable)
+                {
+                    @Html.ActionLink("启用管理员", "SwitchIsAvailable", new { id = item.Id })
+                }
+                |
+                @Html.ActionLink("授权", "Auth", new { id = item.Id }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+

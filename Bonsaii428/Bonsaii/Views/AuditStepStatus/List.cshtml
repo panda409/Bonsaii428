@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Bonsaii.Models.Audit.AuditStepStatus>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("返回", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTemplateId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditStepId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Advice)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuditTemplateId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuditStepId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Advice)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id=item.Id})
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>

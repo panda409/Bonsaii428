@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE>
+<html>
+<head>
+    <link href="~/Scripts/UI/css/main.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Spacetree - Tree Animation</title>
+    <style>
+     /*起始位置*/
+       #infovis {
+            position:relative ;
+            width:auto;
+            height:1000px;
+       }
+    </style>
+
+</head>
+
+<body onload="init();">
+
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">组织结构</a></li>
+            <li><a href="#">组织结构图表</a></li>
+        </ul>
+    </div>
+
+    <div class="row" >
+        <div class="card panel-box col-md-10" style="height:900px">
+            <h4>Tips:(1)按住左键拖动树状图;(2)点击部门展开子部门</h4>
+            <div id="infovis"></div>
+        </div>
+        <div class="card panel-box col-md-2" style="height:900px">
+            <table class="table table-striped table-hover table-bordered display">
+                <thead>
+                    <tr>
+                        <th>
+                            选择展示方向
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <div class="radio-wrap">
+                            <input type="radio" id="r-left" name="orientation" checked="checked" value="left" class="with-gap" /><label for="r-left">由左到右</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="radio-wrap">
+                            <input type="radio" id="r-top" name="orientation" value="top" /><label for="r-top">由上到下</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="radio-wrap">
+                            <input type="radio" id="r-bottom" name="orientation" value="bottom" class="with-gap" /><label for="r-bottom"> 由下到上</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="radio-wrap">
+                            <input type="radio" id="r-right" name="orientation" value="right" class="with-gap" /><label for="r-right">由右到左 </label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-striped table-hover table-bordered display ">
+                <thead>
+                    <tr>
+                        <th>
+                            选择展示模式
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <div class="radio-wrap">
+                            <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" class="with-gap" /><label for="s-normal">公司为根节点</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="radio-wrap">
+                            <input type="radio" id="s-root" name="selection" value="root" class="with-gap" /><label for="s-root">部门为根节点</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <div id="log"></div>
+    
+<script src="~/Scripts/UI/js/app.js"></script>
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/UI/lib/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/Jit/jit-yc.js"></script>
+<script src="~/Scripts/Jit/Spacetree/spacetree.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+ <script>
+
+    //function reinitIframe() {
+    //var iframe = document.getElementById("content");
+    //try {
+    //    var bHeight = iframe.contentWindow.document.body.scrollHeight;
+    //    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+    //    var height = Math.max(bHeight, dHeight);
+    //    iframe.height = height;
+       
+    //}
+    // catch (ex) {
+    // }
+    //}
+    //window.setInterval("reinitIframe()", 200);
+        
+    </script>
+    </body>
+</html>

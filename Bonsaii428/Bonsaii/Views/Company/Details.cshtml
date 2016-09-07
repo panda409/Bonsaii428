@@ -1,0 +1,205 @@
+﻿@model Bonsaii.Models.Company
+
+@{
+    ViewBag.Title = "详细企业信息";
+}
+
+
+
+<div class=" navbar-header">
+    <span class="glyphicon glyphicon-home"></span><a class="mypagebarindex" href="index.html"> 主页 </a>-系统设置-@ViewBag.Title
+</div>
+<hr />
+<div class="row col-md-offset-0">
+    <br>
+    <div class="row col-md-offset-0">
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="padding-left:0px;padding-right:0px;width:99%">
+            <div class="panel-heading">
+                <h4 class="panel-title col-md-11" style="width:80%">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseOne" style="text-decoration: none;">
+                        @ViewBag.Title
+                    </a>
+                </h4>
+
+                @*<p>
+                    @Html.ActionLink("编辑", "Edit", new { id = Model.CompanyId.Trim() })
+                </p>*@
+                <button id="edit" type="button" class="btn btn-infogreen">
+                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;编辑
+                </button>
+                <button id="refresh" type="button" class="btn btn-infogreen"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                <button type="button" id="downchevron" data-toggle="collapse" data-parent="#accordion"
+                        href="#collapseOne" class="btn btn-infogreen " style="display:none">
+                    <span class="glyphicon glyphicon-chevron-down"></span>&nbsp;展开
+                </button>
+
+                <button type="button" id="upchevron" data-toggle="collapse" data-parent="#accordion"
+                        href="#collapseOne" class="btn btn-infogreen  " @*style="position:fixed;margin-right:1px;margin-left:1px" *@>
+                    <span class="glyphicon glyphicon-chevron-up" id="upspan"></span>&nbsp;折叠
+                </button>
+            </div>
+
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div>
+                        <h4>企业信息</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FullName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TelNumber)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.TelNumber)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.BusinessLicense)
+                            </dt>
+                            <dd>
+                                @if (Model.BusinessLicense != null)
+                                {
+                                    <div style="float:left;margin-right:20px">
+                                        <img width="210" height="297" src="@Url.Action("GetImage1", "Company",
+        new { Model.CompanyId})" />
+                                    </div>
+                                }
+                            </dd>
+                            @*<dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>*@
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ParentCompany)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.ParentCompany)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ParentCompanyId)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.ParentCompanyId)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShortName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.ShortName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnglishName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.EnglishName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.LegalRepresentative)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.LegalRepresentative)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EstablishDate)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.EstablishDate)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Url)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Url)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Logo)
+                            </dt>
+                            <dd>
+                                @*@Html.DisplayFor(model => model.Logo)*@
+                                @if (Model.Logo != null)
+                                {
+                                    <div style="float:left;margin-right:20px">
+                                        <img width="130" height="150" src="@Url.Action("GetImage", "Company",
+        new { Model.CompanyId})" />
+                                    </div>
+                                }
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Remark)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Remark)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.IsGroupCompany)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.IsGroupCompany)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GroupCompanyNumber)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.GroupCompanyNumber)
+                            </dd>
+                        </dl>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("#edit").click(function () {
+        window.location.href = "/Company/Edit"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $('#test').click(function () {
+        var str = "";
+        $("input[name='roles']:checkbox").each(function () {
+            if ($(this).is(":checked"))
+                str += $(this).val() + ",";
+        })
+        str = str.substring(0, str.length - 1);
+        $('#SelectedRoles').attr('value', str);
+    });
+</script>
+
+
+
+
+
+

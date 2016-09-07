@@ -1,0 +1,112 @@
+﻿@model Bonsaii.Models.ParamCodes
+@{
+    ViewBag.Title = "修改编码";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@using (Html.BeginForm("Edit", "ParamCodes", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/BillPropertyModels/Index">设置单据性质</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/ParamCodes/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">修改单据</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParamName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.ParamName, (IEnumerable<SelectListItem>)ViewBag.List2, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ParamName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CodeMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.CodeMethod, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CodeMethod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/ParamCodes/Index');">取消</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+<script>
+
+    $(document).ready(function () {
+
+        $("#refresh").click(function () {
+            window.location.reload();
+        });
+
+        $('#CodeMethod').change(function () {
+            $('#Code ~ span').text("");
+            var method = $('#CodeMethod').val();
+            var tmp;
+            if (method == '日编+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "YYYYMMDD**";
+            }
+            if (method == '月编+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "YYYYMM****";
+            }
+            if (method == '流水') {
+                $('#Code').removeAttr('readOnly');
+            }
+            if (method == '手动设置') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "";
+            }
+            if (method == '部门缩写+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "**********";
+            }
+            $('#Code').val(tmp);
+            $('#Code').attr('value', tmp);
+
+        });
+
+        $('#Code').blur(function () {
+            var code = $('#Code').val();
+            var reg = /^[a-zA-Z]{0,8}\**$/;
+            var regLen = /([A-Za-z]|\*){10}/;
+            if (regLen.test(code) && reg.test(code)) {
+                return
+            }
+            else {
+                $('#Code ~ span').text("流水编码格式输入错误");
+            }
+        });
+    });
+</script>

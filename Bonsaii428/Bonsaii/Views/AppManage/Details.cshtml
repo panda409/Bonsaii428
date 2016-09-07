@@ -1,0 +1,98 @@
+﻿@model BonsaiiModels.BindCode
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>BindCode</h4>
+    	<hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CompanyId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CompanyId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ConnectionString)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ConnectionString)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffNumber)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.StaffNumber)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RealName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RealName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BindingCode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BindingCode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BindTag)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BindTag)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LastTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LastTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IsAvail)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IsAvail)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

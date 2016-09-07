@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@foreach (var item in Model)
+{
+    <h4>item.Name</h4>
+}
+

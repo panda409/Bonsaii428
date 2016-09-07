@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>StaffBasicParam</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("试用期工种", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Period", (IEnumerable<SelectListItem>)ViewBag.Period, new { @class = "form-control" })
+        
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("试用期时长", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="PeriodDays" id="PeriodDays" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("员工档案编制控制", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Profile", (IEnumerable<SelectListItem>)ViewBag.ProfileList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("考勤机编号长度", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Len", (IEnumerable<SelectListItem>)ViewBag.LenList,new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("相片保存方式", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="Photo" id="Photo" value=@ViewBag.Photo class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("离职提醒", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="Leave" id="Leave" value=@ViewBag.Leave class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var id = $("#Period").val();
+        $.ajax({
+            url: '/StaffBasicParams/GetDays',
+            data: {
+                Id: id
+            },
+            type: 'POST',
+            success: function (data) {
+                $("#PeriodDays").val(data.days);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("验证码获取失败！请稍后重新尝试");
+            },
+            //    dataType: 'json'
+        });
+    });
+    $("#Period").change(function () {
+        var id = $("#Period").val();
+        $.ajax({
+            url: '/StaffBasicParams/GetDays',
+            data: {
+                Id: id
+            },
+            type: 'POST',
+            success: function (data) {
+                $("#PeriodDays").val(data.days);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("验证码获取失败！请稍后重新尝试");
+            },
+            //    dataType: 'json'
+        });
+    });
+</script>

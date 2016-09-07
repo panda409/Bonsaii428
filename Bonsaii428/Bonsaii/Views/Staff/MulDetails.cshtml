@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Bonsaii.Models.Staff>
+@{
+    ViewBag.Title = "员工档案管理";
+}
+<ul class="nav nav-tabs">
+    <li><a href="" data-toggle="tab" id="active" target="content">员工档案</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="B">变更记录</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="C">技能记录</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="D">合同记录</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="E">培训记录</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="F">考勤记录</a></li>
+</ul>
+<div class="content">
+    <!-- 主内容开始 -->
+    <!-- 主内容结束 -->
+    <!--测试iframe-->
+    <iframe scrolling="auto" frameborder="0"
+            style="width:100%;border:none;margin-left:0px;margin-top:0px;"
+            name="content" id="content"
+            src="/Staff/Details/@ViewBag.staffId"
+            onload="this.height=700"></iframe>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $("#add").click(function () {
+        window.location.href = "/ParamCodes/Create"
+    });
+    $("#active").tab("show");
+    $("#active").click(function () {
+        window.frames["content"].document.location = "/Staff/Details/@ViewBag.staffId";
+
+    });
+    $("#B").click(function () {
+        window.frames["content"].document.location = "/StaffChange/StaffVariationIndex?staffId=@ViewBag.staffId"; 
+    });
+    
+    $("#C").click(function () {
+        window.frames["content"].document.location = "/StaffSkill/SkillDetails?staffNumber=@ViewBag.staffNumber";
+    });
+    $("#D").click(function () {
+        window.frames["content"].document.location = "/Contract/ContractDetails?staffNumber=@ViewBag.staffNumber";
+    });
+    $("#E").click(function () {
+        window.frames["content"].document.location = "/TrainRecord/TrainRecordDetails?staffNumber=@ViewBag.staffNumber";
+    });
+    $("#F").click(function () {
+        window.frames["content"].document.location = "/Home/WillComeSoon";
+    });
+</script>
+<script>
+    $("#settingBG").click(function () {
+        window.location.href = "/Home/SettingBG";
+
+    });
+    function reinitIframe() {
+        var iframe = document.getElementById("content");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+            var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+            var height = Math.max(bHeight, dHeight);
+            iframe.height = height;
+        } catch (ex) { }
+    }
+    window.setInterval("reinitIframe()", 200);
+</script>

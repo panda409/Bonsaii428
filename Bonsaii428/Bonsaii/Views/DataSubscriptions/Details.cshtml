@@ -1,0 +1,138 @@
+﻿@model Bonsaii.Models.DataSubscriptions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DataSubscriptions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageHead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageHead)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageBody)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageBody)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageTail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessageTail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RemindDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RemindDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CirculateMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CirculateMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SQL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SQL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSQLLegal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSQLLegal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

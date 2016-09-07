@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BonsaiiModels.SystemMessage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>消息提醒</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MessTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsRead)
+        </th>
+        <th></th>
+    </tr>*@
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessBody)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsRead)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

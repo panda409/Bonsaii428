@@ -1,0 +1,134 @@
+﻿@model Bonsaii.Models.Works.Works
+
+@{
+    ViewBag.Title = "删除基础排班管理";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-remove"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/Works/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAutoWork)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsAutoWork)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AutoWorkHours)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AutoWorkHours)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AutoWorkExtraToOvertime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AutoWorkExtraToOvertime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsOverDays)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsOverDays)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TotalWorkHours)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TotalWorkHours)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TotalOvertimeHours)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TotalOvertimeHours)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LatePunishment)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LatePunishment)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+
+       @if (ViewBag.a == true)
+       {
+            <dd>
+                <input type="submit" value="删除" class="btn btn-primary" id="delete" />
+                <button class="btn btn-outline">取消</button>
+            </dd>
+       }
+       else
+        {
+                @*<h3>记录正在被引用，不可删除，请返回</h3>*@
+                <dd>
+                    记录正在被引用，不可删除，请返回!
+                    <button type="button" class="btn btn-outline" id="deleteCancel" onclick="javascript:history.go(-1)">取消</button>
+                </dd>
+        }
+                </div>
+         }
+        </div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/Works/Index";
+    }
+    $(document).ready(function () {
+        $("#deleteCancel").click(function () {
+
+        });
+    });
+</script>

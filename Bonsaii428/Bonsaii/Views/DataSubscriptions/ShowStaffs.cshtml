@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowStaffs</title>
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap.js"></script>
+    <script src="~/Scripts/qiao.js-master/qiao.js"></script>
+</head>
+<body>
+    <p id="treepanel"></p>
+
+
+</body>
+</html>
+<script>
+    $("#treepanel").bstree({
+        url: "/DataSubscriptions",
+        open: true,
+        showurl: false,
+        checkbox : true,
+    });
+</script>

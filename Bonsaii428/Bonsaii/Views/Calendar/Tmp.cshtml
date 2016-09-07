@@ -1,0 +1,244 @@
+﻿@model IEnumerable<Bonsaii.Models.Staff>
+@{
+    ViewBag.Title = "员工档案管理";
+}
+<script src="~/Content/zTree/jquery.ztree.core-3.5.js"></script>
+<link href="~/Content/zTree/metroStyle/metroStyle.css" rel="stylesheet" />
+
+<link href="~/Scripts/clndr/clndr.css" rel="stylesheet" />
+<script src="~/Scripts/clndr/underscore.js"></script>
+<script src="~/Scripts/clndr/moment.js"></script>
+<script src="~/Scripts/clndr/clndr.js"></script>
+
+@*<script src="~/Scripts/datatable/jquery.dataTables.js"></script>
+    <script src="~/Scripts/datatable/dataTables.bootstrap.min.js"></script>*@
+<script type="text/javascript">
+    var setting = {
+        async: {
+            enable: true,
+            url: "/ZTree/CDSTree",
+            autoParam: ["id", "name"],
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: 0
+            }
+        },
+        view: {
+           // showIcon: false,
+            showLine: false
+        }
+    };
+
+    function filter(treeId, parentNode, childNodes) {
+        if (!childNodes) return null;
+        for (var i = 0, l = childNodes.length; i < l; i++) {
+            childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+        }
+        return childNodes;
+    }
+    //$(document).ready(function () { $.fn.zTree.init($("#tree"), setting); });
+
+    $(document).ready(function (e) {
+        $.ajax({
+            url: "/ZTree/CDSTree",
+            type: "post",
+            data: { id: 0 },
+            success: function (data) {
+                //alert(data);
+                //   json = JSON.parse(data);
+                var tree = $("#treeDemo");
+                //alert(data);
+                $.fn.zTree.init(tree, setting, data);
+                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                treeObj.expandAll(true);
+            }
+        });
+    });
+
+</script>
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">人事管理</a></li>
+        <li><a href="/Staff/Index">@ViewBag.Title</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/Staff/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="tree-row">
+    <div class="card left-tree p" style="width:200px;">
+        <h4 class="title">员工分布图</h4>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">
+                    <i class="fa fa-search no-margin"></i>
+                </button>
+            </span>
+        </div>
+        <div class="tree-wrap">
+            <div class="scroll-wrap">
+                <div class="  tree ">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card p right-table">
+        <div class="table-header">
+            <ul class="h-forms pull-left">
+                <li>每页显示</li>
+                <li><input type="text" class="form-control short"></li>
+                <li>条</li>
+            </ul>
+            <ul class="h-forms pull-right">
+                <li><input type="text" class="form-control"></li>
+                <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+            </ul>
+        </div>
+        <div class="main-table mt">
+            <h3>工作日历</h3>
+            <a class="btn-default" id="calendar-btn" value="BZ00000147">获取一个新的日历哦</a>
+            <input type="hidden" name="calendar-number" id="calendar-number" value="000120" />
+            <div id="calendar" class="cal1"></div>
+            <div class="table-footer">
+                <nav class="pull-left">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                上一页
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">10</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                下一页
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="pull-right pt">
+                    <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    var theCalendarInstance = $('#calendar').clndr({
+        template: $('#calendar-template').html(),
+        events: [
+        ],
+        clickEvents: {
+            click: function (target) {
+                AfterClick(target);
+            },
+            onMonthChange: function (month) {
+                //注意这个month可以通过前台调试看到有什么内容的啊！！！
+                //注意这个月份是从零开始啊
+                AfterChange(month._d.getFullYear(), month._d.getMonth() + 1, 0, $("#calendar-number").val());
+            }
+        },
+        doneRendering: function () {
+            var date = new Date();
+            //AfterChange(date.getFullYear(), date.getMonth()+1);
+
+        }
+    });
+    var AfterClick = function (target) {
+        if (target.element.className.match(/[a-z]*next-month[a-z]*/g) != null || target.element.className.match(/[a-z]*last-month[a-z]*/g) != null) {
+            $("#today_work_state").text("只能查询本月日历！");
+            return;
+        }
+        //   if (target.element.className)
+        $.ajax({
+            url: "/Test/GetWorkTime",
+            data: {
+                date: target.date._i,
+                flag: 0,
+                number: "BZ00000147"
+            },
+            type: 'POST',
+            success: function (data) {
+                if (data.flag == 1) {
+                    var str = "上班时间：";
+                    for (var tmp in data.data) {
+                        str += data.data[tmp] + "    ";
+                    }
+                    $("#today_work_state").text(str);
+                }
+                else
+                    $("#today_work_state").text("今天是休息日");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ajax提交失败！");
+            }
+        });
+    }
+
+    //针对这个月份，去掉上个月和下个月显示出的天数，提交ajax，获得这个月的具体上班、休息情况
+    //number代表员工工号
+    var AfterChange = function (year, month, flag, number) {
+        //     alert("Year = " + year + " Month = " + month);
+        var last_month = $(".last-month");
+        var next_month = $(".next-month");
+
+        $(".last-month > div").remove();
+        $(".next-month > div").remove();
+
+        $.ajax({
+            url: '/Test/GetWorkDays',
+            type: 'POST',
+            data: {
+                year: year,
+                month: month,
+                flag: flag,
+                number: number
+            },
+            success: function (data) {
+                for (var i = 1; i <= data.LastDay; i++) {
+                    var divName = "#day" + i + "in_month";
+
+                    $(divName).text(data.Days[i - 1]);
+                    if (data.Days[i - 1] == "休息")
+                        $(divName).css('color', '#ee0000');
+                }
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+        $("#calendar-btn").click(function () {
+            $("#calendar-number").val($("#calendar-btn").attr("value"));
+            var currentDate = new Date();
+            theCalendarInstance.setYear(currentDate.getFullYear());
+            theCalendarInstance.setMonth(currentDate.getMonth());
+            AfterChange(currentDate.getFullYear(), currentDate.getMonth, 0, $("#calendar-number"));
+        });
+    });
+</script>

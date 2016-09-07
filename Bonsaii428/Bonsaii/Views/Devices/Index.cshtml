@@ -1,0 +1,146 @@
+﻿@model IEnumerable<BonsaiiModels.Devices>
+
+@{
+    ViewBag.Title = "硬件管理";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="/Devices/Index"> 硬件管理</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/Devices/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="main-table mt">
+              <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+                  <thead>
+                      <tr>
+                          <th class="checkbox-wrap">
+                              <input type="checkbox" id="t1"><label for="t1"></label>
+                          </th>
+                          <th>
+                              序号
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.DeviceType)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.DeviceName)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.DeviceID)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.CommKey)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.IP)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.Port)
+                          </th>
+                          <th>
+                              连接状态
+                          </th>
+                          <th>操作</th>
+                      </tr>
+                  </thead>
+                  @{
+                      int index = 0;
+                  }
+                  <tbody>
+                      @foreach (var item in Model)
+                      {
+                          <tr>
+                              <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                              <td>
+                                  @index
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.DeviceType)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.DeviceName)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.DeviceID)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.CommKey)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.IP)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Port)
+                              </td>
+                              <td>
+                                  <button type="button" class="conn-btn" did="@item.Id">测试连接</button>
+                              </td>
+                              <td>
+                                  <a href="/Devices/Details/@item.Id" class="icon fa fa-search bgc-blue-500"></a>
+                                  <a class="icon fa fa-list bgc-blue-500 userList" title="获取设备用户信息" did="@item.Id"></a>
+                                  <a href="/Devices/Edit/@item.Id" class="icon fa fa-edit bgc-blue-500"></a>
+                                  <a href="/Devices/Delete/@item.Id" class="icon fa fa-trash bgc-red-500"></a>
+                              </td>
+
+                          </tr>
+                      }
+                  </tbody>
+              </table>
+    </div>
+</div>
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    
+    $(".conn-btn").click(function testConn() {
+   //     $(this).text("连接中...");
+        $.ajax({
+            url: "/Devices/TestConnectionById",
+            data: {
+                DId:$(this).attr("did")
+            },
+            type:"POST",
+            success: function (data) {
+                $(this).text("测试连接");
+                alert(data.Msg);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $(this).text("测试连接");
+                alert("验证码获取失败！请稍后重新尝试");
+            },
+        });
+    });
+
+
+    $(".userList").click(function () {
+        var tmp = $(this);
+        $.ajax({
+            url: "/Devices/TestConnectionById",
+            data: {
+                DId: $(this).attr("did")
+            },
+            type: "POST",
+            success: function (data) {
+                if (data.Result == 1)   //请求成功
+                    window.location.href = "/Devices/UserList?id=" + tmp.attr("did");
+                else
+                    alert("连接设备失败！请先确认设备连接！");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $(this).text("测试连接");
+                alert("验证码获取失败！请稍后重新尝试");
+            },
+        });
+    });
+
+</script>

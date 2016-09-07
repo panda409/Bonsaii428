@@ -1,0 +1,80 @@
+﻿@model Bonsaii.Models.HolidayTimeRecord
+@{
+    ViewBag.Title = "Edit";
+}
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>HolidayTimeRecord</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecordTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    @Html.EditorFor(model => model.RecordTime, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                </div>@Html.ValidationMessageFor(model => model.RecordTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                format: 'yyyy/mm/dd',
+                weekStart: 0,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+
+        </script>
+
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tag, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Tag, (IEnumerable<SelectListItem>)ViewBag.name, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

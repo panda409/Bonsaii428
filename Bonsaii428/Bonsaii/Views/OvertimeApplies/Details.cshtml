@@ -1,0 +1,118 @@
+﻿@model Bonsaii.Models.Checking_in.OvertimeApplies
+
+@{
+    ViewBag.Title = "加班申请详情";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/OvertimeApplies/Edit/@Model.Id"><i class="fa fa-edit"></i>编辑</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/OvertimeApplies/Index"><i class="fa fa-backward"></i>返回</a>
+        @if (Model.AuditStatus == 6)
+        {
+            <a href="/OvertimeApplies/ManualAudit?id=@Model.Id&flag=1" class="icon fa fa-hand-o-up bgc-blue-500" title="审核通过"></a>
+            <a href="/OvertimeApplies/ManualAudit?id=@Model.Id&flag=0" class="icon fa fa-hand-stop-o bgc-red-500" title="审核不通过"></a>
+        }
+        @if (Model.AuditStatus == 6 || Model.AuditStatus == 0 || Model.AuditStatus == 4 || Model.AuditStatus == 7)
+        {
+            <a href="/OvertimeApplies/Submit?id=@Model.Id" class="icon fa fa-hand-o-up bgc-blue-500" title="重新提交"></a>
+        }
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BillType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BillNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDateTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartDateTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDateTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDateTime)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AuditStatusName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AuditStatusName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Hours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Hours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Reason)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Reason)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+            <dd>
+                <a href="/OvertimeApplies/Edit/@Model.Id">
+                    <input type="submit" value="编辑" class="btn btn-primary" />
+                </a> 
+                <button type="button" class="btn btn-outline" onclick="bonsaii_back('/OvertimeApplies/Index');">取消</button>
+
+            </dd>
+        </dl>
+    </div>
+</div>
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });</script>

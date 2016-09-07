@@ -1,0 +1,80 @@
+﻿@model BonsaiiModels.CompanyPush
+
+@{
+    ViewBag.Title = "Delete";
+    //Layout = "~/Views/Home/IndexMain.cshtml";
+}
+
+
+
+<h3>你确定删除吗？</h3>
+<div>
+   
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Target)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Target)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TagContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TagContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TagTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TagTitle)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>

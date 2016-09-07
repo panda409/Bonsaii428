@@ -1,0 +1,115 @@
+﻿@model Bonsaii.Models.Checking_in.OvertimeApplies
+
+@{
+    ViewBag.Title = "删除加班申请";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-remove"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/OvertimeApplies/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+@using (Html.BeginForm("Delete", "OvertimeApplies", FormMethod.Post, new { @id = "longfor_form" }))
+{
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartDateTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StartDateTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndDateTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EndDateTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Hours)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AuditStatusName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AuditStatusName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Hours)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Reason)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Reason)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+            <dd>
+                <input type="submit" value="删除" class="btn btn-primary" id="delete" />
+                <button type="button" class="btn btn-outline" onclick="bonsaii_back('/OvertimeApplies/Index');">取消</button>
+
+            </dd>
+                </dl>
+            </div>
+    }
+        </div>
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });</script>

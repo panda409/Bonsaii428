@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    ViewBag.Title = "设置登录页背景图片";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="card panel-box">
+    <div>
+    
+    </div>
+</div> 
+@section Scripts {
+
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+}
+<script>
+    var url = 'http://chaxun.1616.net/s.php?type=ip&output=json&callback=?&_=' + Math.random();
+    $.getJSON(url, function (data) {
+        alert(data.Ip);
+    });
+</script>
+

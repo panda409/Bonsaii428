@@ -1,0 +1,68 @@
+﻿@model Bonsaii.Models.AdviceBack
+
+@{
+    ViewBag.Title = "删除意见反馈";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">在线服务</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/AdviceBack/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+            </div>
+        </div>
+    </div>
+    <div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @using (Html.BeginForm("Delete", "AdviceBack", FormMethod.Post, new { @id = "longfor_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RecordTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RecordTime)
+                </dd>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+            </dl>
+        </div>      
+    }
+        </div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/AdviceBack/Index";
+    }
+    $("#delete1").click(function () {
+
+        $("#longfor_form").submit();
+
+    });
+</script>

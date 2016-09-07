@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盆景企业管理平台</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/jquery-accordion-menu.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-accordion-menu.js"></script>
+    <style type="text/css">
+        body {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        html, body, .page {
+            height: 100%;
+        }
+        /*html.backgroundsize .large .page ,html.backgroundsize .small .page{
+                  background: url(../files/back2.jpg) no-repeat 50% 50%;
+                  background-size: cover;
+                }*/
+        div.page {
+            background: url(../files/login-bg.jpg) no-repeat 50% 50%;
+            background-size: cover;
+            left: 0;
+            position: absolute;
+            margin-top: -100px;
+            height: 100%;
+            width: 100%;
+            display: block;
+            z-index: 2;
+        }
+
+        .footer-w {
+            width: 1000px;
+            margin: 0 auto;
+            color: #ffffff;
+            line-height: 50px;
+        }
+        .footer-w span {
+                padding-left: 10px;
+            }
+        .tel-d {
+            float: right;
+            color: #ffffff;
+        }
+    </style>
+
+</head>
+<body >
+    <br />
+    @*<div class="row">
+        <div class="col-md-offset-8 col-md-6">
+            @Html.ActionLink("用户登录", "Login")
+        </div>
+    </div>*@
+        <div class="container-fluid main">
+            @RenderBody()
+        </div>
+
+    @*<div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="navbar navbar-fixed-bottom bottom-center">
+            <div class="footer-w">
+                <span>©2015 东莞市盆景办公设备有限公司 备案号:粤ICP备08006149号</span>
+            </div>
+        </div>
+        <div class="navbar navbar-fixed-bottom bottom-right">
+            <div class="footer-w"><span class="tel-d">客服电话：400-000-0000</span></div>
+        </div>
+    </div>*@
+        @RenderSection("scripts", required: false)
+</body>
+</html>

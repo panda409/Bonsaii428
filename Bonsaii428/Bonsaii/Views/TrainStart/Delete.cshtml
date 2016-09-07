@@ -1,0 +1,188 @@
+﻿@model Bonsaii.Models.TrainStart
+
+@{
+    ViewBag.Title = "删除培训发起";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@using (Html.BeginForm("Delete", "TrainStart", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">组织结构</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="longforSave"><i class="fa fa-remove"></i>删除</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/TrainStart/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillTypeNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillTypeNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillTypeName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillTypeName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TrainType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainTheme)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TrainTheme)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainPlace)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TrainPlace)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainPerson)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TrainPerson)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainManage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TrainManage)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StartDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EndDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainCost)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TrainCost)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TellNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TellNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.JoinPerson)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.JoinPerson)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ChoosePerson)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ChoosePerson)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TrainContent)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TrainContent)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AuditStatus)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AuditStatus)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+                @foreach (var temp in @ViewBag.fieldValueList)
+                {
+                    <dt>@Html.DisplayName((string)temp.Description)</dt>
+                    <dd>@temp.Value</dd>
+                }
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+
+            </dl>
+
+        </div>
+    </div> }
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/TrainStart/Index";
+    }
+    $("#delete1").click(function () {
+
+        $("#longfor_form").submit();
+
+    });
+</script>

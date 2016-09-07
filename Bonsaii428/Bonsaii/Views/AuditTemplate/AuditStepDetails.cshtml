@@ -1,0 +1,100 @@
+﻿@model Bonsaii.Models.Audit.AuditStepViewModel
+
+@{
+    ViewBag.Title = "审批节点详情";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<input type="hidden" name="AuditTemplateId" id="AuditTemplateId" value="@ViewBag.TemplateId" />
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">签核单据配置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/AuditTemplate/AuditStepEdit/@Model.SId"><i class="fa fa-edit"></i>编辑</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditTemplate/AuditStepIndex?id=@ViewBag.TemplateId"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+
+    <div>
+        <dl class="dl-horizontal">
+            @*<dt>
+                @Html.DisplayNameFor(model => model.TId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TId)
+            </dd>*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ApprovedToSIdName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ApprovedToSIdName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NotApprovedToSIdName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NotApprovedToSIdName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Days)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Days)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Approver)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Approver)
+            </dd>
+            <dd>
+                <a href="/AuditTemplate/AuditStepEdit/@Model.SId">
+                    <input type="submit" value="编辑" class="btn btn-primary" />
+                </a>
+                <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+            </dd>
+        </dl>
+    </div>
+    </div>
+    <script>
+        $("#refresh").click(function () {
+            window.location.reload();
+        })
+        function tz() {
+            window.location.href = "/AuditTemplate/AuditStepIndex?id=@ViewBag.TemplateId";
+        }
+    </script>

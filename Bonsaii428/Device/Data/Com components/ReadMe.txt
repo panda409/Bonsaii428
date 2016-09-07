@@ -1,0 +1,1 @@
+Please make sure that you've installed the .Net Framework2.0 before running the Reg.bat file

@@ -1,0 +1,112 @@
+﻿@model Bonsaii.Models.GroupCompany
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>删除集团信息</h2>
+
+<h3>你确定要删除集团信息?</h3>
+<div>
+    <h4>集团信息</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnglishName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnglishName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegalRepresentative)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegalRepresentative)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstablishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstablishDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,223 @@
+﻿@model BonsaiiModels.Push
+
+@{
+    ViewBag.Title = "创建";
+    Layout = "~/Views/Shared/_LayoutMainSuperRoot.cshtml";
+}
+<script src="~/Scripts/utf8-net/ueditor.config.js"></script>
+<script src="~/Scripts/utf8-net/ueditor.all.js"></script>
+
+
+
+@using (Html.BeginForm(Html.BeginForm("Create", "PlatformPush", FormMethod.Post,
+  new { enctype = "multipart/form-data"})))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>创建推送信息</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+       
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Target, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("Target", "所有用户")所有用户
+                @Html.RadioButton("Target", "选择用户(只要符合其中一种条件的推送)")选择用户(只要符合其中一种条件的推送)
+                @Html.RadioButton("Target", "选择用户（符合所有选择条件的推送）")选择用户（符合所有选择条件的推送）
+                @Html.ValidationMessageFor(model => model.Target)
+            </div>
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
+            <div class="col-md-10" >
+                <select name="Type" class="control-label col-md-2">
+                    <option value="新闻">新闻</option>
+                    <option value="广告">广告</option>
+                    <option value="链接">链接</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Target, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+                   @Html.RadioButton("Target", "所有用户", new { @id="Target1"})所有用户
+                    @Html.RadioButton("Target", "选择用户(只要符合其中一种条件的推送)", new { @id = "Target2" })选择用户(只要符合其中一种条件的推送)
+                    @Html.RadioButton("Target", "选择用户(符合所有选择条件的推送)", new { @id = "Target3" })选择用户(符合所有选择条件的推送)
+                    @Html.ValidationMessageFor(model => model.Target)
+               
+
+            </div>
+        </div>
+       <div class="form-group">
+            @Html.LabelFor(model => model.Tag, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                性别：<input name="Tag" type="checkbox" value="男" id="select" />男
+                <input name="Tag" type="checkbox" value="女" id="select" />女<br />
+                是否在职：<input name="Tag" type="checkbox" value="在职" id="select" />在职
+                <input name="Tag" type="checkbox" value="不在职" id="select" />不在职<br />地区：
+
+                @foreach (var temp in @ViewBag.strict)
+                {
+                    if (temp.Value != null)
+                    {
+                        <input name="Tag" id="select" value="@temp.Value" type="checkbox" />@temp.Text
+
+                    }
+                }
+                @Html.ValidationMessageFor(model => model.Tag)
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TagTitle, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TagTitle)
+                @Html.ValidationMessageFor(model => model.TagTitle)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="file" id="image1" />
+                <img width="256" height="256" src="" id="img1" />
+                @Html.ValidationMessageFor(model => model.Url)
+            </div>
+        </div>
+        <script>
+            $("#image1").change(function () {
+                var objUrl = getObjectURL(this.files[0]);
+                console.log("objUrl = " + objUrl);
+                if (objUrl) {
+                    $("#img1").attr("src", objUrl);
+                }
+            });
+            //建立一個可存取到該file的url
+            function getObjectURL(file) {
+                var url = null;
+                if (window.createObjectURL != undefined) { // basic
+                    url = window.createObjectURL(file);
+                } else if (window.URL != undefined) { // mozilla(firefox)
+                    url = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) { // webkit or chrome
+                    url = window.webkitURL.createObjectURL(file);
+                }
+                return url;
+            }
+        </script>
+        <script type="text/javascript">
+            var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+            function fileChange(target, id) {
+                var fileSize = 0;
+                var filetypes = [".jpg", ".png"];
+                var filepath = target.value;
+                var filemaxsize = 1000;//2M
+                if (filepath) {
+                    var isnext = false;
+                    var fileend = filepath.substring(filepath.indexOf("."));
+                    if (filetypes && filetypes.length > 0) {
+                        for (var i = 0; i < filetypes.length; i++) {
+                            if (filetypes[i] == fileend) {
+                                isnext = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isnext) {
+                        alert("不接受此文件类型！");
+                        target.value = "";
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                if (isIE && !target.files) {
+                    var filePath = target.value;
+                    var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+                    if (!fileSystem.FileExists(filePath)) {
+                        alert("附件不存在，请重新输入！");
+                        return false;
+                    }
+                    var file = fileSystem.GetFile(filePath);
+                    fileSize = file.Size;
+                } else {
+                    fileSize = target.files[0].size;
+                }
+
+                var size = fileSize / 1024;
+                if (size > filemaxsize) {
+                    alert("图片大小不能大于" + filemaxsize + "K！");
+                    target.value = "";
+                    return false;
+                }
+                if (size <= 0) {
+                    alert("附件大小不能为0 K！");
+                    target.value = "";
+                    return false;
+                }
+            }
+        </script>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TagContent, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <script id="container" name="TagContent" type="text/plain">
+                </script>
+                <!-- 配置文件 -->
+                <!-- 实例化编辑器 -->
+                <script type="text/javascript">
+                    var ue = UE.getEditor('container', {
+                        initialFrameHeight: 640
+                    });
+                </script>
+                @Html.ValidationMessageFor(model => model.TagContent)
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    
+}
+
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>
+<script>
+
+    $("#Target1").change(
+      function () {
+          if ($('#Target1').is(":checked")) {
+              $("#check1").show();
+              $("#check2").hide();
+              $(":checkbox").prop('checked', true);
+          }
+          else
+              $(":checkbox").removeAttr('checked');
+      });
+    $("#Target2").change(
+       function () {
+           if ($('#Target2').is(":checked")) {
+               $("#check1").show();
+               $("#check2").hide();
+               $(":checkbox").removeAttr('checked');
+           }
+       });
+    $("#Target3").change(
+       function () {
+           if ($('#Target3').is(":checked")) {
+               $("#check1").show();
+               $("#check2").hide();
+               $(":checkbox").removeAttr('checked');
+           }
+       });
+</script>

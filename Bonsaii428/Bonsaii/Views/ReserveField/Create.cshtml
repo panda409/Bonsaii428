@@ -1,0 +1,97 @@
+﻿@model Bonsaii.Models.ReserveField
+
+@{
+    ViewBag.Title = "创建自定义字段";
+}
+@using (Html.BeginForm("Create", "ReserveField", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/BillPropertyModels/Index">系统设置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/ReserveField/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">创建自定义字段</h4>
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TableNameId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownList("TableNameId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TableNameId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FieldName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.FieldName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FieldName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="Status" class="filld-in" name="Status" />
+                        <label for="Status"></label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/ReserveField/Index');">取消</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    // var tableNameId = "";
+    $.ajax({
+        url: '/ReserveField/TableNameSearch',
+        type: 'POST',
+        data: { name: "" },//name: tableNameId },
+        success: function (data) {
+            $('#TableNameId').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+                onSelect: function (val, rec) {
+
+                }
+            });
+        }
+    });
+
+
+
+</script>

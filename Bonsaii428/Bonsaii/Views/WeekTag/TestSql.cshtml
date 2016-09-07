@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    @*@ViewBag.list
+    <div>
+    @foreach(var temp in @ViewBag.list )
+    {
+        @temp.Name
+    }
+    </div>*@
+    @ViewBag.test
+</body>
+</html>

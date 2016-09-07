@@ -1,0 +1,258 @@
+﻿@model Bonsaii.Models.TrainStart
+
+@{
+    ViewBag.Title = "编辑培训发起";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-3.0.3.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-3.0.3.min.js"></script>
+@using (Html.BeginForm("Edit", "TrainStart", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">培训发起</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/TrainStart/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillTypeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("BillTypeNumber", (string)@ViewBag.BillTypeNumber, new { htmlAttributes = new { @class = "form-control", @readOnly = "true" } })
+                    @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("BillNumber", (string)@ViewBag.BillNumber, new { htmlAttributes = new { @class = "form-control", @readOnly = "true" } })
+                    @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.TrainType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3" id="test-build-filter-tr">
+                        @Html.DropDownListFor(model => model.TrainType, (IEnumerable<SelectListItem>)ViewBag.staff, new { @class = "form-control", @id = "test-build-filter-select", @multiple = "multiple" })
+                        @Html.ValidationMessageFor(model => model.TrainType, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.TrainType, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.TrainType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainTheme, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("TrainTheme", (string)@ViewBag.TrainTheme, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainTheme, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainPlace, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("TrainPlace", (string)@ViewBag.TrainPlace, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainPlace, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("TrainPerson", (string)@ViewBag.TrainPerson, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.TrainPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.TrainPerson, new { htmlAttributes = new { @class = "form-control col-md-2" } })
+                        <button class="btn btn-primary glyphicon glyphicon-plus">搜索</button>
+                        @Html.ValidationMessageFor(model => model.TrainPerson, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainManage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("TrainManage", (string)@ViewBag.TrainManage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainManage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class=" input-group date form_date"  data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.Editor("StartDate", (string)@ViewBag.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove  glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class=" input-group date form_date"  data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.Editor("EndDate", (string)@ViewBag.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove   glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainCost, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("TrainCost", (string)@ViewBag.TrainCost, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainCost, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TellNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("TellNumber", (string)@ViewBag.TellNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TellNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.AuditStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.AuditStatus, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AuditStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.JoinPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3" id="test-build-filter-tr">
+                    <h6>按住Ctrl键或shift键可进行多选 </h6>
+                    @Html.DropDownListFor(model => model.JoinPerson, (IEnumerable<SelectListItem>)ViewBag.join, new { @class = "form-control", @id = "example29", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.JoinPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.JoinPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.JoinPerson, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.JoinPerson, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.ChoosePerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <h6>按住Ctrl键或shift键可进行多选 </h6>
+                    @Html.DropDownListFor(model => model.ChoosePerson, (IEnumerable<SelectListItem>)ViewBag.choose, new { @class = "form-control", @id = "example28", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.ChoosePerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainContent, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextArea("TrainContent", (string)@ViewBag.TrainContent, 4, 120, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TrainContent, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextArea("Remark", (string)@ViewBag.Remark, 4, 120, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.ExcelAttachmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        <input type="file" name="File"/>
+                        @Html.ValidationMessageFor(model => model.ExcelAttachmentName, "", new { @class = "text-danger", @type = "file" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("培训人员", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        <input type="file" id="file" name="file" />
+                    </div>
+                </div>
+            *@
+            @*遍历，显示那些自定义的字段，因为是Edit方法，所以要显示字段的初始值*@
+            @foreach (var x in @ViewBag.fieldValueList)
+        {
+                <div class="form-group">
+                    @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        <input id="@x.Description" value="@x.Value" class="form-control" name="@x.Description" />
+                    </div>
+                </div>
+
+        }
+            @if (@ViewBag.alertMessage == true)
+            {
+                <script>
+                    alert("请先设置该单据的审批模板！");
+                </script>
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+           
+
+    }
+<script>
+    function tz() {
+        window.location.href = "/TrainStart/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/TrainStart/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+            function initDatatimepicker() {
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'yyyy-mm-dd hh:ii:ss',
+                    autoclose: true,
+                    todayBtn: true,
+                    startDate: "2015-02-14 10:00",
+                    minuteStep: 5,
+                });
+            }
+            $(document).ready(function () {
+                initDatatimepicker();
+            })
+        </script>

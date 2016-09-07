@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Bonsaii.Models.BrandTemplateReserve>
+
+@{
+    ViewBag.Title = "定义厂牌字段";
+}
+@*<input type="hidden" name="BrandTemplateId" id="BrandTemplateId" value="@ViewBag.TemplateId" />*@
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">系统设置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/BrandTemplateModel/BTemplateReserveCreate/@ViewBag.TemplateId"><i class="fa fa-plus"></i>新增</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="#"><i class="fa fa-print"></i>输出</a>
+        </div>
+    </div>
+
+
+    <div class="card panel-box">
+        <div class="table-header">
+            <ul class="h-forms pull-left">
+                <li>每页显示</li>
+                <li><input type="text" class="form-control short"></li>
+                <li>条</li>
+            </ul>
+            <ul class="h-forms pull-right">
+                <li><input type="text" class="form-control"></li>
+                <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+            </ul>
+
+        </div>
+        <div class="main-table mt">
+            <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="item_0"><label for="item_0"></label>
+                    </th>
+                    @*<tr>*@
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.FieldId)
+                        </th>*@
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Number)
+                        </th>*@
+
+                    @*<th></th>*@
+                    @*</tr>*@
+               
+                    <th>模板字段</th>
+                    <th>操作</th>
+                </tr>
+               @{
+                   int index = 0;
+            }
+
+            @foreach (var item in Model)
+            {
+
+                index = index + 1;
+                <tr>
+                    <td class="checkbox-wrap">
+                        <input type="checkbox" id="item_@index"><label for="item_@index"></label>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FieldDescription)
+                    </td>
+                    @*<th>
+                            @Html.DisplayFor(modelItem=>item.Number)
+                        </th>*@
+                    @*@foreach (var temp in @ViewBag.fieldValueList)
+                        {
+                            if (temp.Id == item.Id)
+                            {
+                                <td>
+                                    @
+                                </td>
+                                @*<td>
+                                    @temp.FieldIdDescription
+                                </td>
+                                <td>
+                                    @temp.NumberDescription
+                                </td>*@
+                    @*<td>
+                            @item.NumberDescription
+                        </td>*@
+                    @*}
+
+                        }*@
+                    <td>
+                      @*   @Html.ActionLink("修改", "BTemplateReserveEdit", new { id = item.Id, id2 = @ViewBag.TemplateId }) |
+    @Html.ActionLink("查看", "BTemplateReserveDetails", new { id = item.Id, id2 = @ViewBag.TemplateId}) |
+     @Html.ActionLink("删除", "BTemplateReserveDelete", new { id = item.Id, id2 = @ViewBag.TemplateId })*@
+                        <a href="/BrandTemplateModel/BTemplateReserveDetails?id1=@item.Id&id2=@ViewBag.TemplateId" class="icon fa fa-search bgc-blue-500" title="详情"></a>
+                        <a href="/BrandTemplateModel/BTemplateReserveEdit?id1=@item.Id&id2=@ViewBag.TemplateId" class="icon fa fa-edit bgc-blue-500" title="编辑"></a>
+                        <a href="/BrandTemplateModel/BTemplateReserveDelete?id1=@item.Id&id2=@ViewBag.TemplateId" class="icon fa fa-trash bgc-red-500" title="删除"></a>
+                    </td>
+                </tr>
+            }
+
+            </table>
+        </div>
+
+
+
+    </div>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

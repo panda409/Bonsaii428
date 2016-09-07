@@ -1,0 +1,104 @@
+﻿@model Bonsaii.Models.WeekTag
+
+
+<script src="~/Scripts/bootstrap-select.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Holiday</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nian, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">               
+                <select name="nian" class="form-control">
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Range, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+              @Html.EditorFor(model => model.Range,new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">               
+                @Html.DropDownListFor(model => model.Week1, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.Week2, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.Week3, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week4, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.Week4, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week5, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.Week5, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week6, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+              @Html.DropDownListFor(model => model.Week6, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Week7, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.Week7, (IEnumerable<SelectListItem>)ViewBag.holiday, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<a href="javascript :;" onclick="javascript :history.back(-1);" class="btn btn-primary">返回</a> 
+<script>
+
+    $.ajax({
+        url: './DepartmentSearch',
+        type: 'POST',
+        success: function (data) {
+
+            $('#Range').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+                onSelect: function (val, rec) {
+
+                }
+            });
+
+
+        }
+
+    });
+</script>
+

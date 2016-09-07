@@ -1,0 +1,478 @@
+﻿@model Bonsaii.Models.Company
+
+@{
+    ViewBag.Title = "企业信息";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+
+
+@using (Html.BeginForm("Edit", "Company", FormMethod.Post,
+  new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">系统设置</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+        <!-- 主内容结束 -->
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.CompanyId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2 must" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.CompanyId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TelNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TelNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BusinessLicense, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @if (Model.BusinessLicense != null)
+                    {
+                        <div class="file-btn form-control">
+                            <input type="file" id="image" onchange="fileChange(this);" name="image1">
+                            <label class="btn btn-primary" for="image" id="image">浏览...</label>
+                        </div>
+
+                    <img width="420" height="594" src="@Url.Action("GetImage1", "Company", new { Model.CompanyId})" id="img0" />
+
+                        @Html.HiddenFor(model => model.BusinessLicense, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {
+                        <div class="file-btn form-control">
+                            <input type="file" id="image" onchange="fileChange(this);" name="image1">
+                            <label class="btn btn-primary" for="image" id="image">浏览...</label>
+                        </div>
+                    <img src="" id="img0" width="420" height="594">
+
+                    }
+
+
+                </div>
+            </div>
+
+
+
+            @*<div class="form-group">
+                <label class="control-label col-md-2" for="Logo">编辑营业执照</label>
+                <div class="col-md-3">
+
+                    <input type="file" name="image1" id="image" onchange="fileChange(this);" />
+                    <br><img src="" id="img0" width="530" height="300">
+
+                </div>
+            </div>*@
+            <script>
+                $("#image").change(function () {
+                    var objUrl = getObjectURL(this.files[0]);
+                    console.log("objUrl = " + objUrl);
+                    if (objUrl) {
+                        $("#img0").attr("src", objUrl);
+                    }
+                });
+                //建立一個可存取到該file的url
+                function getObjectURL(file) {
+                    var url = null;
+                    if (window.createObjectURL != undefined) { // basic
+                        url = window.createObjectURL(file);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        url = window.URL.createObjectURL(file);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        url = window.webkitURL.createObjectURL(file);
+                    }
+                    return url;
+                }
+            </script>
+            <script type="text/javascript">
+                var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+                function fileChange(target, id) {
+                    var fileSize = 0;
+                    var filetypes = [".jpg", ".png", ".gif", ".bmp", ".jpeg", ".JPG", ".PNG", ".GIF", ".BMP", ".JPEG"];
+                    var filepath = target.value;
+                    var filemaxsize = 2*1024;
+                    if (filepath) {
+                        var isnext = false;
+                        var fileend = filepath.substring(filepath.indexOf("."));
+                        if (filetypes && filetypes.length > 0) {
+                            for (var i = 0; i < filetypes.length; i++) {
+                                if (filetypes[i] == fileend) {
+                                    isnext = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!isnext) {
+                            alert("不接受此文件类型！");
+                            target.value = "";
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                    if (isIE && !target.files) {
+                        var filePath = target.value;
+                        var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+                        if (!fileSystem.FileExists(filePath)) {
+                            alert("附件不存在，请重新输入！");
+                            return false;
+                        }
+                        var file = fileSystem.GetFile(filePath);
+                        fileSize = file.Size;
+                    } else {
+                        fileSize = target.files[0].size;
+                    }
+
+                    var size = fileSize / 1024;
+                    alert(size);
+                    if (size > filemaxsize) {
+                        alert("图片大小不能大于" + filemaxsize + "K！");
+                        target.value = "";
+                        return false;
+                    }
+                    if (size <= 0) {
+                        alert("附件大小不能为0 K！");
+                        target.value = "";
+                        return false;
+                    }
+                }
+            </script>
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.ParentCompany, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ParentCompany, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ParentCompany, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParentCompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ParentCompanyId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ParentCompanyId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShortName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LegalRepresentative, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.LegalRepresentative, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LegalRepresentative, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EstablishDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <div class="col-md-3">
+                    <div class="input-group date form_date1" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.EstablishDate, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EstablishDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <script type="text/javascript">
+
+                $('.form_date1').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'yyyy/mm/dd',
+                    weekStart: 0,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0
+                });
+
+            </script>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control", @placeholder = "请输入正确的网址" } })
+                    @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @if (Model.Logo != null)
+                    {
+                       
+                            <div class="file-btn form-control">
+                                <input type="file" id="image1" onchange="fileChange(this);" name="image">
+                                <label class="btn btn-primary" for="image1" id="image1">浏览...</label>
+                            </div>
+                                @*<input type="file" name="image" id="image1" onchange="fileChange(this);" />
+                                <br>*@
+                                <img width="130" height="150" src="@Url.Action("GetImage", "Company",new { Model.CompanyId})" id="img1" />
+                           
+                        @Html.HiddenFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                    else
+                    {
+                        <div class="file-btn form-control">
+                            <input type="file" id="image1" onchange="fileChange(this);" name="image">
+                            <label class="btn btn-primary" for="image1" id="image1">浏览...</label>
+                            </div>
+                           <img src="" id="img1" width="130" height="150">
+
+                    }
+
+                            @*@Html.EditorFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control",@type="file"} })
+                                @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger",@type = "file" })*@
+                            @*<input type="file" name="Image" />*@
+                        </div>
+            </div>
+
+
+            @*<div class="form-group">
+                <label class="control-label col-md-2" for="Logo">编辑LOGO</label>
+                <div class="col-md-3">
+
+                    <input type="file" name="image" id="image1" onchange="fileChange(this);" />
+                    <br><img src="" id="img1" width="130" height="150">
+
+                </div>
+            </div>*@
+            <script>
+                $("#image1").change(function () {
+                    var objUrl = getObjectURL(this.files[0]);
+                    console.log("objUrl = " + objUrl);
+                    if (objUrl) {
+                        $("#img1").attr("src", objUrl);
+                    }
+                });
+                //建立一個可存取到該file的url
+                function getObjectURL(file) {
+                    var url = null;
+                    if (window.createObjectURL != undefined) { // basic
+                        url = window.createObjectURL(file);
+                    } else if (window.URL != undefined) { // mozilla(firefox)
+                        url = window.URL.createObjectURL(file);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome
+                        url = window.webkitURL.createObjectURL(file);
+                    }
+                    return url;
+                }
+            </script>
+            <script type="text/javascript">
+                var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+                function fileChange(target, id) {
+                    var fileSize = 0;
+                    var filetypes = [".jpg", ".png", ".gif", ".bmp", ".jpeg", ".JPG", ".PNG", ".GIF", ".BMP", ".JPEG"];
+                    var filepath = target.value;
+                    var filemaxsize = 2*1024;
+                    if (filepath) {
+                        var isnext = false;
+                        var fileend = filepath.substring(filepath.indexOf("."));
+                        if (filetypes && filetypes.length > 0) {
+                            for (var i = 0; i < filetypes.length; i++) {
+                                if (filetypes[i] == fileend) {
+                                    isnext = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!isnext) {
+                            alert("不接受此文件类型！");
+                            target.value = "";
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                    if (isIE && !target.files) {
+                        var filePath = target.value;
+                        var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+                        if (!fileSystem.FileExists(filePath)) {
+                            alert("附件不存在，请重新输入！");
+                            return false;
+                        }
+                        var file = fileSystem.GetFile(filePath);
+                        fileSize = file.Size;
+                    } else {
+                        fileSize = target.files[0].size;
+                    }
+
+                    var size = fileSize / 1024;
+                    if (size > filemaxsize) {
+                        alert("图片大小不能大于" + filemaxsize + "K！");
+                        target.value = "";
+                        return false;
+                    }
+                    if (size <= 0) {
+                        alert("附件大小不能为0 K！");
+                        target.value = "";
+                        return false;
+                    }
+                }
+            </script>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+           @* <div class="form-group">
+                @Html.LabelFor(model => model.IsGroupCompany, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                  <div class="checkbox">
+                @Html.EditorFor(model => model.IsGroupCompany, new { htmlAttributes = new { @class = "checkbox" } })
+                    @Html.ValidationMessageFor(model => model.IsGroupCompany, "", new { @class = "text-danger" })
+            @if (Model.IsGroupCompany)
+            {
+                <input type="checkbox" id="IsGroupCompany" name="IsGroupCompany" value="true" checked="checked"><label for="IsGroupCompany"></label>
+                @Html.ValidationMessageFor(model => model.IsGroupCompany, "", new { @class = "text-danger" })
+            }
+            else
+            {
+                <input type="checkbox" id="IsGroupCompany" name="IsGroupCompany" value="true"><label for="IsGroupCompany"></label>
+                @Html.ValidationMessageFor(model => model.IsGroupCompany, "", new { @class = "text-danger" })
+            }
+             </div>
+        </div>
+    </div>*@
+
+            @*<div class="form-group" id="gcnumber">
+
+                @Html.LabelFor(model => model.GroupCompanyNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.GroupCompanyNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GroupCompanyNumber, "", new { @class = "text-danger" })
+                </div>
+    @if (Model.IsGroupCompany == true)
+    {}
+                    else
+                    {
+                    @Html.HiddenFor(model => model.GroupCompanyNumber)
+                    }
+            </div>*@
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<script>
+    function tz() {
+        window.location.href = "/Company/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/Company/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $('#test').click(function () {
+        var str = "";
+        $("input[name='roles']:checkbox").each(function () {
+            if ($(this).is(":checked"))
+                str += $(this).val() + ",";
+        })
+        str = str.substring(0, str.length - 1);
+        $('#SelectedRoles').attr('value', str);
+    });
+</script>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        if ($('#IsGroupCompany').is(":checked"))
+            $('#gcnumber').show();
+        else
+            $('#gcnumber').hide();
+        $("#IsGroupCompany").click(function () {
+            //   $("#gcnumber").show();
+            if ($('#IsGroupCompany').is(":checked"))
+                $('#gcnumber').show();
+            else
+                $('#gcnumber').hide();
+        });
+    });
+
+</script>
+
+

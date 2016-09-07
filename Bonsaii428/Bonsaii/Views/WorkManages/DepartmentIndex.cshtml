@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Bonsaii.Models.Works.WorkArrangeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="#">手工排班</a></li>
+        <li><a href="/WorkManages/DepartmentIndex">针对部门排班</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/WorkManages/DepartmentCreate"><i class="fa fa-plus"></i>新增</a>
+        <a href="#"id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="main-table mt">
+        <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorksName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
+                    @*<th>操作</th>*@
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorksName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        @*<td>
+                            <a href="#" class="icon fa fa-edit bgc-blue-500"></a>
+                            <a href="#" class="icon fa fa-edit bgc-blue-500"></a>
+                            <a href="#" class="icon fa fa-trash bgc-red-500"></a>
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+</script>

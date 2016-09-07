@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BonsaiiModels.DepartmentHolidayViewModel>
+
+@{
+    ViewBag.Title = "部门假日表";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">设置假日表</a></li>
+        <li><a href="/HolidayTables/DepartmentIndex">部门假日表</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/HolidayTables/DepartmentCreate"><i class="fa fa-plus"></i>新增</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+<div class="main-table mt">
+    <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+        </tr>
+            </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartHour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndHour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remark)
+                </td>
+            </tr>
+        }
+            </tbody>
+    </table>
+    </div>
+</div>

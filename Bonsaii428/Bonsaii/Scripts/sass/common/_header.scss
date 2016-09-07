@@ -1,0 +1,83 @@
+.navbar{
+	height: $header-hight;
+	background: $primary;
+	padding: 5px 0;
+	margin: 0;
+	.navbar-header{
+		float: left;
+		.navbar-brand{
+			padding: 8px 8px 8px $grid-gutter-width / 2;
+			width: auto;
+			@include clearfix;
+			img{
+				height: 32px;
+			}
+		}
+		h2.title{
+			font-size: 24px;
+			margin: 0;
+			padding: 10px 5px;
+			float:left;
+			color: #fff;
+			font-weight: bold;
+		}
+	}
+	.navbar-right{
+		float: right;
+		li{
+			float: left;
+			.icon-item{
+				text-align: center;
+				color: $primary-tc-light;
+				padding: 13px 20px;
+				@include transition(.3s);
+				i{
+					display: block;
+					font-size: 24px;
+				}
+				.text{
+					display: block;
+				}
+
+				&:hover,&:focus{
+					background: transparent;
+					color: #fff;
+				}
+				&.avatar{
+					text-align: right;
+					padding: 0 $grid-gutter-width / 2;
+
+					img{
+						width: 32px;
+						height: 32px;
+						border-radius: 50%;
+					}
+				}
+				.badge{
+					font-weight: normal;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+			}
+			.item-btn{
+				padding: 5px 15px;
+				.btn{
+					padding: 12px 20px
+				}
+			}
+			.item-avatar{
+				position: relative;
+				padding:15px $grid-gutter-width / 2 15px 55px;
+
+				img{
+					@include left-middle(5px);
+					@include circle(32px);
+				}
+				.text{
+					color:  $primary-tc-light;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,179 @@
+﻿@model Bonsaii.Models.StaffSkillViewModel
+
+@{
+    ViewBag.Title = "编辑员工技能";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+
+
+
+@using (Html.BeginForm("Edit", "StaffSkill", FormMethod.Post, new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">员工技能管理</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="card panel-box ">
+        <h4 class="title">@ViewBag.Title</h4>
+
+        <div class="form-horizontal">
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillTypeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillTypeName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillTypeName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StaffNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StaffName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.StaffName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SkillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.SkillNumber, (IEnumerable<SelectListItem>)ViewBag.staffSkill, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SkillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ValidDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.ValidDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.ValidDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <script type="text/javascript">
+
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'yyyy-mm-dd',
+                    weekStart: 0,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0
+                });
+
+            </script>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SkillRemark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.SkillRemark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SkillRemark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*遍历，显示那些自定义的字段，因为是Edit方法，所以要显示字段的初始值*@
+            @foreach (var x in @ViewBag.fieldValueList)
+            {
+                <div class="form-group">
+                    @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        <input id="@x.Description" value="@x.Value" class="form-control" name="@x.Description" />
+                    </div>
+                </div>
+
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+           
+
+}
+<script>
+    function tz() {
+        window.location.href = "/StaffSkill/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/StaffSkill/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $('#test').click(function () {
+        var str = "";
+        $("input[name='roles']:checkbox").each(function () {
+            if ($(this).is(":checked"))
+                str += $(this).val() + ",";
+        })
+        str = str.substring(0, str.length - 1);
+        $('#SelectedRoles').attr('value', str);
+    });
+</script>
+
+
+
+
+

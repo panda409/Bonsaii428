@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Bonsaii.Models.Works.WorkManages>
+
+@{
+    ViewBag.Title = "Index";
+}
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorksId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorksId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuditStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("查看详情", "Details", new { id=item.Id }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

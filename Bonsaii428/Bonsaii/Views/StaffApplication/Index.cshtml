@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Bonsaii.Models.StaffApplication>
+
+@{
+    ViewBag.Title = "离职申请列表";
+}
+
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">人事管理</a></li>
+        <li><a href="StaffApplication/Index">离职申请列表</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/StaffApplication/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#"id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+
+
+
+<div class="card p ">
+   
+    <div class="main-table mt">
+
+        <table class="table table-striped table-hover table-bordered display
+" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th class="sorting_disabled">
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillTypeNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillTypeName)
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplyDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HopeLeaveDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveReason)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Remark)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuditStatusName)
+                    </th>
+                    @*@* (变化的字段） *@
+                    @*@foreach (var temp in @ViewBag.recordList)
+                    {
+                        <th>
+                            @Html.DisplayName((string)temp.Description)
+                        </th>
+                    }*@
+                    <th>操作</th>
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>@index</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillTypeNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillTypeName)
+                        </td>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApplyDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HopeLeaveDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveReason)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuditStatusName)
+                        </td>
+                        @*(显示变化的字段） *@
+                        @*@foreach (var temp in @ViewBag.List)
+                        {
+                            if (temp.Id == item.Id)
+                            {
+                                <th>
+                                    @temp.Value
+                                </th>
+                            }
+                        }*@
+                        <td>
+                            @if (item.AuditStatus == 3 || item.AuditStatus == 4)
+                            {
+                                <a href="/StaffApplication/Details?id=@item.Id" class="icon fa fa-search bgc-blue-500" title="详情"></a>
+                                <a href="#" class="icon fa fa-edit bgc-grey-500" title="编辑" id="unEdit"></a>
+                                <a href="#" class="icon fa fa-trash bgc-grey-500" title="删除"></a>
+
+                            }
+                            else
+                            {
+                                <a href="/StaffApplication/Details?id=@item.Id" class="icon fa fa-search bgc-blue-500" title="详情"></a>
+                                <a href="/StaffApplication/Edit?id=@item.Id" class="icon fa fa-edit bgc-blue-500" title="编辑"></a>
+                                <a href="/StaffApplication/Delete?id=@item.Id" class="icon fa fa-trash bgc-red-500" title="删除"></a>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+      
+    </div>
+</div>

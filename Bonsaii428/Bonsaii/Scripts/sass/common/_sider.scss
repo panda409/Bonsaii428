@@ -1,0 +1,89 @@
+$side-bg:  $dark;
+$nav-hover-bg : lighten($side-bg, 5%);
+.sider{
+	background:$side-bg;
+	.nav{
+		li{
+			a{
+				background: $side-bg;
+				color: $side-tc;
+				cursor: pointer;
+				i{
+					margin-right: 10px;
+					font-size: 24px;
+					vertical-align: middle;
+				}
+			}
+			&:not(.active) a:hover{
+				background: $nav-hover-bg;
+				color: lighten($side-tc, 5%)
+			}
+			&.has-subnav > a{
+				position: relative;
+				&:after{
+					content: "\f206";
+					font-family: 'MaterialDesignIcons';
+					font-size: 16px;
+					color: $side-tc;
+					@include right-middle(10px);
+				}
+			}
+		}
+		&.sub {
+			> li{
+				a{
+					background: $darker;
+					position: relative;
+					&:before{
+						content: "\f3bf";
+						font-family: "MaterialDesignIcons";
+						color: $side-tc;
+						font-size: 24px;
+						@include left-middle(18px);
+					}
+				}
+				&.active > a{
+					color: $tc-hover;
+					&:before{
+						color: $tc-hover
+					}
+				}
+			}
+		}
+		&:not(.sub) > li{
+			&.active{
+				> a{
+					background: $side-active-bg;
+					position: relative;
+					color: rgba(#fff, .8);
+					&:after{
+						color: rgba(#fff, .8);
+						content: "\f204"
+						/* @include rotate(90deg); */
+					}
+					/* @include line-active(left,$orange,3px); */
+				}
+
+			}
+		}
+	}
+	.panel{
+		background: $side-bg;
+		.label{
+			font-size: 12px;
+			padding: 3px 10px;
+			font-weight: normal;
+		}
+		.day-text{
+			text-align: center;
+			.txt-lg{
+				font-size: 42px;
+				margin-right: 5px;
+			}
+		}
+	}
+	.n-box{
+		border-bottom: 1px solid $bg
+	}
+
+}

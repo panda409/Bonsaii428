@@ -1,0 +1,14 @@
+﻿@model BonsaiiModels.CompanyPush
+
+@{
+    ViewBag.Title = "推送内容";
+}
+
+
+<div align="center">
+    <h1>@(new HtmlString(@Model.TagTitle))</h1>
+    <h6>@(new HtmlString(@Model.RecordTime.ToString()))&nbsp;&nbsp;&nbsp;&nbsp;@(new HtmlString(@Model.PersonName))</h6>
+    <img src="@Model.Url" width="500" height="300" /><br />
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;@(new HtmlString(@Model.TagContent))</p>
+</div>
+

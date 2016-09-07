@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="~/Scripts/Upload/fileinput.css" rel="stylesheet" />
+<link href="~/Scripts/Upload/default.css" rel="stylesheet" />
+
+
+            <div class="page-header">
+                <h2>Bootstrap FileUpload </h2>
+            </div>
+            <form enctype="multipart/form-data">
+                <hr>
+                <div class="form-group">
+                    <input type="file" class="file" id="test-upload" multiple>
+                    <div id="errorBlock" class="help-block"></div>
+                </div>
+            </form>
+
+    <script src="~/Scripts/Upload/fileinput.js"></script>
+    <script src="~/Scripts/Upload/fileinput_locale_zh.js"></script>
+    <script>
+
+	    $(document).ready(function() {
+	        $("#test-upload").fileinput({
+	            'showPreview' : false,
+	            'allowedFileExtensions' : ['jpg', 'png','gif'],
+	            'elErrorContainer': '#errorBlock'
+	        });
+	    });
+    </script>

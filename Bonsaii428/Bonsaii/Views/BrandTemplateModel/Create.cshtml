@@ -1,0 +1,147 @@
+﻿@model Bonsaii.Models.BrandTemplateModels
+
+@{
+    ViewBag.Title = "创建厂牌模板";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+
+@using (Html.BeginForm("Create", "BrandTemplateModel", FormMethod.Post, new { enctype = "multipart/form-data", @id = "longfor_form" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="content">
+            <!-- 主内容开始 -->
+            <div class="control-bar card bor-b">
+                <ul class="breadcrumb pull-left pv">
+                    <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                    <li><a href="#">组织结构</a></li>
+                    <li><a href="#">@ViewBag.Title</a></li>
+                </ul>
+                <div class="h-list pull-right pv">
+                    <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                    <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                    <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+             <div class="form-group">
+                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                   
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Logo">选择模板</label>
+                <div class="col-md-3">
+
+                    <input type="file" name="image" id="filetop" onchange="fileChange(this);" />
+                    <br><img src="" id="imgtop" width="530" height="300">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" id="submitForm" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    }
+
+
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    function tz() {
+        window.location.href = "/BrandTemplateModel/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/BrandTemplateModel/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    $("#filetop").change(function () {
+       var objUrl = getObjectURL(this.files[0]);
+        console.log("objUrl = " + objUrl);
+       if (objUrl) {
+           $("#imgtop").attr("src", objUrl);
+        }
+   });
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    
+    var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+    function fileChange(target, id) {
+        var fileSize = 0;
+        var filetypes = [".jpg", ".png"];
+        var filepath = target.value;
+        var filemaxsize = 4096;//2M
+        if (filepath) {
+            var isnext = false;
+            var fileend = filepath.substring(filepath.indexOf("."));
+            if (filetypes && filetypes.length > 0) {
+                for (var i = 0; i < filetypes.length; i++) {
+                    if (filetypes[i] == fileend) {
+                        isnext = true;
+                        break;
+                    }
+                }
+            }
+            if (!isnext) {
+                alert("不接受此文件类型！");
+                target.value = "";
+                return false;
+            }
+        } else {
+            return false;
+        }
+        if (isIE && !target.files) {
+            var filePath = target.value;
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            if (!fileSystem.FileExists(filePath)) {
+                alert("附件不存在，请重新输入！");
+                return false;
+            }
+            var file = fileSystem.GetFile(filePath);
+            fileSize = file.Size;
+        } else {
+            fileSize = target.files[0].size;
+        }
+
+        var size = fileSize / 1024;
+        if (size > filemaxsize) {
+            alert("图片大小不能大于" + 4 + "M！");
+            target.value = "";
+            return false;
+        }
+        if (size <= 0) {
+            alert("附件大小不能为0 K！");
+            target.value = "";
+            return false;
+        }
+    }
+</script>

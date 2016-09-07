@@ -1,0 +1,60 @@
+﻿@model Bonsaii.Models.TrainRecord
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>您确定要删除此条培训记录吗？</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecordTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecordTime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回列表", "IndexInfo")
+        </div>
+    }
+</div>

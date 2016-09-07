@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+/* ***********主要颜色变量************ */
+
+$red:                   $red-500            !default;//红色
+$pink:                  $pink-500           !default;//粉红
+$purple:                $purple-500         !default;//紫色
+$deep-purple:           $deep-purple-500    !default;//深紫色
+$indigo:                $indigo-500         !default;//靛蓝
+$blue:                  $blue-500           !default;//蓝色
+$light-blue:            $light-blue-500     !default;//亮蓝
+$cyan:                  $cyan-500           !default;//青色
+$teal:                  $teal-500           !default;//兰绿色
+$green:                 #18AD6C             !default;//绿色
+$light-green:           $light-green-500    !default;//亮绿
+$lime:                  $lime-500           !default;//青橙绿
+$yellow:                $yellow-500         !default;//黄色
+$amber:                 $amber-500          !default;//琥珀黄/金色
+$orange:                $orange-800         !default;//橙色
+$deep-orange:           $deep-orange-500    !default;//深橙色
+$brown:                 $brown-500          !default;//棕色
+$grey:                  $grey-500           !default;//灰色
+$blue-grey:             $blue-grey-500      !default;//蓝灰
+
+
+$primary : #2196F3 !default;//品牌色
+$second  : #4F78AB;//亮色
+$dark    : #202932;
+$darker  : #111419;
+$second-text: #66788B;
+
+
+$link-color : #6481A5;
+$bg  : #E3EBF2;
+$side-tc : #6E8297;
+$side-active-bg : #16619D;
+$primary-tc-dark: #295E88;
+$primary-tc-light: #C3E1F9;
+
+$form-border-color : #DEE6EA;
+$form-border-color-blue : #DCE7F4;
+$borderColor : $bg;
+
+$tc-hover : $deep-orange;
+
+$brand-primary:         $primary !default; // #337ab7
+$brand-success:         #55AD3C !default;
+$brand-info:            #39BE6F !default;
+$brand-warning:         $orange-500 !default;
+$brand-danger:          #d9534f !default;
+
+
+
+
+
+// 其它公共变量
+
+
+$ff 		: 'Arial','Microsoft Yahei';
+$mdi-font-path : '../fonts/mdi/fonts';
+$fa-font-path : '../fonts/fontawesome';
+$font-path : '../fonts';
+
+
+$header-hight : 60px;
+$header-hight-m : 48px;
+$side-width : 200px;
+
+$padding   : 10px;
+$margin    : 10px;
+
+
+
+// ************** 响应式设置 ************************//
+
+$protable : 1024px;
+$mobile   : 768px;
+
+// 手机
+$screen-xs:                  480px !default;
+$screen-xs-min:              $screen-xs !default;
+$screen-phone:               $screen-xs-min !default;
+
+// 平板
+$screen-sm:                  768px !default;
+$screen-sm-min:              $screen-sm !default;
+$screen-tablet:              $screen-sm-min !default;
+
+//普通桌面
+$screen-md:                  992px !default;
+$screen-md-min:              $screen-md !default;
+$screen-desktop:             $screen-md-min !default;
+
+// 宽屏
+
+$screen-lg:                  1200px !default;
+$screen-lg-min:              $screen-lg !default;
+
+$screen-lg-desktop:          $screen-lg-min !default;
+
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+$screen-sm-max:              ($screen-md-min - 1) !default;
+$screen-md-max:              ($screen-lg-min - 1) !default;
+
+
+//== 网格系统==//
+
+$grid-columns:              12 !default;
+$grid-gutter-width:         20px !default;
+$grid-float-breakpoint:     $screen-sm-min !default;
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
+
+
+$container-tablet:             (720px + $grid-gutter-width) !default;
+$container-sm:                 $container-tablet !default;
+$container-desktop:            (940px + $grid-gutter-width) !default;
+$container-md:                 $container-desktop !default;
+$container-large-desktop:      (1140px + $grid-gutter-width) !default;
+$container-lg:                 $container-large-desktop !default;
+
+
+
+
+
+
+/*** Colors ***/
+$primary-color: $primary !default;
+$primary-color-light: lighten($primary-color, 15%) !default;
+$primary-color-dark: darken($primary-color, 15%) !default;
+
+$secondary-color: $teal !default;
+$success-color: #90c53d!default;
+$error-color: #ff4545 !default;
+$link-color: $blue-500 !default;
+
+// **Device**//
+$device-width: 260px * 1;
+$device-height: 480px * 1; 
+
+$color-header: #58b2a4;
+$color-device: #dcdfe6;
+$color-device-border: #D2D2D2;
+$color-device-part: #a1a5b3;
+
+/*** Forms ***/
+// Text Inputs + Textarea
+$input-border-color: $grey-500 !default;
+$input-bg-color: #fff !default;
+$input-error-color: $error-color !default;
+$input-success-color: $success-color !default;
+$input-focus-color : $secondary-color !default;
+$label-font-size : .8rem !default;
+$input-disabled-color : rgba(0,0,0, .26) !default;
+$input-disabled-solid-color: #BDBDBD !default;
+$input-border-focus: lighten($primary,10%)!default;
+
+// Radio Buttons
+$radio-fill-color: $teal !default;
+$checbox-fill-color: $teal !default;
+$radio-empty-color: #5a5a5a !default;
+
+// Switches
+$switch-bg-color: $teal !default;
+$switch-checked-lever-bg: desaturate(lighten($teal, 25%), 25%) !default;
+$switch-unchecked-bg: #F1F1F1 !default;
+$switch-unchecked-lever-bg: #999 !default;

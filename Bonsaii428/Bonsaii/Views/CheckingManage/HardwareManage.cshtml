@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "硬件管理";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<ul class="nav nav-tabs">
+    <li><a href="" data-toggle="tab" id="active" target="content">设备绑定</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="B">指纹管理</a></li>
+</ul>
+<div class="content">
+    <!-- 主内容开始 -->
+    <!-- 主内容结束 -->
+    <!--测试iframe-->
+    <iframe scrolling="auto" frameborder="0"
+            style="width:100%;border:none;margin-left:0px;margin-top:0px;"
+            name="content" id="content"
+            src="/Devices/Index"
+            onload="this.height=800"></iframe>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    $("#active").tab("show");
+    $("#active").click(function () {
+        window.frames["content"].document.location = "/Devices/Index";
+
+    });
+    $("#B").click(function(){
+        window.frames["content"].document.location = "#";
+    });
+</script>

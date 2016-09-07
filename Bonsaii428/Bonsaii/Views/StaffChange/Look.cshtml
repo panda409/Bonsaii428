@@ -1,0 +1,969 @@
+﻿@model Bonsaii.Models.StaffChange
+
+@{
+    ViewBag.Title = "变更单";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">人事管理</a></li>
+            <li><a href="#">人事变更</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/StaffChange/Edit/@Model.Id"><i class="fa fa-edit"></i>编辑</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/StaffChange/Index"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    <div class="main-table mt">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th class="text-danger">
+                        变更后信息
+                    </th>
+                    <th>
+                        变更前信息
+                    </th>
+                </tr>
+            
+                </thead>
+                <tbody>
+
+    @foreach (var temp in @ViewBag.staff)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.BillTypeNumber)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.BillTypeNumber)
+            </td>
+
+            <td>
+                @temp.BillTypeNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.BillTypeName)
+            </td>
+            @if (Model.BillTypeName == @ViewBag.billproperty)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.BillTypeName)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.BillTypeName)
+                    </u>
+                </td>
+            }
+            <td>
+                @ViewBag.billproperty
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.StaffNumber)
+            </td>
+            @if (Model.StaffNumber == temp.StaffNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.StaffNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.StaffNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.StaffNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Name)
+            </td>
+            @if (Model.Name == temp.Name)
+            {
+                <td>
+
+                    @Html.DisplayFor(model => model.Name)
+
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Name)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Gender)
+            </td>
+            @if (Model.Gender == temp.Gender)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Gender)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Gender)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Gender
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Department)
+            </td>
+            @if (Model.Department == @ViewBag.department)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Department)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Department)
+                    </u>
+                </td>
+            }
+            <td>
+                @ViewBag.department
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.WorkType)
+            </td>
+            @if (Model.WorkType == temp.WorkType)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.WorkType)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.WorkType)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.WorkType
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Position)
+            </td>
+            @if (Model.Position == temp.Position)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Position)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Position)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Position
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IdentificationNumber)
+            </td>
+            @if (Model.IdentificationNumber == temp.IdentificationNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.IdentificationNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.IdentificationNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.IdentificationNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Entrydate)
+            </td>
+            @if (Model.Entrydate == temp.Entrydate)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Entrydate)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Entrydate)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Entrydate
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IdentificationType)
+            </td>
+            @if (Model.IdentificationType == temp.IdentificationType)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.IdentificationType)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.IdentificationType)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.IdentificationType
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Nationality)
+            </td>
+            @if (Model.Nationality == temp.Nationality)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Nationality)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Nationality)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Nationality
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ClassOrder)
+            </td>
+            @if (Model.ClassOrder == temp.ClassOrder)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.ClassOrder)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.ClassOrder)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.ClassOrder
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.JobState)
+            </td>
+            @if (Model.JobState == temp.JobState)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.JobState)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.JobState)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.JobState
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.AbnormalChange)
+            </td>
+            @if (Model.AbnormalChange == temp.AbnormalChange)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.AbnormalChange)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.AbnormalChange)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.AbnormalChange
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FreeCard)
+            </td>
+            @if (Model.FreeCard == temp.FreeCard)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.FreeCard)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.FreeCard)
+                    </u>
+                </td>
+            }
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox" value=@temp.FreeCard>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.WorkProperty)
+            </td>
+            @if (Model.WorkProperty == temp.WorkProperty)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.WorkProperty)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.WorkProperty)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.WorkProperty
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ApplyOvertimeSwitch)
+            </td>
+            @if (Model.ApplyOvertimeSwitch == temp.ApplyOvertimeSwitch)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.ApplyOvertimeSwitch)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.ApplyOvertimeSwitch)
+                    </u>
+                </td>
+            }
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox" value=@temp.ApplyOvertimeSwitch>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Source)
+            </td>
+            @if (Model.Source == temp.Source)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Source)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Source)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Source
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.QualifyingPeriodFull)
+            </td>
+            @if (Model.QualifyingPeriodFull == temp.QualifyingPeriodFull)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.QualifyingPeriodFull)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.QualifyingPeriodFull)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.QualifyingPeriodFull
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </td>
+            @if (Model.MaritalStatus == temp.MaritalStatus)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.MaritalStatus)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.MaritalStatus)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.MaritalStatus
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </td>
+            @if (Model.BirthDate == temp.BirthDate)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.BirthDate)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.BirthDate)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.BirthDate
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.NativePlace)
+            </td>
+            @if (Model.NativePlace == temp.NativePlace)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.NativePlace)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.NativePlace)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.NativePlace
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.HealthCondition)
+            </td>
+            @if (Model.HealthCondition == temp.HealthCondition)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.HealthCondition)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.HealthCondition)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.HealthCondition
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Nation)
+            </td>
+            @if (Model.Nation == temp.Nation)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Nation)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Nation)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Nation
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Address)
+            </td>
+            @if (Model.Address == temp.Address)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Address)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Address)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Address
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.VisaOffice)
+            </td>
+            @if (Model.VisaOffice == temp.VisaOffice)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.VisaOffice)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.VisaOffice)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.VisaOffice
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.HomeTelNumber)
+            </td>
+            @if (Model.HomeTelNumber == temp.HomeTelNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.HomeTelNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.HomeTelNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.HomeTelNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EducationBackground)
+            </td>
+            @if (Model.EducationBackground == temp.EducationBackground)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.EducationBackground)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.EducationBackground)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.EducationBackground
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.GraduationSchool)
+            </td>
+            @if (Model.GraduationSchool == temp.GraduationSchool)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.GraduationSchool)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.GraduationSchool)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.GraduationSchool
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SchoolMajor)
+            </td>
+            @if (Model.SchoolMajor == temp.SchoolMajor)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.SchoolMajor)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.SchoolMajor)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.SchoolMajor
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Degree)
+            </td>
+            @if (Model.Degree == temp.Degree)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Degree)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Degree)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Degree
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Introducer)
+            </td>
+            @if (Model.Introducer == temp.Introducer)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.Introducer)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.Introducer)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.Introducer
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.AbnormalChange)
+            </td>
+            @if (Model.AbnormalChange == temp.AbnormalChange)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.AbnormalChange)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.AbnormalChange)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.AbnormalChange
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualTelNumber)
+            </td>
+            @if (Model.IndividualTelNumber == temp.IndividualTelNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.IndividualTelNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.IndividualTelNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.IndividualTelNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.BankCardNumber)
+            </td>
+            @if (Model.BankCardNumber == temp.BankCardNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.BankCardNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.BankCardNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.BankCardNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.UrgencyContactMan)
+            </td>
+            @if (Model.UrgencyContactMan == temp.UrgencyContactMan)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.UrgencyContactMan)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.UrgencyContactMan)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.UrgencyContactMan
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.UrgencyContactAddress)
+            </td>
+            @if (Model.UrgencyContactAddress == temp.UrgencyContactAddress)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.UrgencyContactAddress)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.UrgencyContactAddress)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.UrgencyContactAddress
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.UrgencyContactPhoneNumber)
+            </td>
+            @if (Model.UrgencyContactPhoneNumber == temp.UrgencyContactPhoneNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.UrgencyContactPhoneNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.UrgencyContactPhoneNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.UrgencyContactPhoneNumber
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.InBlacklist)
+            </td>
+            @if (Model.InBlacklist == temp.InBlacklist)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.InBlacklist)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.InBlacklist)
+                    </u>
+                </td>
+            }
+            <td>
+                <input class="check-box" disabled="disabled" type="checkbox" value=@temp.InBlacklist>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PhysicalCardNumber)
+            </td>
+            @if (Model.PhysicalCardNumber == temp.PhysicalCardNumber)
+            {
+                <td>
+                    @Html.DisplayFor(model => model.PhysicalCardNumber)
+                </td>
+            }
+            else
+            {
+                <td class="text-danger">
+                    <u>
+                        @Html.DisplayFor(model => model.PhysicalCardNumber)
+                    </u>
+                </td>
+            }
+            <td>
+                @temp.PhysicalCardNumber
+            </td>
+
+
+        </tr>
+            <tr>
+                <td>
+                    <a href="/StaffChange/Edit/@Model.Id">
+                        <input type="button" value="编辑" class="btn btn-primary" />
+                    </a>
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/StaffChange/Index');">取消</button>
+                </td>
+          </tr>
+
+    }
+
+           
+
+
+</tbody>
+        </table>
+     </div>
+    </div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/StaffChange/Index";
+    }
+</script>

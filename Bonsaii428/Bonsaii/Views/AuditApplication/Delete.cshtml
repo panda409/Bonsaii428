@@ -1,0 +1,121 @@
+﻿@model Bonsaii.Models.Audit.AuditApplication
+
+@{
+    ViewBag.Title = "删除签核记录";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">签核记录明细</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="delete1"><i class="fa fa-edit"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditApplication/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Info)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Info)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Creator)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Creator)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.State)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.State)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+            </dl>
+
+
+            @if (ViewBag.errorMessage == true)
+            {
+                <script>
+                    alert("该单据仍在审核期间，无法删除");
+                </script>
+            }
+            @*else
+            {
+                <div class="form-actions no-color">
+                    <input type="submit" value="删除" class="btn btn-default" />
+                </div>
+            }*@
+            else
+            {
+                <input type="submit" value="删除" class="btn btn-primary" id="delete" />
+               <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+
+            }
+        </div>   
+    }
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/AuditApplication/Index";
+    }
+</script>

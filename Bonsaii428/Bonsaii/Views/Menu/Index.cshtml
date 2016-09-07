@@ -1,0 +1,89 @@
+﻿@model IEnumerable<BonsaiiModels.MenuViewModel>
+@{
+    ViewBag.Title = "功能模块";
+}
+
+@using (Html.BeginForm("Index", "Menu", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/Menu/Index">功能模块</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="back"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/Menu/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">功能模块管理</h4>
+        <input type="hidden" id="openMenus" value="@ViewBag.openMenus"/>
+        <div class="form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>模块</th>
+                        <th>功能</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="text-align:left;width:10%">
+                                <input type="checkbox" id="parent_@item.ParentOrder" class="filld-in branchbox" />
+                                <label for="parent_@item.ParentOrder">@item.ParentName</label>
+                            </td>
+
+                            <td style="text-align:left">
+                                @foreach (var menuNode in item.MenuNodes)
+                                    {
+                                    <input type="checkbox" id="@menuNode.Id" name="menu_@menuNode.Id"class="filld-in branchbox" />
+                                    <label for="@menuNode.Id">@menuNode.Name</label>
+                                    }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/Menu/Index');">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $('.branchbox').change(
+       function () {
+           if ($(this).is(":checked"))
+               $(this).parent().next().children().prop("checked", true);
+           else
+               $(this).parent().next().children().removeAttr("checked");
+       });
+
+    $("#back").click(function () {
+        window.location.href = "/User/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    $(document).ready(function () {
+        var openMenus = $("#openMenus").val().split(";");
+        for (var tmp in openMenus) {
+            var id = "#" + openMenus[tmp];
+            $(id).prop("checked", true);
+        }
+    });
+</script>

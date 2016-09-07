@@ -1,0 +1,222 @@
+﻿@model BonsaiiModels.Backlog
+
+@{
+    ViewBag.Title = "删除待办事项";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@using (Html.BeginForm("Delete", "Backlog", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">待办事项管理</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/Backlog/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+<div class="card panel-box">
+   <h4 class="title">@ViewBag.Title</h4>
+     <dl class="dl-horizontal">
+       <dt>
+            @Html.DisplayNameFor(model => model.AcciName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AcciName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MessContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recipient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recipient)
+        </dd>
+                  
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendMess)
+        </dt>
+
+        <dd>
+            @if (Model.SendMess==true)
+            {
+                <input type="checkbox" id="Root_@Model" disabled="disabled" checked="checked"><label for="Root_@Model"></label>
+            }
+            else
+            {
+                <input type="checkbox" id="Root_@Model" disabled="disabled"><label for="Root_@Model"></label>
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @if (Model.Email==true)
+            {
+                <input type="checkbox" id="Root_@Model" disabled="disabled" checked="checked"><label for="Root_@Model"></label>
+            }
+            else
+            {
+                <input type="checkbox" id="Root_@Model" disabled="disabled"><label for="Root_@Model"></label>
+
+            }
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cycle)
+        </dt>
+         <dd>
+            @{
+
+                string cm = null;
+                if (Model.Cycle == "0")
+                {
+                    cm = "仅一次";
+
+                }
+                if (Model.Cycle == "1")
+                {
+                    cm = "每日";
+                }
+            }
+            @Html.DisplayFor(model => cm)
+        </dd>
+      
+        @{
+                if (Model.Cycle == "0")
+
+                {
+             
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OnlyOneDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OnlyOneDate)
+                    </dd>
+
+                }
+                else
+                {
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StartTime)
+                    </dt>
+                    <dd id="startdate">
+                  @{
+                    if (Model.StartTime != null)
+                    {
+                        var startCut = Model.StartTime.ToString().Substring(0, 9);
+                        @Html.DisplayFor(model => startCut)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.StartTime)
+                    }
+                   }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RemindTime)
+                    </dt>
+
+                    <dd>
+                  @{
+                    if (Model.RemindTime != null)
+                    {
+                        var remainCut = Model.RemindTime.ToString().Substring(0, 5);
+                        @Html.DisplayFor(model => remainCut)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.RemindTime)
+                    }
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.QuitTime)
+                    </dt>
+
+                    <dd>
+                  @{
+                    if (Model.QuitTime != null)
+                    {
+                        var endCut = Model.QuitTime.ToString().Substring(0, 9);
+                        @Html.DisplayFor(model => endCut)
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.QuitTime)
+                    }
+                        }
+                    </dd>
+                }
+            }
+        <dt>
+            @Html.DisplayNameFor(model => model.IsUse)
+        </dt>
+
+        <dd>
+            @if (Model.IsUse)
+            {
+                <input type="checkbox" id="Root_@Model" disabled="disabled" checked="checked"><label for="Root_@Model"></label>
+            }
+            else
+            {
+                <input type="checkbox" id="Root_@Model" disabled="disabled"><label for="Root_@Model"></label>
+
+            }
+        </dd>
+       <dd>
+        <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+        </dd>
+    </dl>
+ </div>
+}
+    
+
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/Backlog/Index";
+    }
+    $("#delete1").click(function () {
+
+        $("#longfor_form").submit();
+
+    });
+</script>

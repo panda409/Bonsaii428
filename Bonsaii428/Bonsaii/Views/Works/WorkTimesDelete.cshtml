@@ -1,0 +1,129 @@
+﻿@model Bonsaii.Models.Works.WorkTimes
+
+@{
+    ViewBag.Title = "班次删除";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-remove"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/Works/WorkTimesIndex/@ViewBag.WorkId" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @using (Html.BeginForm("WorkTimesDelete", "Works", FormMethod.Post, new { @id = "longfor_form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <input type="hidden" name="Id" value="@Model.Id"/>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StartTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EndTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.WorkHours)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.WorkHours)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OvettimeHours)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OvettimeHours)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AheadMinutes)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AheadMinutes)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BackMinutes)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BackMinutes)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LateMinutes)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LateMinutes)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LeaveEarlyMinutes)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LeaveEarlyMinutes)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAheadToOvertime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsAheadToOvertime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsBackToOvertime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsBackToOvertime)
+                </dd>
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" />
+                    <button type="button" class="btn btn-outline" onclick="tz();">取消</button>
+                </dd>
+            </dl>
+        </div>
+
+    }
+   </div>
+    <script>
+        $("#refresh").click(function () {
+            window.location.reload();
+        })
+        function tz() {
+            window.location.href = "/Works/WorkTimesIndex" + "/@ViewBag.WorkId";
+        }
+    </script>

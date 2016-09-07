@@ -1,0 +1,96 @@
+﻿@model IEnumerable<BonsaiiModels.ModuleViewModel>
+@{
+    ViewBag.Title = "创建新管理员";
+}
+<style>
+    td{
+            text-align: left;
+    }
+</style>
+@using (Html.BeginForm("Create", "BillPropertyModels", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/BillPropertyModels/Index">设置单据性质</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="back"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/BillPropertyModels/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">新建单据</h4>
+
+
+
+
+
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>模块</th>
+                    <th>功能</th>
+                    <th>操作内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BonsaiiModels.ModuleViewModel tmp in Model)
+                {
+                    //foreach (var tmpUnit in tmp.Units)
+                    for (int i = 0; i < tmp.Units.Count;i++ )
+                    {
+                        var tmpUnit = tmp.Units[i];
+                        <tr>
+                            @if (i == 0)
+                            {
+                                <td rowspan="@tmp.UnitCount">@tmp.ModuleName</td>
+                            }
+                            <td>
+                                <input type="checkbox"  id="@tmpUnit.UnitId"class="filld-in branchbox" />
+                                <label for="@tmpUnit.UnitId">@tmpUnit.UnitName</label>
+                            </td>
+                            <td>
+                                @foreach (var tmpAction in tmpUnit.Actions)
+                                {
+                                    <input type="checkbox" id="@tmpAction.ActionName" class="filld-in branchbox" name="@tmpAction.ActionName" value="@tmpAction.ActionValue" />
+                                    <label for="@tmpAction.ActionName">@tmpAction.Name</label>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script>
+    $("#Admin").change(
+       function () {
+           if ($('#Admin').is(":checked")) {
+               $(":checkbox").prop('checked', true);
+           }
+           else
+               $(":checkbox").removeAttr("checked");
+       });
+    $('.branchbox').change(
+       function () {
+           if ($(this).is(":checked"))
+               $(this).parent().next().children().prop("checked", true);
+           else
+               $(this).parent().next().children().removeAttr("checked");
+       });
+
+    $("#back").click(function () {
+        window.location.href = "/User/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

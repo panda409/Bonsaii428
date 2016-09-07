@@ -1,0 +1,86 @@
+﻿@model BonsaiiModels.CompanyPush
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Home/IndexMain.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>CompanyPush</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Target, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Target)
+                @Html.ValidationMessageFor(model => model.Target)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TagContent, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TagContent)
+                @Html.ValidationMessageFor(model => model.TagContent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tag, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tag)
+                @Html.ValidationMessageFor(model => model.Tag)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecordTime, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecordTime)
+                @Html.ValidationMessageFor(model => model.RecordTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecordPerson, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecordPerson)
+                @Html.ValidationMessageFor(model => model.RecordPerson)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonName)
+                @Html.ValidationMessageFor(model => model.PersonName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TagTitle, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TagTitle)
+                @Html.ValidationMessageFor(model => model.TagTitle)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

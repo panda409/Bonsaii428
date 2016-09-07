@@ -1,0 +1,196 @@
+﻿@model BonsaiiModels.Checking_in.EveryDaySignInDateViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>您确定要删除此条员工日考勤记录？</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Week)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Week)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorksId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorksId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkDays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NormalWorkOvertimeHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NormalWorkOvertimeHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeekendWorkOvertimeHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeekendWorkOvertimeHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VacateType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VacateType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VacateHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VacateHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HolidayHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HolidayHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalWorkOvertimeHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalWorkOvertimeHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalComeLateMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalComeLateMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalLeaveEarlyMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalLeaveEarlyMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AbsenteeismHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AbsenteeismHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuditStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuditStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffConfirm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffConfirm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsNightWork)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsNightWork)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkOvertimeHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkOvertimeHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OriginalSignInData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OriginalSignInData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsOnEvection)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsOnEvection)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回列表", "Index")
+        </div>
+    }
+</div>

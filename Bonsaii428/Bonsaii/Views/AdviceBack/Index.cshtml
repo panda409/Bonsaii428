@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Bonsaii.Models.AdviceBack>
+
+@{
+    ViewBag.Title = "意见反馈";
+}
+
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">在线服务</a></li>
+        <li><a href="/AdviceBack/Index">@ViewBag.Title</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/AdviceBack/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#"id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="table-header">
+        <ul class="h-forms pull-left">
+            <li>每页显示</li>
+            <li><input type="text" class="form-control short"></li>
+            <li>条</li>
+        </ul>
+        <ul class="h-forms pull-right">
+            <li><input type="text" class="form-control"></li>
+            <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+        </ul>
+    </div><div class="main-table mt">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th class="checkbox-wrap">
+                              <input type="checkbox" id="t1"><label for="t1"></label>
+                          </th>
+                          <th>
+                              序号
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.Content)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.RecordTime)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model.ChangeTime)
+                          </th>
+                          <th>操作</th>
+                      </tr>
+                  </thead>
+                  @{
+                      int index = 0;
+                  }
+                  <tbody>
+                      @foreach (var item in Model)
+                      {
+                          index = index + 1;
+                          <tr>
+                              <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                              <td>
+                                  @index
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Content)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.RecordTime)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.ChangeTime)
+                              </td>
+                              <td>
+                                  <a href="/AdviceBack/Details/@item.Id" title="详情" class="icon fa fa-search bgc-blue-500"></a>
+                                  <a href="/AdviceBack/Edit/@item.Id" title="编辑" class="icon fa fa-edit bgc-blue-500"></a>
+                                  <a href="/AdviceBack/Delete/@item.Id" title="删除" class="icon fa fa-trash bgc-red-500"></a>
+                              </td>
+                          </tr>
+                      }
+
+</table>
+              <div class="table-footer">
+                  <nav class="pull-left">
+                      <ul class="pagination">
+                          <li>
+                              <a href="#" aria-label="Previous">
+                                  上一页
+                              </a>
+                          </li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">5</a></li>
+                          <li><a href="#">...</a></li>
+                          <li><a href="#">10</a></li>
+                          <li>
+                              <a href="#" aria-label="Next">
+                                  下一页
+                              </a>
+                          </li>
+                      </ul>
+                  </nav>
+                  <div class="pull-right pt">
+                      <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+                  </div>
+              </div>
+    </div>
+</div>
+<script>
+  $("#refresh").click(function () {
+        window.location.reload();
+  });
+</script>

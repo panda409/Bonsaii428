@@ -1,0 +1,205 @@
+﻿@model IEnumerable<Bonsaii.Models.Checking_in.EveryDaySignInDateViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<style type="text/css">
+    .table-container{
+        width:100%;
+        overflow-y: auto;
+        _overflow: auto;
+        margin: 0 0 auto;
+    }
+</style>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="/EveryDaySignInDates/Index">考勤日报表</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="main-table mt">
+        <div class="table-container">
+        <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ShowDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkHours)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkDays)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NormalWorkOvertimeHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VacateType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VacateHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HolidayHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalWorkOvertimeHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalComeLateMinutes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalLeaveEarlyMinutes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AbsenteeismHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkOvertimeHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OriginalSignInData)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Remark)
+                    </th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShowDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NormalWorkOvertimeHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VacateType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VacateHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HolidayHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalWorkOvertimeHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalComeLateMinutes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalLeaveEarlyMinutes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AbsenteeismHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkOvertimeHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OriginalSignInData)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        </td>
+
+
+                        <td>
+                            <a href="/EveryDaySignInDates/Details/@item.Id" class="icon fa fa-search bgc-blue-500"></a>
+                            @*<a href="/EveryDaySignInDates/Edit/@item.Id" class="icon fa fa-edit bgc-blue-500"></a>
+                            <a href="/EveryDaySignInDates/Delete/@item.Id" class="icon fa fa-trash bgc-red-500"></a>*@
+                        </td>
+                    </tr>
+                }
+        </table>
+            </div>
+        @*<div class="table-footer">
+            <nav class="pull-left">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            上一页
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">10</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            下一页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="pull-right pt">
+                <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+            </div>
+        </div>*@
+    </div>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

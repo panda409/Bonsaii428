@@ -1,0 +1,579 @@
+﻿@model Bonsaii.Models.Staff
+
+@{
+    ViewBag.Title = "查看员工档案";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@*<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+
+
+@using (Html.BeginForm("Details", "Staff", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="control-bar card">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">人事管理</a></li>
+            <li><a href="#">员工档案</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/Staff/Edit/@Model.Number" ><i class="fa fa-edit"></i>编辑</a>
+            @*<a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>*@
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/Staff/Index"><i class="fa fa-backward"></i>返回</a>
+            @if (Model.AuditStatus == 6)
+            {
+                <a href="/Staff/ManualAudit?id=@Model.Number&flag=1" class="icon fa fa-hand-o-up " title="审核通过"></a>
+               <a href="/Staff/ManualAudit?id=@Model.Number&flag=0" class="icon fa fa-hand-stop-o " title="审核不通过"></a>
+            }
+            
+            @if (Model.AuditStatus == 6 || Model.AuditStatus == 0 || Model.AuditStatus == 4||Model.AuditStatus == 7)
+            {
+                @*@*if (ViewBag.message == true) {
+                    <script>
+                        alert("确定要提交审核吗？");
+                    </script>
+                    @Html.ActionLink("提交", "Submit", new { id = item.Number })
+                    }*@
+                @*<a href="/Staff/Submit?id=@Model.Number" class="icon fa fa-hand-o-up bgc-blue-500" title="重新提交"></a>*@
+               <a href="/Staff/Details?id=@Model.Number&Submit=1" class="icon fa fa-hand-o-up " title="重新提交"></a>
+            }
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">基本信息</h4>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-9">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">单据类型</label>
+                                @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">部门</label>
+                                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">员工工号</label>
+                                @Html.EditorFor(model => model.StaffNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">姓名</label>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">性别</label>
+                                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">个人手机</label>
+                                @Html.EditorFor(model => model.IndividualTelNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.IndividualTelNumber, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label>入职日期</label>
+                                <div class="input-group date form_date_entry col-md-12" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                                    @Html.EditorFor(model => model.Entrydate, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Entrydate, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+
+                  
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="must">班次</label>
+                                @Html.EditorFor(model => model.ClassOrderName, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.ClassOrderName, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class ="must">指纹卡号</label>
+                                @Html.EditorFor(model => model.PhysicalCardNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.PhysicalCardNumber, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label>用工性质</label>
+                                @Html.EditorFor(model => model.WorkProperty, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.WorkProperty, "", new { @class = "text-danger " })
+                            </div>
+                        </div>      
+                        
+                   
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label>婚姻状况</label>
+                                @Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label>员工职务</label>
+                                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger " })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="avatar-box" style="width:118px;height:165.2px">
+                        @if (Model.Head != null)
+                        {
+
+                            <img src="@Url.Action("GetImage", "Staff",new { Model.Number})" id="img0">
+                        }
+                        else
+                        {
+                            <img src="" id="img0">
+                        }
+                   
+                    </div>
+                          @*@*<div class="form-group">
+                            <label>绑定码</label>
+                            @Html.EditorFor(model => model.BindingCode, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.BindingCode, "", new { @class = "text-danger " })
+                        </div>*@
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <div class="card-header">
+            <h4 class="title">详细信息</h4>
+            <div class="right-icons">
+                <a href="#"><i class="fa fa-print"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>国家</label>
+                        @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>民族</label>
+                        @Html.EditorFor(model => model.Nation, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Nation, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>籍贯</label>
+                        @Html.EditorFor(model => model.NativePlace, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.NativePlace, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>出生日期</label>
+                        <div class="input-group date form_date col-md-12" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control ", @style = "max-width:none", @readonly = "readonly" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger " })
+                    
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>证件类型</label>
+                        @Html.EditorFor(model => model.IdentificationType, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.IdentificationType, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>证件号码</label>
+                        @Html.EditorFor(model => model.IdentificationNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.IdentificationNumber, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>签发机关</label>
+                        @Html.EditorFor(model => model.VisaOffice, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.VisaOffice, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>有效截止</label>
+                        @Html.EditorFor(model => model.DeadlineDate, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                    </div>
+                </div>
+                    <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>ID卡号</label>
+                        @Html.EditorFor(model => model.IDCardNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.IDCardNumber, "", new { @class = "text-danger " })
+                    </div>
+                    </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>银行卡号</label>
+                        @Html.EditorFor(model => model.BankCardNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.BankCardNumber, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>家庭电话</label>
+                        @Html.EditorFor(model => model.HomeTelNumber, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.HomeTelNumber, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>家庭住址</label>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger " })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Source,new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                        @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.WorkType, htmlAttributes: new { @class = "control-label"})
+                        @Html.EditorFor(model => model.WorkType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                        @Html.ValidationMessageFor(model => model.WorkType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.HealthCondition, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.HealthCondition, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.HealthCondition, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>介绍人员</label>
+                        @Html.EditorFor(model => model.Introducer, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Introducer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>最高学历</label>
+                        @Html.EditorFor(model => model.EducationBackground, new { htmlAttributes = new { @class = "form-control " , @readonly = "readonly"} })
+                        @Html.ValidationMessageFor(model => model.EducationBackground, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GraduationSchool, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.GraduationSchool, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.GraduationSchool, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SchoolMajor, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.SchoolMajor, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.SchoolMajor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Degree, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UrgencyContactMan, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.UrgencyContactMan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.UrgencyContactMan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UrgencyContactAddress, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.UrgencyContactAddress, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.UrgencyContactAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UrgencyContactPhoneNumber, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.UrgencyContactPhoneNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.UrgencyContactPhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.QualifyingPeriodFull, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.QualifyingPeriodFull, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.QualifyingPeriodFull, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>免卡</label>
+                        <div class="checkbox-wrap">
+                        @if (Model.FreeCard == true)
+                        {
+                            <input type="checkbox" id="FreeCard" disabled="disabled" checked="checked" value="true" class="filled-in">
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="FreeCard" disabled="disabled" value="false" >
+
+                        }
+                            @*<input type="checkbox" id="FreeCard" class="filled-in">*@
+                            <label for="FreeCard"></label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>加班需申请</label>
+                        <div class="checkbox-wrap">
+                            @if (Model.ApplyOvertimeSwitch == true)
+                            {
+                                <input type="checkbox" id="ApplyOvertimeSwitch" disabled="disabled" checked="checked" value="true" class="filled-in">
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="ApplyOvertimeSwitch" disabled="disabled" value="false">
+
+                            }
+                            <label for="ApplyOvertimeSwitch">@Html.ValidationMessageFor(model => model.ApplyOvertimeSwitch, "", new { @class = "text-danger" })</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.JobState, htmlAttributes: new { @class = "control-label " })
+                        @if (Model.ArchiveTag == false)
+                        {
+                        <input type="text" id="ArchiveTag" readonly="readonly"  value="在职" class="form-control">
+                        }
+                        @Html.ValidationMessageFor(model => model.ArchiveTag, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AuditStatus, htmlAttributes: new { @class = "control-label " })
+                        @Html.EditorFor(model => model.AuditStatusName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.AuditStatusName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <div class="card-header">
+            <h4 class="title">自定义信息</h4>
+            <div class="right-icons">
+                <a href="#"><i class="fa fa-print"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var temp in @ViewBag.fieldValueList)
+                {
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            @Html.DisplayName((string)temp.Description)
+                            @temp.Value
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (@ViewBag.alertMessage == true)
+            {
+                <script>
+                    alert("请先设置该单据的审批模板！");
+                </script>
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/Staff/Edit/@Model.Number">
+                    <input type="button"  value="编辑" class="btn btn-primary" />
+                    </a>
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/Staff/Index');">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="card panel-box">
+        <div class="card-header">
+            <div class="right-icons">
+                <a href="#"><i class="fa fa-print"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.AuditStatus == 6)
+        {
+            var str = "|";
+            @str
+            <span class="icon fa fa-hand-o-up bgc-blue-500"></span>@Html.ActionLink("通过", "ManualAudit", new { id = Model.Number, flag = 1 })
+            @str
+            <span class="icon fa fa-hand-o-down bgc-red-500"></span>@Html.ActionLink("不通过", "ManualAudit", new { id = Model.Number, flag = 0 })
+        }
+        </div>
+     </div>*@
+}
+
+        <script>
+            $("#back").click(function () {
+                window.location.href = "/Staff/Index";
+            });
+            $("#refresh").click(function () {
+                window.location.reload();
+            });
+            $("#refresh2").click(function () {
+                window.location.reload();
+            });
+            //$("#image").change(function () {
+            //    var objUrl = getObjectURL(this.files[0]);
+            //    console.log("objUrl = " + objUrl);
+            //    if (objUrl) {
+            //        $("#img0").attr("src", objUrl);
+            //    }
+            //});
+            ////建立一個可存取到該file的url
+            //function getObjectURL(file) {
+            //    var url = null;
+            //    if (window.createObjectURL != undefined) { // basic
+            //        url = window.createObjectURL(file);
+            //    } else if (window.URL != undefined) { // mozilla(firefox)
+            //        url = window.URL.createObjectURL(file);
+            //    } else if (window.webkitURL != undefined) { // webkit or chrome
+            //        url = window.webkitURL.createObjectURL(file);
+            //    }
+            //    return url;
+            //}
+        </script>
+        @*<script type="text/javascript">
+            var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+            function fileChange(target, id) {
+                var fileSize = 0;
+                var filetypes = [".jpg", ".png"];
+                var filepath = target.value;
+                var filemaxsize = 200;//2M
+                if (filepath) {
+                    var isnext = false;
+                    var fileend = filepath.substring(filepath.indexOf("."));
+                    if (filetypes && filetypes.length > 0) {
+                        for (var i = 0; i < filetypes.length; i++) {
+                            if (filetypes[i] == fileend) {
+                                isnext = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isnext) {
+                        alert("不接受此文件类型！");
+                        target.value = "";
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                if (isIE && !target.files) {
+                    var filePath = target.value;
+                    var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+                    if (!fileSystem.FileExists(filePath)) {
+                        alert("附件不存在，请重新输入！");
+                        return false;
+                    }
+                    var file = fileSystem.GetFile(filePath);
+                    fileSize = file.Size;
+                } else {
+                    fileSize = target.files[0].size;
+                }
+
+                var size = fileSize / 1024;
+                if (size > filemaxsize) {
+                    alert("图片大小不能大于" + filemaxsize + "K！");
+                    target.value = "";
+                    return false;
+                }
+                if (size <= 0) {
+                    alert("附件大小不能为0 K！");
+                    target.value = "";
+                    return false;
+                }
+            }
+
+            $("#refresh").click(function () {
+                window.location.reload();
+            });
+            $(":input").attr("style","background-color:#fff");
+
+        </script>*@
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $(":input").attr("style", "background-color:#fff");
+</script>
+   

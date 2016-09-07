@@ -1,0 +1,74 @@
+﻿@model BonsaiiModels.Devices
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Devices</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DeviceID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DeviceID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CommKey)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CommKey)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IP)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IP)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Port)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Port)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DeviceType)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DeviceType)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DeviceName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DeviceName)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

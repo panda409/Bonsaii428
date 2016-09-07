@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{553A89EB-1071-4B5C-BB04-3BCDFC47D8C9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BonsaiiModels</RootNamespace>
+    <AssemblyName>BonsaiiModels</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Riss.Devices">
+      <HintPath>..\..\RL10079DesktopDemo\RL10079DesktopDemo_Attendance_C#\bin\Debug\Riss.Devices.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountViewModels.cs" />
+    <Compile Include="Actions.cs" />
+    <Compile Include="AdviceBack.cs" />
+    <Compile Include="App\AAKaoQin.cs" />
+    <Compile Include="App\AAYiDiKaoQin.cs" />
+    <Compile Include="App\ApplicationDetail.cs" />
+    <Compile Include="App\ApplicationDetailViewModel.cs" />
+    <Compile Include="App\App_Sn.cs" />
+    <Compile Include="App\App_User.cs" />
+    <Compile Include="App\HonerWallOrderViewModel.cs" />
+    <Compile Include="App\VacatePhoto.cs" />
+    <Compile Include="Audit\AuditApplication.cs" />
+    <Compile Include="Audit\AuditApplicationStepViewModel.cs" />
+    <Compile Include="Audit\AuditProcess.cs" />
+    <Compile Include="Audit\AuditProcessStepCheckViewModel.cs" />
+    <Compile Include="Audit\AuditStep.cs" />
+    <Compile Include="Audit\AuditStepViewModel.cs" />
+    <Compile Include="Audit\AuditTemplate.cs" />
+    <Compile Include="Audit\State.cs" />
+    <Compile Include="Authorize.cs" />
+    <Compile Include="AuthorizeGroup.cs" />
+    <Compile Include="Background.cs" />
+    <Compile Include="Backlog.cs" />
+    <Compile Include="BaseDevice.cs" />
+    <Compile Include="BillPropertyModels.cs" />
+    <Compile Include="BillSort.cs" />
+    <Compile Include="BillStaffMapping.cs" />
+    <Compile Include="BindCode.cs" />
+    <Compile Include="BindCodeViewModel.cs" />
+    <Compile Include="BonsaiiDbContext.cs" />
+    <Compile Include="Brand\Brand.cs" />
+    <Compile Include="Brand\BrandTemplateModels.cs" />
+    <Compile Include="Brand\BrandTemplateReserves.cs" />
+    <Compile Include="Brand\BrandTemplateReserveViewModels.cs" />
+    <Compile Include="Brand\BrandTemplateViewModels.cs" />
+    <Compile Include="Brand\BrandViewModel.cs" />
+    <Compile Include="Brand\ConfirmedField.cs" />
+    <Compile Include="Checking_in\ChargeCardApplies.cs" />
+    <Compile Include="Checking_in\ChargeCardAppliesViewModel.cs" />
+    <Compile Include="Checking_in\ChargeCardData.cs" />
+    <Compile Include="Checking_in\CheckingInParams.cs" />
+    <Compile Include="Checking_in\CheckingInParamsBool.cs" />
+    <Compile Include="Checking_in\DaysOffAppliesViewModel.cs" />
+    <Compile Include="Checking_in\DaysOffApplies.cs" />
+    <Compile Include="Checking_in\DeviceOriginalData.cs" />
+    <Compile Include="Checking_in\EvectionAppliesViewModel.cs" />
+    <Compile Include="Checking_in\EvectionApplies.cs" />
+    <Compile Include="Checking_in\EveryDaySignInDate.cs" />
+    <Compile Include="Checking_in\EveryDaySignInDateViewModel.cs" />
+    <Compile Include="Checking_in\MonthSignInViewModel.cs" />
+    <Compile Include="Checking_in\OffSiteApplies.cs" />
+    <Compile Include="Checking_in\OnDutyAppliesViewModel.cs" />
+    <Compile Include="Checking_in\OriginalSignInDataViewModel.cs" />
+    <Compile Include="Checking_in\OvertimeAppliesViewModel.cs" />
+    <Compile Include="Checking_in\VacateAppliesViewModel.cs" />
+    <Compile Include="CompanyPush.cs" />
+    <Compile Include="Devices.cs" />
+    <Compile Include="DeviceUser\DeviceUserViewModel.cs" />
+    <Compile Include="GlobalStaticVaribles\SignInType.cs" />
+    <Compile Include="Checking_in\MonthSignIn.cs" />
+    <Compile Include="Checking_in\OnDutyApplies.cs" />
+    <Compile Include="Checking_in\OnDutyHours.cs" />
+    <Compile Include="Checking_in\OriginalDataofCheckOn.cs" />
+    <Compile Include="Checking_in\OvertimeApplies.cs" />
+    <Compile Include="Checking_in\SignInCardStatus.cs" />
+    <Compile Include="Checking_in\VacateApplies.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="Contract\Contract.cs" />
+    <Compile Include="Contract\ContractReserve.cs" />
+    <Compile Include="Contract\ContractViewModel.cs" />
+    <Compile Include="DataControl.cs" />
+    <Compile Include="DataSubscriptions.cs" />
+    <Compile Include="Department\Department.cs" />
+    <Compile Include="Department\DepartmentReserve.cs" />
+    <Compile Include="Department\DepartmentViewModel.cs" />
+    <Compile Include="Dimension.cs" />
+    <Compile Include="GlobalStaticVaribles\BillSortMethod.cs" />
+    <Compile Include="GlobalStaticVaribles\CirculateMethod.cs" />
+    <Compile Include="GlobalStaticVaribles\CodeMethod.cs" />
+    <Compile Include="Holiday.cs" />
+    <Compile Include="HolidayRecord.cs" />
+    <Compile Include="HolidayTables.cs" />
+    <Compile Include="HolidayTableViewModel.cs" />
+    <Compile Include="HolidayTimeName.cs" />
+    <Compile Include="HolidayTimeRecord.cs" />
+    <Compile Include="HolidayTimeRecordViewModel.cs" />
+    <Compile Include="IdentityModels.cs" />
+    <Compile Include="ManageViewModels.cs" />
+    <Compile Include="Media\Excel.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="MenuViewModel.cs" />
+    <Compile Include="Nation.cs" />
+    <Compile Include="ParamCodes.cs" />
+    <Compile Include="Params.cs" />
+    <Compile Include="Phrase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Push.cs" />
+    <Compile Include="QTree.cs" />
+    <Compile Include="RecordDatetime.cs" />
+    <Compile Include="Recriutment\RecruitmentReserve.cs" />
+    <Compile Include="Recriutment\Recruitments.cs" />
+    <Compile Include="Recriutment\RecruitmentViewModel.cs" />
+    <Compile Include="ReserveField.cs" />
+    <Compile Include="RestApply.cs" />
+    <Compile Include="RoleModels.cs" />
+    <Compile Include="SimpleDeviceFactory.cs" />
+    <Compile Include="StaffApplication\StaffApplication.cs" />
+    <Compile Include="StaffApplication\StaffApplicationReserve.cs" />
+    <Compile Include="StaffApplication\StaffApplicationViewModel.cs" />
+    <Compile Include="StaffArchive\StaffArchive.cs" />
+    <Compile Include="StaffArchive\StaffArchiveReserve.cs" />
+    <Compile Include="StaffArchive\StaffArchiveViewModel.cs" />
+    <Compile Include="StaffBasicParam.cs" />
+    <Compile Include="StaffChange\StaffChange.cs" />
+    <Compile Include="StaffChange\StaffChangeReserve.cs" />
+    <Compile Include="StaffChange\StaffChangeViewModel.cs" />
+    <Compile Include="StaffModel.cs" />
+    <Compile Include="StaffParam.cs" />
+    <Compile Include="StaffParamType.cs" />
+    <Compile Include="StaffSkill\StaffSkill.cs" />
+    <Compile Include="StaffSkill\StaffSkillReserve.cs" />
+    <Compile Include="StaffSkill\StaffSkillViewModel.cs" />
+    <Compile Include="Staffs\SerialCodeCount.cs" />
+    <Compile Include="Staffs\Staff.cs" />
+    <Compile Include="Staffs\StaffReserve.cs" />
+    <Compile Include="Staffs\StaffViewModel.cs" />
+    <Compile Include="StaffVariation\StaffVariation.cs" />
+    <Compile Include="Subscribe\SubscribeAndWarning.cs" />
+    <Compile Include="Subscribe\SubscribeList.cs" />
+    <Compile Include="Subscribe\Subscribe_Company.cs" />
+    <Compile Include="SystemDbContext.cs" />
+    <Compile Include="SystemMessage.cs" />
+    <Compile Include="TableNameContrast.cs" />
+    <Compile Include="TestModels.cs" />
+    <Compile Include="TrainRecord\TrainRecord.cs" />
+    <Compile Include="TrainRecord\TrainRecordViewModel.cs" />
+    <Compile Include="Train\TrainStart.cs" />
+    <Compile Include="Train\TrainStartReserve.cs" />
+    <Compile Include="Train\TrainStartViewModel.cs" />
+    <Compile Include="UserModels.cs" />
+    <Compile Include="UserPasswordInfo.cs" />
+    <Compile Include="UserRole.cs" />
+    <Compile Include="UserViewModels.cs" />
+    <Compile Include="VerifyCode.cs" />
+    <Compile Include="WeekTag.cs" />
+    <Compile Include="Works\WorkArrangeViewModel.cs" />
+    <Compile Include="Works\WorkDayModel.cs" />
+    <Compile Include="Works\WorkManages.cs" />
+    <Compile Include="Works\WorkManageViewModel.cs" />
+    <Compile Include="Works\Works.cs" />
+    <Compile Include="Works\WorkTimes.cs" />
+    <Compile Include="ZDC2911Device.cs" />
+    <Compile Include="zTree.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

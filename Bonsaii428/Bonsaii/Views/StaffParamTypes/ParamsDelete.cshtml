@@ -1,0 +1,72 @@
+﻿@model Bonsaii.Models.StaffParam
+
+
+@{
+    ViewBag.Title = "修改人事基本参数";
+}
+
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">系统设置</a></li>
+        <li><a href="/StaffParams/Index">基础数据管理</a></li>
+        <li><a href="#">@ViewBag.Title</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="#" id="longforSave"><i class="fa fa-save"></i>删除</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="/StaffParamTypes/ParamsIndex?id=@Model.StaffParamTypeId" id="back"><i class="fa fa-backward"></i>返回</a>
+    </div>
+</div>
+@using (Html.BeginForm("ParamsDelete", "StaffParamTypes", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="card panel-box">
+        <h4 class="title">您确认删除这个项目？</h4>
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.Id)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffParamType.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffParamType.Name)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Value)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Value)
+                </dd>
+
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="删除" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz();">取消</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+<script>
+    $("#back").click(function () {
+        window.location.href = "/StaffParams/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>
+<script>
+    function tz() {
+        window.location.href = "/StaffParamTypes/ParamsIndex" + "/@Model.StaffParamTypeId";
+    }
+</script>

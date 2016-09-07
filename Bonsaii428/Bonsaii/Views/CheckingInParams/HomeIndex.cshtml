@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "考勤参数设置";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/CheckingInParams/HomeIndex">设置考勤参数</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/CheckingInParams/HomeIndex" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">考勤参数设置</h4>
+        <div class="form-horizontal">
+            
+            <input type="hidden" id="A" name="A" value="@ViewBag.OvertimeNeedSignIn"/>
+            <input type="hidden" id="B" name="B" value="@ViewBag.EvectionNeedSignIn"/>
+            <input type="hidden" id="C" name="C" value="@ViewBag.OnDutyNeedSignIn"/>
+            <div class="form-group">
+                @Html.Label("加班需要打卡", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="OvertimeNeedSignIn" class="filld-in" name="OvertimeNeedSignIn" />
+                        <label for="OvertimeNeedSignIn"></label>
+                    </div>          
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("加班打卡提前分钟", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="OvertimeAheadMinutes" value="@ViewBag.OvertimeAheadMinutes" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("加班打卡推后分钟", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="OvertimeBackMinutes" value="@ViewBag.OvertimeBackMinutes" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("值班需要打卡", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="OnDutyNeedSignIn" class="filld-in" name="OnDutyNeedSignIn" />
+                        <label for="OnDutyNeedSignIn"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("值班打卡提前分钟", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="OnDutyAheadMinutes" value="@ViewBag.OnDutyAheadMinutes" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("值班打卡推后分钟", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="OnDutyBackMinutes" value="@ViewBag.OnDutyBackMinutes" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("出差需要打卡", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="EvectionNeedSignIn" class="filld-in" name="EvectionNeedSignIn" />
+                        <label for="EvectionNeedSignIn"></label>
+                    </div>                   
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("出差打卡提前分钟", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="EvectionAheadMinutes" value="@ViewBag.EvectionAheadMinutes" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("出差打卡推后分钟", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="EvectionBackMinutes" value="@ViewBag.EvectionBackMinutes" class="form-control" />
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+                @Html.Label("迟到分钟数", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="LateMinutes" value="@ViewBag.LateMinutes" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("迟到计小时值", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="LateToHour" value="@ViewBag.LateToHour" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("早退分钟数", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="EarlyMinutes" value="@ViewBag.EarlyMinutes" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("早退计小时值", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" name="EarlyToHour" value="@ViewBag.EarlyToHour" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/CheckingInParams/HomeIndex');">取消</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        if ($("#A").val() == "true")
+            $("#OvertimeNeedSignIn").prop("checked",true);
+        if ($("#B").val() == "true")
+            $("#EvectionNeedSignIn").prop("checked", true);
+        if ($("#C").val() == "true")
+            $("#OnDutyNeedSignIn").prop("checked", true);
+    });
+</script>

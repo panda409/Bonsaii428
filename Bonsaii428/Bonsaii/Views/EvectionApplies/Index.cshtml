@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Bonsaii.Models.Checking_in.EvectionAppliesViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="/EvectionApplies/Index">出差管理</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/EvectionApplies/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="main-table mt">
+        <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillTypeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuditStatusName)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuditStatusName)
+                        </td>
+
+                        <td>
+                            <a href="/EvectionApplies/Details/@item.Id" class="icon fa fa-search bgc-blue-500"></a>
+                            <a href="/EvectionApplies/Edit/@item.Id" class="icon fa fa-edit bgc-blue-500"></a>
+                            <a href="/EvectionApplies/Delete/@item.Id" class="icon fa fa-trash bgc-red-500"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

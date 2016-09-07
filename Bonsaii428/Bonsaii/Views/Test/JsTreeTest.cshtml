@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "JsTree";
+}
+@Scripts.Render("~/bundles/jsTree_js")
+@Styles.Render("~/bundles/jsTree_css")
+<h2>Modify the JsTree</h2>
+
+
+<div id="jstree-proton-3" style="margin-top:20px;width:20%;" class="proton-demo"></div>
+
+<button type="button" id="selectAction" name="selectAction">显示选中的Actions</button>
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Role/GetAllActions',
+            type: 'POST',
+            success: function (data) {
+                $('#jstree-proton-3').jstree({
+                    'plugins': ["wholerow", "checkbox"],
+                    'core': {
+                        'data': data,
+                        'themes': {
+                            'name': 'proton',
+                            'responsive': true
+                        }
+                    }
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("验证码获取失败！请稍后重新尝试");
+            },
+            //    dataType: 'json'
+        });
+    });
+    $('#selectAction').click(function () {
+        var ids="";
+        var nodes = $("#jstree-proton-3").jstree("get_checked"); //使用get_checked方法 
+        $.each(nodes, function (i, n) {
+            alert($(n));
+        });
+        //$.each(nodes, function(i, n) { 
+        //    ids += $(n).attr("id")+",";
+        //}); 
+ //       alert(ids);
+    });
+
+
+</script>
+<script>
+    $(function () {
+
+        //$('#jstree-proton-3').jstree({
+        //    'plugins': ["wholerow", "checkbox"],
+        //    'core': {
+        //        'data': [{
+        //                "text": "Menu One",
+        //                "children": [{
+        //                    "text": "Menu 1.1"
+        //                }, {
+        //                    "text": "Menu 1.2",
+        //                }, {
+        //                    "text": "Menu 1.3",
+        //                    "children": ["Menu 1.3.1"]
+        //                }, {
+        //                    "text": "Menu 1.4",
+        //                }]
+        //            },
+        //            "Menu Two"
+        //        ],
+        //        'themes': {
+        //            'name': 'proton',
+        //            'responsive': true
+        //        }
+        //    }
+        //});
+    });
+</script>

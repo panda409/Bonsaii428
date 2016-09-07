@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "JsTree";
+}
+@Scripts.Render("~/bundles/jsTree_js")
+@Styles.Render("~/bundles/jsTree_css")
+<h2>JsTree Basic Structure</h2>
+
+
+<div id="jstree-proton-3" style="margin-top:20px;" class="proton-demo"></div>
+
+<script>
+    $(function() {
+        $('#jstree-proton-3').jstree({
+            'plugins': ["wholerow", "checkbox"],
+            'core': {
+                'data': [{
+                        "text": "Menu One",
+                        "children": [{
+                            "text": "Menu 1.1",
+                            "state": {
+                                "selected": true
+                            }
+                        }, {
+                            "text": "Menu 1.2",
+                           
+                        }, {
+                            "text": "Menu 1.3",
+                            "state": {
+                                "opened": true
+                            },
+                            "children": ["Menu 1.3.1"]
+                        }, {
+                            "text": "Menu 1.4",
+  
+                        }]
+                    },
+                    "Menu Two"
+                ],
+                'themes': {
+                    'name': 'proton',
+                    'responsive': true
+                }
+            }
+        });
+    });
+</script>

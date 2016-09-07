@@ -1,0 +1,229 @@
+﻿@model Bonsaii.Models.Audit.AuditApplication
+
+@{
+    ViewBag.Title = "签卡记录详情";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js">
+</script><link href="~/Content/ystep.css" rel="stylesheet" />
+
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">签核记录明细</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditApplication/Index"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+
+  <div class="form-horizontal">
+
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Info, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="main-table mt col-md-3">
+                <table class="table table-striped table-hover table-bordered display">
+                    @Html.Raw(ViewBag.sInfoArray)
+                </table>
+            </div>
+            </div>
+            @{
+                int index = 0;
+            }
+            @foreach (var process in @ViewBag.resultlist)
+            {
+                index = index + 1;
+            <div class="form-group">
+                    <label class="control-label col-md-1">
+                        审核步骤 @index
+                    </label>
+                    <div class="main-table mt col-md-6">
+                        <table class="table table-striped table-hover table-bordered display">
+                            <tr>
+                                <td>
+                                    审核人员：@process.Approver
+                                </td>
+
+                                @if (process.Result != 3)
+                                {
+                                <td>
+                                    状态：@process.ResultDescription
+                                </td>
+                                }
+                                else
+                                {
+                                <td>
+                                    状态：@process.ResultDescription
+                                </td>
+                                }
+
+                                @if (process.Result == 0)
+                                {
+                                <td>
+                                    审核时间：
+                                </td>
+                                }
+                                else
+                                {
+                                <td>
+                                    审核时间：@process.AuditDate
+                                </td>
+                                }
+
+                                <td>
+                                    评语：@process.Comment
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+            }
+
+            <dl class="dl-horizontal">
+
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.BType)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BType)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TypeName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TypeName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BNumber)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BNumber)
+                    </dd>*@
+                @*<dt>审批流程</dt>*@
+
+                @*<dd class="ystep1 "> </dd>*@
+
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.Info)
+                    </dt>*@
+
+                @*@foreach (var item in ViewBag.sInfoArray)
+                    {
+                        <dd>
+                            @item
+                        </dd>
+                    }*@
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatorName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreatorName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.State)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StateDescription)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+                <dd>
+                    @*<a href="/AuditApplication/Edit/@Model.Id">
+                            <input type="submit" value="编辑" class="btn btn-primary" />
+                        </a>*@
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+            </dl>
+        </div>
+    </div>
+ 
+
+    <script src="~/Scripts/ystep/ystep.js"></script>
+    <script>
+        $("#refresh").click(function () {
+            window.location.reload();
+        })
+        function tz() {
+            window.location.href = "/AuditApplication/Index";
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            /*---------全局变量---------*/
+            var auditStepsData;
+            var auditStepsNumber = 0;
+
+            /*---------全局变量---------*/
+
+            /*---------AJax请求---------*/
+            $.ajax({
+                url: '/AuditApplication/YSteps',
+                type: 'POST',
+                data:{id:@Model.Id},//传的是AId
+                dataType:'json',
+                async : false,
+                error: function () { alert('请求失败')},
+                success: function(data){
+                    auditStepsData = data;
+                    /*-------初始化流程-------*/
+                    $(".ystep1").loadStep({
+                        size: "large",
+                        color: "green",
+                        steps: data
+                    })
+                    /*-------初始化流程-------*/
+                    /*-------设置各个节点的Id-------*/
+                    //var count=0;
+                    var count2=0;
+
+                    for(var count2 in data){
+                        $(".ystep-container-steps li").eq(count2).attr("id",count2);
+                        count2++;
+                        if(data[count2].id){
+                            $(".ystep1").setStep(count2);
+                        }
+
+                    }
+                    auditStepsNumber=count;
+                    /*-------设置各个节点的Id-------*/
+
+                }
+            });
+            /*---------AJax请求---------*/
+
+
+        });
+    </script>

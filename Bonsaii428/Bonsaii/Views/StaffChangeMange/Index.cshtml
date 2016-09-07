@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Bonsaii.Models.StaffChange>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<ul class="list-group col-md-12">
+    <li class=" list-group-item">
+        @Html.ActionLink("待处理的人事变更单", "List", new { listchoose=0})
+    </li>
+    <li class=" list-group-item">
+        @Html.ActionLink("已处理的人事变更单", "List", new { listchoose=1})
+    </li>
+    @*<li class="list-group-item">
+        @Html.ActionLink("人事变更申请", "Create")
+    </li>*@
+</ul>
+

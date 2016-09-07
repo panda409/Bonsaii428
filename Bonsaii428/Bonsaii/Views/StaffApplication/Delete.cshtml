@@ -1,0 +1,137 @@
+﻿@model Bonsaii.Models.StaffApplication
+
+@{
+    ViewBag.Title = "删除离职申请";
+}
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">离职申请</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-remove"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/StaffApplication/Index"><i class="fa fa-backward"></i>返回</a>
+
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">您确定删除该项目？</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    <form method="post" action="/StaffApplication/Delete?id=@Model.Id" id="longfor_form">
+        @Html.AntiForgeryToken()
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillTypeNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillTypeNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillTypeName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillTypeName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BillNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ApplyDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ApplyDate)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.HopeLeaveDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HopeLeaveDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LeaveType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LeaveType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LeaveReason)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LeaveReason)
+                </dd>
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+                @foreach (var temp in @ViewBag.fieldValueList)
+                {
+                    <dt>@Html.DisplayName((string)temp.Description)</dt>
+                    <dd>@temp.Value</dd>
+                }
+
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+            </dl>
+        </div>
+    </form>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/StaffApplication/Index";
+    }
+</script>

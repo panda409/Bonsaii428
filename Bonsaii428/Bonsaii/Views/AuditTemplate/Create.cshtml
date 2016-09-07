@@ -1,0 +1,158 @@
+﻿@model Bonsaii.Models.Audit.AuditTemplate
+
+@{
+    ViewBag.Title = "创建电子签核";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+@using (Html.BeginForm("Create", "AuditTemplate", FormMethod.Post, new { @id = "longfor_form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">签核单据配置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditTemplate/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">创建电子签核</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2 must" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BType, htmlAttributes: new { @class = "control-label col-md-2 must" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BType, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StepCount, htmlAttributes: new { @class = "control-label col-md-2 must" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StepCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StepCount, "", new { @class = "text-danger" })
+                </div>
+                <label>个步骤</label>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2 must" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                    </div>@Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpireTime, htmlAttributes: new { @class = "control-label col-md-2 must" })
+                <div class="col-md-3">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="LongTime" name="LongTime" value="true" class="filled-in">
+                        <label for="LongTime">
+                            （勾选设置永久有效）
+                        </label>
+                    </div>
+                    <div class="input-group date form_date " id="calendar" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.ExpireTime, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ExpireTime, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/AuditTemplate/Index');">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $.ajax({
+        url: '/AuditTemplate/BillTypeNumberSearch',
+        type: 'POST',
+        success: function (data) {
+            $('#BType').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+            });
+        }
+    });
+</script>
+<script type="text/javascript">
+    function initDatatimepicker() {
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy/mm/dd',
+            weekStart: 0,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    }
+    $(document).ready(function () {
+        initDatatimepicker();
+    })
+
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    $("#LongTime").click(function () {
+        if ($("#LongTime").prop("checked")) {
+            $("#ExpireTime").attr("readonly", "readonly");
+            $("#calendar").hide();
+
+        }
+        else {
+            $("#ExpireTime").removeAttr("readonly");
+            $("#calendar").show();
+        }
+    })
+</script>

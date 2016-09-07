@@ -1,0 +1,551 @@
+﻿@model Bonsaii.Models.TrainStart
+
+@{
+    ViewBag.Title = "创建培训发起";
+
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<link href="~/Content/css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/bootstrap-select.js"></script>
+@using (Html.BeginForm("Create", "TrainStart", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">办公管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/TrainStart/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">创建培训发起</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillTypeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control",@readOnly="true"} })
+                    @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control",@readOnly="true"} })
+                    @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.TrainType, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.TrainType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainTheme, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TrainTheme, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainTheme, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainPlace, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TrainPlace, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainPlace, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TrainPerson, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainManage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TrainManage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainManage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class=" input-group date form_date"  data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove   glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class=" input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model=>model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove  glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainCost, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TrainCost, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainCost, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TellNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.TellNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TellNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <div class="col-md-3" id="test-build-filter-tr">
+                    <h6>按住Ctrl键或shift键可进行多选 </h6>
+                    @Html.DropDownListFor(model => model.JoinPerson, (IEnumerable<SelectListItem>)ViewBag.staff, new { @class = "form-control", @id = "example29", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.JoinPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                <!--触发模态框-->
+                @*<a href="javascript:void(0)" title="点击添加收件人" data-toggle="modal" data-target="#indentifier">*@
+                    @Html.LabelFor(model => model.JoinPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                @*</a>*@
+                <div class="col-md-8" data-toggle="modal" data-target="#indentifier" href="javascript:void(0)">
+                    <a href="javascript:void(0)" title="点击添加收件人" data-toggle="modal" data-target="#indentifier"></a>
+                        @Html.TextAreaFor(model => model.JoinPerson, 4, 120, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.JoinPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+<!--模态框-->
+<div class="modal fade" id="indentifier" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    添加收件人
+                </h4>
+            </div>
+            <div class="modal-body">
+                <button id='select-all' class="btn btn-primary">选择全部</button>
+                <button id='deselect-all' class="btn btn-default">移除全部</button>
+                <p><span>所有联系人</span><span style="padding-left: 45%">收件人</span></p>
+
+                <select id='my-select' multiple='multiple'>
+                    @{
+    foreach (var temp in @ViewBag.Group)
+    {
+
+        foreach (var s in @ViewBag.Count)
+        {
+            if (s.Key == temp.department)
+            {
+                foreach (var temp1 in @ViewBag.Receiver)
+                {
+                    if (temp.department == temp1.department)
+                    {
+                        var lab = @temp.name + "（" + s.Value + "）";
+                        <optgroup label="@lab">
+                            <option value="@temp1.value">@temp1.text</option>
+                        </optgroup>
+                    }
+                }
+
+            }
+        }
+    }
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="modal_select_ok" data-dismiss="modal">
+                    确定
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script>
+    $("#indentifier").modal(options);
+    $('#indentifier').modal('show').css({
+        width: 'auto',
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    });
+    //点击确定按钮，获取到选中的值，把它们放到input中
+
+</script>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.ChoosePerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <h6>按住Ctrl键或shift键可进行多选 </h6>
+                    @Html.DropDownListFor(model => model.ChoosePerson, (IEnumerable<SelectListItem>)ViewBag.staff,  new { @class = "form-control", @id = "example28", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.ChoosePerson, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                <!--触发模态框-->
+                @*<a href="javascript:void(0)" title="点击添加收件人" data-toggle="modal" data-target="#indentifier">*@
+                @Html.LabelFor(model => model.ChoosePerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                @*</a>*@
+                <div class="col-md-8" data-toggle="modal" data-target="#indentifier2" href="javascript:void(0)">
+                    <a href="javascript:void(0)" title="点击添加收件人" data-toggle="modal" data-target="#indentifier2"></a>
+                    @Html.TextAreaFor(model => model.ChoosePerson, 4, 120, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ChoosePerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!--模态框-->
+            <div class="modal fade" id="indentifier2" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel2" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabe2">
+                                添加收件人
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <button id='select-all2' class="btn btn-primary">选择全部</button>
+                            <button id='deselect-all2' class="btn btn-default">移除全部</button>
+                            <p><span>所有联系人</span><span style="padding-left: 45%">收件人</span></p>
+
+                            <select id='my-select2' multiple='multiple'>
+                                @{
+                                foreach (var temp in @ViewBag.Group)
+                                {
+
+                                    foreach (var s in @ViewBag.Count)
+                                    {
+                                        if (s.Key == temp.department)
+                                        {
+                                            foreach (var temp1 in @ViewBag.Receiver)
+                                            {
+                                                if (temp.department == temp1.department)
+                                                {
+                                                    var lab = @temp.name + "（" + s.Value + "）";
+                                                    <optgroup label="@lab">
+                                                        <option value="@temp1.value">@temp1.text</option>
+                                                    </optgroup>
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                                }
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modal_select_ok2" data-dismiss="modal">
+                                确定
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <script>
+                $("#indentifier2").modal(options);
+                $('#indentifier2').modal('show').css({
+                    width: 'auto',
+                    'margin-left': function () {
+                        return -($(this).width() / 2);
+                    }
+                });
+                //点击确定按钮，获取到选中的值，把它们放到input中
+
+            </script>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainContent, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.TrainContent, 4, 120,new { @class = "form-control" } )
+                    @Html.ValidationMessageFor(model => model.TrainContent, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.Remark, 4, 120, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+   
+            @*遍历，显示那些自定义的字段*@
+            @foreach (var x in @ViewBag.fieldList)
+        {
+                <div class="form-group">
+                    @*<label>x.Description</label>*@
+                    @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.Editor((string)(x.FieldName), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => x, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+        }
+            @if (@ViewBag.alertMessage == true)
+            {
+                <script>
+                    alert("请先设置该单据的审批模板！");
+                </script>
+            }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+       
+        <script src="~/Scripts/jquery.multi-select.js" type="text/javascript"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script type="text/javascript">
+
+            /*<选择收件人*/
+            $('#my-select').multiSelect({ selectableOptgroup: true });
+            $('#select-all').click(function () {
+                $('#my-select').multiSelect('select_all');
+                return false;
+            });
+            $('#deselect-all').click(function () {
+                $('#my-select').multiSelect('deselect_all');
+                return false;
+            });
+            $("#modal_select_ok").click(function () {
+                //获得所有选中的值
+                var selectedValues = [];
+                $("#my-select :selected").each(function () {
+                    selectedValues.push($(this).val());
+                });
+                // alert(selectedValues);
+                //把它们放到页面的文本框中
+                $("#JoinPerson").val(selectedValues);
+                ///注：以下方法只能获得第一个选中的值，不能获得所有选中的值
+                //alert($("#my-select option:selected").attr("value"));
+            });
+            /*选择收件人>*/
+
+            /*<选择收件人*/
+            $('#my-select2').multiSelect({ selectableOptgroup: true });
+            $('#select-all2').click(function () {
+                $('#my-select2').multiSelect('select_all');
+                return false;
+            });
+            $('#deselect-all2').click(function () {
+                $('#my-select2').multiSelect('deselect_all');
+                return false;
+            });
+            $("#modal_select_ok2").click(function () {
+                //获得所有选中的值
+                var selectedValues = [];
+                $("#my-select2 :selected").each(function () {
+                    selectedValues.push($(this).val());
+                });
+                // alert(selectedValues);
+                //把它们放到页面的文本框中
+                $("#ChoosePerson").val(selectedValues);
+                ///注：以下方法只能获得第一个选中的值，不能获得所有选中的值
+                //alert($("#my-select option:selected").attr("value"));
+            });
+            /*选择收件人>*/
+
+
+
+            function tz() {
+                window.location.href = "/TrainStart/Index";
+            }
+            $("#back").click(function () {
+                window.location.href = "/TrainStart/Index"
+            });
+            $("#refresh").click(function () {
+                window.location.reload();
+            });
+            function initDatatimepicker() {
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'yyyy-mm-dd hh:ii:ss',
+                    autoclose: true,
+                    todayBtn: true,
+                    startDate: "2015-02-14 10:00",
+                    minuteStep: 5,
+                });
+            }
+            $(document).ready(function () {
+                initDatatimepicker();
+            })
+        </script>
+
+        <script>
+
+            $.ajax({
+                url: '/TrainStart/BillTypeNumberSearch',
+                type: 'POST',
+                success: function (data) {
+
+                    $('#BillTypeNumber').bootstrapSelect({
+                        data: data,
+                        downBorder: true,
+                        multiple: false,//多选
+                        onSelect: function (val, rec) {//得到选择的值
+                            $.ajax({
+                                url: "./BillTypeNumber",
+                                type: 'POST',
+                                data: { number: val },
+                                success: (function (data) {
+                                    $("#BillNumber").val(data[0].billNumber);
+
+                                })
+                            });
+                        }
+                    });
+                }
+
+            });
+            var buildFilter = function (select, tr) {
+                select.multiselect({
+                    enableFiltering: true
+                });
+
+                if ($('.multiselect-search', tr).length !== 1) {
+                    return 'No search input present.';
+                }
+
+            }($('#test-build-filter-select'), $('#test-build-filter-tr'));
+
+            if (buildFilter) {
+                $('#test-build-filter-tr').removeClass('success').addClass('danger');
+                $('#test-build-filter-tr td').last().html(buildFilter);
+            }
+
+            // Test select.
+            var select = function (selectElement, tr) {
+                selectElement.multiselect();
+
+                // Check for no selected options and no active li's.
+                if ($('option:selected', selectElement).length > 0) {
+                    return 'There are already selected options (0 expected).';
+                }
+
+                if ($('ul.multiselect-container li.active', tr).length > 0) {
+                    return 'There are already active list items (0 expected).';
+                }
+
+                selectElement.multiselect('select', '1');
+
+                if ($('option:selected', selectElement).length !== 1) {
+                    return 'Just selected an option - option not marked selected.';
+                }
+
+                if ($('ul.multiselect-container li.active', tr).length !== 1) {
+                    return 'Just selected an option - list item not set active.';
+                }
+
+                if ($('option:selected', selectElement).first().val() !== '1') {
+                    return 'Wrong option selected.';
+                }
+
+                selectElement.multiselect('select', ['2', '3']);
+
+                if ($('option:selected', selectElement).length !== 3) {
+                    return 'Just selected two additional options - options not marked selected.';
+                }
+
+                if ($('ul.multiselect-container li.active', tr).length !== 3) {
+                    return 'Just selected two additional options - list items not set active.';
+                }
+
+                var second = $('option:selected', selectElement).get(1),
+                    third = $('option:selected', selectElement).get(2);
+
+                if (second === undefined || second.length === 0) {
+                    return 'Could not get second option.';
+                }
+
+                if (third === undefined || third.length === 0) {
+                    return 'Could not get third option.';
+                }
+
+                if ($(second).val() !== '2' || $(third).val() !== '3') {
+                    return 'Wrong options selected.';
+                }
+
+                return false;
+            }($('#test-select-select'), $('#test-select-tr'));
+
+            if (select) {
+                $('#test-select-tr').removeClass('success').addClass('danger');
+                $('#test-select-tr td').last().html(select);
+            }
+        </script>
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function () {
+                $('#example15').multiselect({
+                    buttonWidth: '400px'
+                });
+
+                //for (var i = 1; i <= 100; i++) {
+                //    $('#example29').append('<option value="' + i + '">' + i + '</option>');
+                //}
+
+                $('#example29').multiselect({
+                    includeSelectAllOption: true,
+                    enableFiltering: true,
+                    maxHeight: 150
+                });
+                $('#example28').multiselect({
+                    includeSelectAllOption: true,
+                    enableFiltering: true,
+                    maxHeight: 150
+                });
+            });
+        </script>

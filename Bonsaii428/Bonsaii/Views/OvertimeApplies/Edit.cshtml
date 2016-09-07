@@ -1,0 +1,158 @@
+﻿@model Bonsaii.Models.Checking_in.OvertimeApplies
+
+@{
+    ViewBag.Title = "编辑加班申请";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+@using (Html.BeginForm("Edit", "OvertimeApplies", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/OvertimeApplies/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">编辑加班申请</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StaffNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.StartDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon  glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                    </div>@Html.ValidationMessageFor(model => model.StartDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.EndDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon  glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                    </div>@Html.ValidationMessageFor(model => model.EndDateTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Hours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Hours, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/OvertimeApplies/Index');">取消</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        }
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script type="text/javascript">
+            function initDatatimepicker() {
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'yyyy-mm-dd hh:ii:ss',
+                    autoclose: true,
+                    todayBtn: true,
+                    startDate: "2015-02-14 10:00",
+                    minuteStep: 5,
+                });
+            }
+            $(document).ready(function () {
+                initDatatimepicker();
+            })
+        </script>
+
+        <script>
+            $.ajax({
+                url: '/StaffSkill/StaffSearch',
+                type: 'POST',
+                success: function (data) {
+                    $('#StaffNumber').bootstrapSelect({
+                        data: data,
+                        downBorder: true,
+                        multiple: false,//多选
+                        onSelect: function (val, rec) {//得到选择的值
+                            $.ajax({
+                                url: "./StaffNumber",
+                                type: 'POST',
+                                data: { number: val },
+                                success: (function (data) {
+                                    $("#Department").val(data[0].DepartmentName);
+                                }
+                                )
+                            })
+                        }
+                    })
+                }
+            });
+        </script>
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });</script>

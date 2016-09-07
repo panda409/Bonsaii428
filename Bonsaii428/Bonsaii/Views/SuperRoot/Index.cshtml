@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Bonsaii.Models.UserModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMainSuperRoot.cshtml";
+}
+<h2>欢迎使用盆景企业管理系统~</h2>
+@*<h2>待审核用户</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyFullName)
+        </th>
+        <th>d
+            @Html.DisplayNameFor(model => model.IsProved)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyFullName)
+        </td>
+        <td>
+            @if (item.IsProved == false)
+            {
+                @Html.Label("未审核")
+            }
+            @if (item.IsProved == true)
+            {
+                @Html.Label("已审核")
+            }
+                |
+            @if (item.IsProved == false)
+            {
+                @Html.ActionLink("通过审核", "Audit", new { id=item.CompanyId})
+            }
+            @if (item.IsProved == true)
+            { 
+                @Html.ActionLink("关闭企业数据库", "Close", new { id = item.CompanyId })
+            }
+                
+        </td>
+    </tr>
+}
+
+</table>*@

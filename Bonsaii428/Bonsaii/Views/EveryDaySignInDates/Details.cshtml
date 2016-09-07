@@ -1,0 +1,246 @@
+﻿@model Bonsaii.Models.Checking_in.EveryDaySignInDateViewModel
+
+@{
+    ViewBag.Title = "日考勤详情";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/DaysOffApplies/Edit/@Model.Id"><i class="fa fa-edit"></i>编辑</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/DaysOffApplies/Index"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+</div>
+
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Week)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Week)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WorksId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WorksId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WorkHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WorkHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WorkDays)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WorkDays)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NormalWorkOvertimeHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NormalWorkOvertimeHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WeekendWorkOvertimeHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WeekendWorkOvertimeHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VacateType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VacateType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VacateHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VacateHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HolidayHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HolidayHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalWorkOvertimeHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalWorkOvertimeHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalComeLateMinutes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalComeLateMinutes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalLeaveEarlyMinutes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalLeaveEarlyMinutes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AbsenteeismHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AbsenteeismHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AuditStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AuditStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffConfirm)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffConfirm)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsNightWork)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsNightWork)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WorkOvertimeHours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WorkOvertimeHours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OriginalSignInData)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OriginalSignInData)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsOnEvection)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsOnEvection)
+            </dd>
+        </dl>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>上班时间</th>
+                <th>打卡时间</th>
+                <th>迟到时间</th>
+                <th>下班时间</th>
+                <th>打卡时间</th>
+                <th>早退时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.SignInCard.Count; i += 2)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayName(Model.SignInCard[i].NeedWorkTime.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(Model.SignInCard[i].SignInTime.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(Model.SignInCard[i].ComeLateMinutes.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(Model.SignInCard[i + 1].NeedWorkTime.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(Model.SignInCard[i + 1].SignInTime.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(Model.SignInCard[i + 1].LeaveEarlyMinutes.ToString())
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("返回列表", "Index")
+    </p>

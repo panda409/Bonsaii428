@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "组织架构图表";
+}
+<script src="~/Content/zTree/jquery.ztree.core-3.5.js"></script>
+<link href="~/Content/zTree/metroStyle/metroStyle.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    var setting = {
+        async: {
+            enable: true,
+            url: "/ZTree/CDTree",
+            autoParam: ["id", "name"],
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: 0
+            }
+        },
+        view: {
+           // showIcon: false,
+            showLine: false
+        }
+    };
+
+    function filter(treeId, parentNode, childNodes) {
+        if (!childNodes) return null;
+        for (var i = 0, l = childNodes.length; i < l; i++) {
+            childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+        }
+        return childNodes;
+    }
+    //$(document).ready(function () { $.fn.zTree.init($("#tree"), setting); });
+
+    $(document).ready(function (e) {
+        $.ajax({
+            url: "/ZTree/CDTree",
+            type: "post",
+            data: { id: 0 },
+            success: function (data) {
+                //alert(data);
+                //   json = JSON.parse(data);
+                var tree = $("#treeDemo");
+                //alert(data);
+                $.fn.zTree.init(tree, setting, data);
+                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                treeObj.expandAll(true);
+            }
+        });
+    });
+ 
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>
+
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">组织结构</a></li>
+        <li><a href="/TrainStart/Index">@ViewBag.Title</a></li>
+    </ul>
+</div>
+<div class="card panel-box">
+    <h4 class="title">基本信息</h4>
+    <div class="card-body">
+        <div class="ztree  tree">
+            <ul id="treeDemo"></ul>
+        </div>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+

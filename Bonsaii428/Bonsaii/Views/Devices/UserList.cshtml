@@ -1,0 +1,118 @@
+﻿@model IEnumerable<BonsaiiModels.DeviceUser.DeviceUserViewModel>
+
+@{
+    ViewBag.Title = "硬件管理";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="/Devices/Index"> 硬件管理</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/Devices/WriteUserToDevice?DeviceId=@ViewBag.DeviceId"><i class="fa fa-plus"></i>批量写入员工信息</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="table-header">
+        <ul class="h-forms pull-left">
+            <li>每页显示</li>
+            <li><input type="text" class="form-control short"></li>
+            <li>条</li>
+        </ul>
+        <ul class="h-forms pull-right">
+            <li><input type="text" class="form-control"></li>
+            <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+        </ul>
+    </div><div class="main-table mt">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhysicalCardNumber)
+                    </th>
+
+                    @*<th>操作</th>*@
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index++;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhysicalCardNumber)
+                        </td>
+
+                        @*<td>
+                            <a href="/Devices/Details/@item.Id" class="icon fa fa-search bgc-blue-500"></a>
+                            <a href="/Devices/Edit/@item.Id" class="icon fa fa-edit bgc-blue-500"></a>
+                            <a href="/Devices/Delete/@item.Id" class="icon fa fa-trash bgc-red-500"></a>
+                        </td>*@
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="table-footer">
+            <nav class="pull-left">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            上一页
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">10</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            下一页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="pull-right pt">
+                <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

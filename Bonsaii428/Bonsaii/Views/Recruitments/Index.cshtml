@@ -1,0 +1,177 @@
+﻿@model IEnumerable<Bonsaii.Models.Recruitments>
+
+@{
+    ViewBag.Title = "招聘需求管理";
+}
+
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">系统设置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="add"><i class="fa fa-plus"></i>新增</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="#"><i class="fa fa-print"></i>输出</a>
+        </div>
+    </div>
+
+
+    <div class="card panel-box">
+        <div class="main-table mt">
+            <table class="table table-striped table-hover table-bordered display
+" id="example" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="checkbox-wrap">
+                            <input type="checkbox" id="item_0"><label for="item_0"></label>
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BillType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BillCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DepartmentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Position)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequiredNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        @*<th>
+                    @Html.DisplayNameFor(model => model.MaritalStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EducationBackground)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Major)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkExperience)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Skill)
+                </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+
+                       <th>
+                            @Html.DisplayNameFor(model => model.AuditStatusName)
+                        </th>
+                        @*<th>
+                    @Html.DisplayNameFor(model => model.Others)
+                </th>*@
+
+                        @*@foreach (var temp in @ViewBag.fieldNameList)
+                {
+                    <th>
+                        @Html.DisplayName((string)temp.Description)
+                    </th>
+
+                }*@
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                @{
+                    int index = 0;
+                }
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        index = index + 1;
+                        <tr>
+                            <td class="checkbox-wrap">
+                                <input type="checkbox" id="item_@index"><label for="item_@index"></label>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BillType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BillCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DepartmentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Position)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequiredNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            @*<td>
+                        @Html.DisplayFor(modelItem => item.MaritalStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EducationBackground)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Major)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkExperience)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Skill)
+                    </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                         <td>
+                                @Html.DisplayFor(modelItem => item.AuditStatusName)
+                            </td>
+                            @*<td>
+                        @Html.DisplayFor(modelItem => item.Others)
+                    </td>
+                    @foreach (var temp in @ViewBag.fieldValueList)
+                    {
+                        if (temp.Id == item.Id)
+                        {
+                            <td>
+                                @temp.Value
+                            </td>
+                        }
+                    }*@
+                            <td>
+                                <a href="/Recruitments/Details/@item.Id" class="icon fa fa-search bgc-blue-500" title="详情"></a>
+                                <a href="/Recruitments/Edit/@item.Id" class="icon fa fa-edit bgc-blue-500" title="编辑"></a>
+                                <a href="/Recruitments/Delete/@item.Id" class="icon fa fa-trash bgc-red-500" title="删除"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+</div>
+<script>
+    $("#add").click(function () {
+        window.location.href = "/Recruitments/Create"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>

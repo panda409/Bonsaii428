@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Test</h2>
+<form>
+    <input type="text" name="id" id="id"/>
+    <input type="text" name="name" id="name"/>
+    <input type="submit" name="ha" value="Submit"/>
+</form>
+<h1>倒计时：<span>10</span></h1>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var num = $("h1 span").first();
+        var i = 9;
+        var interval = setInterval(function () {
+            num.text(i);
+            i--;
+            console.log("当前数值：" + i);
+            if (i < 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var tmp = "Hello";
+        console.log("Test the console writing");
+    });
+</script>

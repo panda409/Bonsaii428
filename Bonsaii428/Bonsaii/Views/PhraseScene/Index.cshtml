@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Bonsaii.Models.PhraseScene>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SceneName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SceneName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SnS }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SnS }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SnS })
+        </td>
+    </tr>
+}
+
+</table>

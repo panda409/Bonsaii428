@@ -1,0 +1,200 @@
+﻿@model Bonsaii.Models.UserViewModels
+@{
+    ViewBag.Title = "创建新管理员";
+}
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/BillPropertyModels/Index">录入管理人员</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="back"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/User/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">新建管理员</h4>
+        <div class="form-horizontal">
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("UserName", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("UserName", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("UserName", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("Name", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("Password", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPawword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("ConfirmPawword", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("model.ConfirmPawword", "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="card panel-box">
+        <h4 class="title">权限分配</h4>
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("超级管理员", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <div class="checkbox-wrap" style="float:left;">
+                    <input type="checkbox" id="Admin" class="filld-in" name="Admin" value="Admin" />
+                    <label for="Admin"></label>
+                </div>
+
+                @*@Html.Label("人事管理员", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                <div class="checkbox-wrap" style="float:left">
+                    <input type="checkbox" id="StaffAdmin" class="filld-in" name="StaffAdmin" value="StaffAdmin" />
+                    <label for="StaffAdmin"></label>
+                </div>*@
+                @{
+                    int j = 0;
+                }
+                @foreach (var tmp in ViewBag.authGroup.Keys)
+                {
+                    j++;
+
+                    <label class="control-label col-md-2">@tmp</label>
+                    <div class="checkbox-wrap" style="float:left">
+                        <input type="checkbox" id="customAdmin_@j" class="filld-in branchbox customAdmin" auth="@ViewBag.authGroup[tmp]" />
+                        <label for="customAdmin_@j"></label>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>模块</th>
+                        <th>功能</th>
+                        <th>操作内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tmp in ViewBag.Roles)
+                {
+                    //foreach (var tmpUnit in tmp.Units)
+                    for (int i = 0; i < tmp.Units.Count; i++)
+                    {
+                        var tmpUnit = tmp.Units[i];
+                    <tr>
+                        @if (i == 0)
+                            {
+                    <td rowspan="@tmp.UnitCount" style="text-align:left">@tmp.ModuleName</td>
+                            }
+                        <td style ="text-align:left">
+                            <input type="checkbox" id="@tmpUnit.UnitId" class="filld-in branchbox" />
+                            <label for="@tmpUnit.UnitId">@tmpUnit.UnitName</label>
+                        </td>
+                        <td style="text-align:left">
+                            @foreach (var tmpAction in tmpUnit.Actions)
+                            {
+                                <input type="checkbox" id="@tmpAction.ActionName" class="filld-in branchbox" name="@tmpAction.ActionName" value="@tmpAction.ActionValue" />
+                                <label for="@tmpAction.ActionName">@tmpAction.Name</label>
+                            }
+                        </td>
+
+                    </tr>
+                    }
+                }
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/User/Index');">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+}
+<script>
+    $("#Admin").change(
+       function () {
+           if ($('#Admin').is(":checked")) {
+               $(":checkbox").prop('checked', true);
+           }
+           else
+               $(":checkbox").removeAttr("checked");
+       });
+    $('.branchbox').change(
+       function () {
+           if ($(this).is(":checked"))
+               $(this).parent().next().children().prop("checked", true);
+           else
+               $(this).parent().next().children().removeAttr("checked");
+       });
+
+    $("#back").click(function () {
+        window.location.href = "/User/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+
+    $(".customAdmin").change(
+        function () {
+            if ($(this).is(":checked"))
+                selectAuth($(this).attr("auth"), 1);
+            else
+                unselectAuth($(this).attr("auth"), 0);
+        });
+
+    //根据权限组拥有的权限值，并勾选相应的权限信息
+    var selectAuth = function (auth) {
+        var authGroup = auth.split(",");
+        for (var tmp in authGroup) {
+            var id = "#" + authGroup[tmp];
+            $(id).prop("checked", true);
+        }
+    }
+    //根据权限组拥有的权限值，取消勾选中的权限值
+    var unselectAuth = function (auth) {
+        var authGroup = auth.split(",");
+        for (var tmp in authGroup) {
+            var id = "#" + authGroup[tmp];
+            $(id).removeAttr("checked");
+        }
+    }
+</script>

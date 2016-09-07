@@ -1,0 +1,166 @@
+//个人
+@mixin box-position($left:50%,$top:50%,$x:-50%,$y:-50%,$position:absolute) {
+  position: $position;
+  left: $left;
+  top: $top;
+  @include translate($x,$y);
+}
+@mixin layout-position($top:0, $right:0, $bottom:0, $left:0, $position:absolute) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin box-middle($x:-50%,$y:-50%) {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  @include translate($x,$y);
+}
+@mixin right-middle($right:15px,$x:0,$y:-50%) {
+  position: absolute;
+  right: $right;
+  top: 50%;
+  @include transform(translate($x,$y)) ;
+}
+@mixin left-middle($left:15px,$x:0,$y:-50%) {
+  position: absolute;
+  left: $left;
+  top: 50%;
+  @include transform(translate($x,$y)) ;
+}
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin ellipsis-more($lines) {
+display: -webkit-box;
+overflow: hidden;
+text-overflow: ellipsis;
+word-wrap: break-word;
+white-space: normal!important;
+-webkit-line-clamp: $lines;
+-webkit-box-orient: vertical;
+}
+
+@mixin circle($size){
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  line-height: $size;
+  text-align: center;
+}
+
+@mixin square($size,$radius){
+  width: $size;
+  height: $size;
+  border-radius: $radius;
+  line-height: $size;
+  text-align: center;
+}
+@mixin full-box($top:0 ,$right:0,$bottom:0,$left:0){
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin box-border($border-color,$top,$right,$bottom,$left,$border-style:solid) {
+  border-style: $border-style;
+  border-color: $border-color;
+  border-width: $top $right $bottom $left;
+}
+@mixin center-box($w,$h){
+  width: $w;
+  height: $h;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -$w / 2;
+  margin-top: -$h / 2;
+}
+@mixin line-active($side,$line-color,$width) {
+   color: $line-color;
+   &:before{
+      content: "";
+      position: absolute;
+      
+      
+      background: $line-color;
+      @if ($side == left) {
+         top:0;
+         bottom:0;
+         left: 0;
+         width: $width;
+      };
+      @if ($side == right) {
+          top:0;
+          bottom:0;
+          right: 0;
+          width: $width;
+      };
+      @if ($side == bottom) {
+         bottom: -1px;
+         left: 0;
+         right: 0;
+         height: $width;
+      };
+   }
+}
+
+
+
+
+
+// screen
+//----------------------------------------------------- 
+
+@mixin screen($resMin, $resMax)
+{
+  @media screen and (min-width: $resMin) and (max-width: $resMax)
+  {
+    @content;
+  }
+}
+
+@mixin max-screen($res)
+{
+  @media screen and (max-width: $res)
+  {
+    @content;
+  }
+}
+
+@mixin min-screen($res)
+{
+  @media screen and (min-width: $res)
+  {
+    @content;
+  }
+}
+
+@mixin screen-height($resMin, $resMax)
+{
+  @media screen and (min-height: $resMin) and (max-height: $resMax)
+  {
+    @content;
+  }
+}
+
+@mixin max-screen-height($res)
+{
+  @media screen and (max-height: $res)
+  {
+    @content;
+  }
+}
+
+@mixin min-screen-height($res)
+{
+  @media screen and (min-height: $res)
+  {
+    @content;
+  }
+}

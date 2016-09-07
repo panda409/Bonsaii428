@@ -1,0 +1,42 @@
+﻿@model Bonsaii.Models.Holiday
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Holiday</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JieJiaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JieJiaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

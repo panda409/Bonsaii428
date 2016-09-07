@@ -1,0 +1,121 @@
+﻿@model Bonsaii.Models.BrandTemplateModels
+@{
+    
+    Layout = null; 
+    
+}
+
+@*<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>js打印</title>*@
+    <style>
+        .ccc {
+            text-align: center;
+            width: 100%;
+            line-height: 28px;
+        }
+
+        #print > div {
+            text-align: center;
+        }
+    </style>
+  <script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.PrintArea.js"></script>
+<link href="~/Scripts/UI/css/main.css" rel="stylesheet" />
+@*</head>
+<body>*@
+    <div id="print" style="width:500px;height:600px;border:1px solid;position:fixed;left:20px;top:20px;">
+        <div style="position:fixed;left:20px;top:20px;"><img id="backgroundimg" src="@Url.Action("GetImage", "Brand",new { Model.Id})" style="width:480px;height:580px;position:fixed;left:30px;top:30px;" /></div>
+        <div style="position:fixed;left:20px;top:20px;">
+
+            @foreach (var temp in @ViewBag.fieldValueList1)
+            {
+            <img src="@Url.Action("GetImageHead", "Brand",new {id=@temp.Value})" style="width:200px;height:200px;position:fixed;left:180px;top:180px;" />
+            }
+            @*<div style="position:fixed;left:180px;top:370px;width:100px;height:30px">*@
+            <div align="left" style="position:fixed;top:390px;left:210px;width:200px;">
+
+                @*姓名*@
+                @foreach (var temp in @ViewBag.fieldValueList3)
+                {
+                    <p style="font-size:12px;">@temp.Description: @temp.Value</p>
+                }
+
+                @*工号*@
+                @foreach (var temp in @ViewBag.fieldValueList1)
+                {
+                    <p style="font-size:12px;">@temp.Description: @temp.Value</p>
+                }
+
+                @*性别*@
+
+                @foreach (var temp in @ViewBag.fieldValueList2)
+                {
+                    <p style="font-size:12px;">@temp.Description: @temp.Value</p>
+                }
+              
+                @*部门*@
+                @foreach (var temp in @ViewBag.fieldValueList4)
+                {
+                    <p style="font-size:12px;">@temp.Description: @temp.Value</p>
+                }
+
+                @*职务*@
+                @foreach (var temp in @ViewBag.fieldValueList6)
+                {
+                    <p style="font-size:12px;">@temp.Description: @temp.Value</p>
+                }
+
+                @*工种*@
+                @foreach (var temp in @ViewBag.fieldValueList5)
+                {
+                    <p style="font-size:12px;">@temp.Description: @temp.Value</p>
+                }
+            
+
+                @*员工信息Value*@
+                @*@foreach (var temp in @ViewBag.List)
+            {
+
+                     <p style="font-size:6px;">@temp.</p>
+
+             }*@
+
+
+                @*<div style="text-align:center;width:100px;height:30px;"><p style="font-size:6px;">姓名:哆啦A梦</p></div>*@
+
+            </div>
+
+
+
+            @*</div>*@
+
+            </div>
+
+       
+    </div>
+  
+    <!--endprint1-->
+   @*<input id="btnPrint" type="button" value="打印" style="position:fixed;left:550px;top:550px;" />*@
+   <input id="btnPrint" type="button" value="打印" class="btn btn-primary" style="position:fixed;left:550px;top:550px;" />
+<button type="button" class="btn btn-outline" onclick="tz()" style="position:fixed;left:620px;top:550px;">取消</button>
+    <script>
+
+        $("#btnPrint").click(function () {
+            $("#print").printArea();
+        });
+        function tz() {
+            window.location.href = "/BrandTemplateModel/StaffIndex";
+        }
+    </script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+@*</body>
+</html>*@

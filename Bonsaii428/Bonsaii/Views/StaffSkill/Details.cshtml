@@ -1,0 +1,171 @@
+﻿@model Bonsaii.Models.StaffSkillViewModel
+
+@{
+    ViewBag.Title = "员工技能详情";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">员工技能管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="/StaffSkill/Edit/@Model.Id"><i class="fa fa-edit"></i>编辑</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/StaffSkill/Index"><i class="fa fa-backward"></i>返回</a>
+            @if (Model.AuditStatus == 6)
+            {
+                <a href="/StaffSkill/ManualAudit?id=@Model.Id&flag=1" class="icon fa fa-hand-o-up bgc-blue-500" title="审核通过"></a>
+                <a href="/StaffSkill/ManualAudit?id=@Model.Id&flag=0" class="icon fa fa-hand-stop-o bgc-red-500" title="审核不通过"></a>
+            }
+
+            @if (Model.AuditStatus == 6 || Model.AuditStatus == 0 || Model.AuditStatus == 4 || Model.AuditStatus == 7)
+            {
+                <a href="/StaffSkill/Submit?id=@Model.Id" class="icon fa fa-hand-o-up bgc-blue-500" title="重新提交"></a>
+            }
+        </div>
+    </div>
+
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    <div>
+        
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BillTypeNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillTypeNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BillTypeName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillTypeName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BillNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.SkillNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SkillNumber)
+                </dd>*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SkillName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SkillName)
+            </dd>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.SkillGrade)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SkillGrade)
+                </dd>*@
+            <dt>
+                @Html.DisplayNameFor(model => model.ValidDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ValidDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SkillRemark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SkillRemark)
+            </dd>
+
+            @foreach (var temp in @ViewBag.fieldValueList)
+            {
+                <dt>@Html.DisplayName((string)temp.Description)</dt>
+                <dd>@temp.Value</dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AuditStatusName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AuditStatusName)
+            </dd>
+            <dt>
+
+
+            </dt>
+
+            <dd>
+                <a href="/StaffSkill/Edit/@Model.Id"><input type="submit" value="编辑" class="btn btn-primary" /></a> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+            </dd>
+        </dl>
+    </div>
+    @*<p>
+ 
+    @if (Model.AuditStatus == 0)
+    {
+        var str = "|";
+        @str
+        <span class="glyphicon glyphicon-hand-up"></span>@Html.ActionLink("提交", "Submit", new { id = Model.Id })
+    }
+    @if (Model.AuditStatus == 6)
+    {
+        var str = "|";
+        @str
+        <span class="glyphicon glyphicon-hand-up"></span>@Html.ActionLink("通过", "ManualAudit", new { id = Model.Id, flag = 1 })
+        @str
+        <span class="glyphicon glyphicon-hand-down"></span>@Html.ActionLink("不通过", "ManualAudit", new { id = Model.Id, flag = 0 })
+    }
+</p>*@
+
+
+ </div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/StaffSkill/Index";
+    }
+</script>
+   

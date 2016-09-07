@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Bonsaii.Models.Works.Works>
+
+@{
+    ViewBag.Title = "基础排班管理";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="/Works/Index">基础排班管理</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/Works/Create"><i class="fa fa-plus"></i>新增</a>    
+        <a href="#"id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="main-table mt">
+        <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsAutoWork)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AutoWorkHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AutoWorkExtraToOvertime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsOverDays)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalWorkHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalOvertimeHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LatePunishment)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Remark)
+                    </th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @if (item.IsAutoWork)
+                            {
+                                <input type="checkbox" id="IA_@index" disabled="disabled" checked="checked">
+                                <label for="IA_@index"></label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="IA_@index" disabled="disabled">
+                                <label for="IA_@index"></label>
+
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AutoWorkHours)
+                        </td>
+                        <td>
+                            @if (item.AutoWorkExtraToOvertime)
+                            {
+                                <input type="checkbox" id="AW_@index" disabled="disabled" checked="checked">
+                                <label for="AW_@index"></label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="AW_@index" disabled="disabled">
+                                <label for="AW_@index"></label>
+
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsOverDays)
+                            {
+                                <input type="checkbox" id="IsO_@index" disabled="disabled" checked="checked">
+                                <label for="IsO_@index"></label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="IsO_@index" disabled="disabled">
+                                <label for="IsO_@index"></label>
+
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalWorkHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalOvertimeHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LatePunishment)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        </td>
+                        <td>
+                            <a href="/Works/Edit/@item.Id" title="编辑" class="icon fa fa-edit bgc-blue-500"></a>
+                            @if (!item.IsAutoWork)
+                            {
+                                <a href="/Works/WorkTimesIndex/@item.Id" title="编辑排班时间" class="icon fa fa-edit bgc-blue-500"></a>
+                            }
+                            <a href="/Works/Delete/@item.Id" class="icon fa fa-trash bgc-red-500"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script>
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });</script>

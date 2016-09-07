@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Bonsaii.Models.UserModels>
+@{
+    ViewBag.Title = "录入管理人员";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">系统设置</a></li>
+        <li><a href="#">录入管理人员</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/User/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+
+<div class="card p ">
+    @*<div class="table-header">
+        <ul class="h-forms pull-left">
+            <li>每页显示</li>
+            <li><input type="text" class="form-control short"></li>
+            <li>条</li>
+        </ul>
+        <ul class="h-forms pull-right">
+            <li><input type="text" class="form-control"></li>
+            <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+        </ul>
+    </div>*@
+    <div class="main-table mt">
+
+        <table class="table" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th class="sorting_disabled">
+                        序号
+                    </th>
+                    <th>
+                        管理员
+                    </th>
+                    <th>
+                        名称
+                    </th>
+
+                    <th>
+                        超级管理员
+                    </th>
+                    <th>
+                        用户状态
+                    </th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap">
+                        <input type="checkbox" id="item_@index">
+                        <label for="item_@index"></label>
+                        </td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @if (item.IsRoot)
+                            {
+                                <input type="checkbox" id="Root_@index" disabled="disabled" checked="checked"><label for="Root_@index"></label>
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="Root_@index" disabled="disabled"><label for="Root_@index"></label>
+
+                            }                        
+                        </td>
+                  
+                            @if (item.IsAvailable)
+                            {
+                                <td>启用</td>
+                            }
+                            @if (!item.IsAvailable)
+                            {
+                                <td>禁用</td>
+                            }
+                     
+                        <td>
+                            @if (item.IsAvailable && !item.IsRoot)
+                            {
+                                <a href="/User/SwitchIsAvailable?id=@item.Id" class="icon fa fa-remove bgc-blue-500" title="禁用管理员"></a>
+                            }
+                            @if (!item.IsAvailable && !item.IsRoot)
+                            {
+                                <a href="/User/SwitchIsAvailable?id=@item.Id" class="icon fa fa-check bgc-blue-500" title="启用管理员"></a>
+                            }
+                            <a href="/User/Edit?id=@item.Id" class="icon fa fa-edit bgc-blue-500" title="编辑"></a>
+                            @if(!item.IsRoot)
+                            {
+                            <a href="/User/Delete?id=@item.Id" class="icon fa fa-trash bgc-red-500" title="删除"></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @{
+        int num = Model.Count();
+
+    }
+
+</div>
+<script>
+
+    //$("#upchevron").click(function () {
+    //    if ($("#upspan").attr("class") == "glyphicon glyphicon-chevron-up") {
+    //        $('#upspan').prop('class', "glyphicon glyphicon-chevron-down");
+    //    }
+    //    else {
+    //        $('#upspan').prop('class', "glyphicon glyphicon-chevron-up");
+    //    }
+    //});
+    $("#add").click(function () {
+        window.location.href = "/User/Create"
+    });
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    $("#rootcheckbox").change(
+        function () {
+            if ($('#rootcheckbox').is(":checked")) {
+                $('.brancheckbox').prop('checked', true);
+            }
+
+            else
+                // $('.brancheckbox').attr("checked",false);//
+                $('.brancheckbox').removeAttr("checked");
+        }
+        );
+
+    $(".Id").click(function () {
+        attr("yes");
+
+    }
+    );
+
+
+</script>

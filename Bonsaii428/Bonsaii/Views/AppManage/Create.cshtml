@@ -1,0 +1,108 @@
+﻿@model BonsaiiModels.BindCode
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>BindCode</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyId, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CompanyId)
+                    @Html.ValidationMessageFor(model => model.CompanyId)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConnectionString, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConnectionString)
+                    @Html.ValidationMessageFor(model => model.ConnectionString)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffNumber, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StaffNumber)
+                    @Html.ValidationMessageFor(model => model.StaffNumber)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.RealName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RealName)
+                    @Html.ValidationMessageFor(model => model.RealName)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.BindingCode, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BindingCode)
+                    @Html.ValidationMessageFor(model => model.BindingCode)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Phone)
+                    @Html.ValidationMessageFor(model => model.Phone)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.BindTag, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BindTag)
+                    @Html.ValidationMessageFor(model => model.BindTag)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastTime, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastTime)
+                    @Html.ValidationMessageFor(model => model.LastTime)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsAvail, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IsAvail)
+                    @Html.ValidationMessageFor(model => model.IsAvail)
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

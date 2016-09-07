@@ -1,0 +1,129 @@
+﻿@model IEnumerable<Bonsaii.Models.DataSubscriptions>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BillType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessageTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessageHead)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessageBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessageTail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RemindDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CirculateMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SQL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSQLLegal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FieldName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessageTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessageHead)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessageBody)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessageTail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsMessage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RemindDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CirculateMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SQL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSQLLegal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem=>item.FieldName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem=>item.IsAvailable)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

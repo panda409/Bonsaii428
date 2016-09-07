@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BonsaiiModels.Push>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMainSuperRoot.cshtml";
+}
+
+<h2>主页</h2>
+
+<p>
+    @Html.ActionLink("推送", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Target)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TagTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonName)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Target)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TagTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecordPerson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonName)
+        </td>
+       
+        <td>
+            @Html.ActionLink("查看", "Look", new { id = item.Id }) |
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+            @Html.ActionLink("删除", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

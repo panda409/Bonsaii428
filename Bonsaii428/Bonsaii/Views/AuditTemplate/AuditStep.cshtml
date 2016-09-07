@@ -1,0 +1,134 @@
+﻿@model Bonsaii.Models.Audit.AuditStep
+
+@{
+    ViewBag.Title = "创建审批流程";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+@using (Html.BeginForm("AuditStepCreate", "AuditTemplate", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="AuditTemplateId" id="AuditTemplateId" value="@ViewBag.TemplateId" />
+
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">签核单据配置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="back"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditTemplate/AuditStepIndex?id=@ViewBag.TemplateId"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group ">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.Name, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+       @*<div class="form-group">
+                @Html.LabelFor(model => model.ApprovedToSId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.ApprovedToSId, (IEnumerable<SelectListItem>)ViewBag.ApprovedToSIdList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ApprovedToSId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NotApprovedToSId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.NotApprovedToSId, (IEnumerable<SelectListItem>)ViewBag.NotApprovedToSIdList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NotApprovedToSId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Days, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @class = "form-control", @dataprovide = "typehead" } })
+                    @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Approver, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("tmp", new { htmlAttributes = new { @class = "form-control", @dataprovide = "typeahead" } })
+                    <button type="button" name="AddApprover" id="AddApprover" class="btn btn-primary">添加</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("已选择审核人员", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @*   <input type="text" readonly="readonly" id="Approver" name="Approver" class="form-control" />*@
+                 @*   @Html.EditorFor(model => model.Approver, new { htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(model => model.Approver, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script>
+            $('#tmp').typeahead
+            ({
+                source: function (query, process) {
+                    $.ajax({
+                        url: '/AuditTemplate/GetApprovers',
+                        type: 'POST',
+                        data: { number: query },
+                        success: function (data) {
+                            if (data.success == true) {
+                                process(data.data);
+                            }
+                        }
+                    })
+                },
+            });
+
+            $("#AddApprover").click(function () {
+                var approver = $("#Approver").val() + $("#tmp").val() + ";";
+                $("#Approver").val(approver);
+                $("#tmp").val("");
+            });
+            $("#refresh").click(function () {
+                window.location.reload();
+            });
+            function tz() {
+                window.location.href = "/AuditTemplate/AuditStepIndex" + "/@ViewBag.TemplateId";
+            }
+        </script>

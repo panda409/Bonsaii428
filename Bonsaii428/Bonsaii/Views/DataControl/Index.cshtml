@@ -1,0 +1,186 @@
+﻿@model IEnumerable<Bonsaii.Models.DataControl>
+@{
+    ViewBag.Title = "设置单据性质";
+
+}
+
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">系统设置</a></li>
+        <li><a href="#">数据对照表</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/DataControl/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+
+
+
+<div class="card p ">
+    <div class="table-header">
+        <ul class="h-forms pull-left">
+            <li>每页显示</li>
+            <li><input type="text" class="form-control short"></li>
+            <li>条</li>
+        </ul>
+        <ul class="h-forms pull-right">
+            <li><input type="text" class="form-control"></li>
+            <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+        </ul>
+    </div>
+    <div class="main-table mt">
+
+        <table class="table" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th class="sorting_disabled">
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TableName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TableColumn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td aria-label=@item.TableNameId>
+                            @Html.DisplayFor(modelItem => item.TableName.TableDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TableColumn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a href="/DataControl/Details?id=@item.Id" class="icon fa fa-search bgc-blue-500" title="详情"></a>
+                            <a href="/DataControl/Edit?id=@item.Id" class="icon fa fa-edit bgc-blue-500" title="编辑"></a>
+                            <a href="/DataControl/Delete?id=@item.Id" class="icon fa fa-trash bgc-red-500" title="删除"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="table-footer">
+            <nav class="pull-left">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            上一页
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">10</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            下一页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="pull-right pt">
+                <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#table").rowspan(0);
+    });
+    jQuery.fn.rowspan = function (colIdx) {
+        /// <summary>合并td标签的aria-label属性值相同的单元格</summary>
+        /// <param name="colIdx" type="Number">列索引，从0开始</param>
+        return this.each(function () {
+            var that;
+            $('tr', this).each(function (row) {
+                $('td:eq(' + colIdx + ')', this).each(function (col) {
+                    if (that != null && $(this).attr("aria-label") == $(that).attr("aria-label")) {
+                        rowspan = $(that).attr("rowspan");
+                        if (rowspan == undefined) {
+                            $(that).attr("rowspan", 1);
+                            rowspan = $(that).attr("rowspan");
+                        }
+                        rowspan = Number(rowspan) + 1;
+                        $(that).attr("rowspan", rowspan);
+                        $(this).hide();
+                    } else {
+                        that = this;
+                    }
+                });
+            });
+        });
+    }
+
+    $("#add").click(function () {
+        window.location.href = "/StaffParams/Create"
+    });
+
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+
+    $("#rootcheckbox").change(
+        function () {
+            if ($('#rootcheckbox').is(":checked")) {
+                $('.brancheckbox').prop('checked', true);
+            }
+
+            else
+                // $('.brancheckbox').attr("checked",false);//
+                $('.brancheckbox').removeAttr("checked");
+        }
+        );
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "order": [[3, "desc"]],
+            "language": {
+                "lengthMenu": "每页显示 _MENU_ 记录",
+                "zeroRecords": "没有找到记录",
+                "info": "显示第_PAGE_页 共 _PAGES_页",
+                "infoEmpty": "无可用记录",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search": "搜索",
+                "paginate": {
+                    "first": "首页",
+                    "last": "尾页",
+                    "next": "下一页",
+                    "previous": "上一页"
+                },
+            }
+        });
+    });
+
+
+
+
+</script>

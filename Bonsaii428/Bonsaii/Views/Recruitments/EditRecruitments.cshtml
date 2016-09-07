@@ -1,0 +1,146 @@
+﻿@model Bonsaii.Models.Recruitments
+@{
+    ViewBag.Title = "发布招聘信息";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<script src="~/Scripts/utf8-net/ueditor.config.js"></script>
+<script src="~/Scripts/utf8-net/ueditor.all.js"></script>
+@using (Html.BeginForm("SaveRecruitments", "Recruitments", new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">组织结构</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="longforSave"><i class="fa fa-edit"></i>发布</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/Recruitments/PublishRecruitments"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BillType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BillCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BillCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DepartmentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DepartmentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Position)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Position)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.RequiredNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RequiredNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Age)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Age)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MaritalStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MaritalStatus)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EducationBackground)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EducationBackground)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Major)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Major)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.WorkExperience)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.WorkExperience)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Skill)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Skill)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Others)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Others)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+            </dl>
+        </div>
+
+        @*<textarea id="recruit" name="recruit" value="@Model.PublishVersion"></textarea>*@
+        <div style="width:80%">
+            @Html.HiddenFor(model => model.Id)
+
+            <script id="container" name="content" type="text/plain">
+            </script>
+            <!-- 配置文件 -->
+            <!-- 实例化编辑器 -->
+            <script type="text/javascript">
+                var ue = UE.getEditor('container', {
+                    initialFrameHeight: 640
+                });
+            </script>
+
+            <input type="submit" value="发布" class="btn btn-primary" style="margin-top:30px;margin-left:50%;" />
+            <button type="button" class="btn btn-outline" style="margin-top:30px;" onclick="tz()">取消</button>
+        </div>
+
+    </div>}
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/Recruitments/PublishRecruitments";
+    }
+</script>

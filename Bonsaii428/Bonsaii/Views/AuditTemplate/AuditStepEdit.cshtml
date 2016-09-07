@@ -1,0 +1,255 @@
+﻿@model Bonsaii.Models.Audit.AuditStep
+
+@{
+    ViewBag.Title = "编辑审批步骤";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<link href="~/Content/css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.multi-select.js" type="text/javascript"></script>
+@using (Html.BeginForm("AuditStepEdit", "AuditTemplate", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    <input type="hidden" name="AuditTemplateId" id="AuditTemplateId" value="@ViewBag.TemplateId" />
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">电子签核</a></li>
+            <li><a href="#">签核单据配置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AuditTemplate/AuditStepIndex?id=@ViewBag.TemplateId"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">编辑审批步骤</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.SId)
+            @Html.HiddenFor(model=>model.TId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+       
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApprovedToSId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.ApprovedToSId, (IEnumerable<SelectListItem>)ViewBag.ListNext, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ApprovedToSId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NotApprovedToSId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.NotApprovedToSId, (IEnumerable<SelectListItem>)ViewBag.ListLast, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NotApprovedToSId, "", new { @class = "text-danger" })
+                </div>
+                <label>步骤</label>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Days, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <!--触发模态框-->
+                <a href="javascript:void(0)" title="点击添加收件人" data-toggle="modal" data-target="#indentifier">
+                    @Html.LabelFor(model => model.Approver, htmlAttributes: new { @class = "control-label col-md-2", @style = "color:#2196F3;cursor:pointer" })
+                </a>
+                <div class="col-md-8" data-toggle="modal" data-target="#indentifier" href="javascript:void(0)">
+                    @Html.TextAreaFor(model => model.Approver, 4, 120, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Approver, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!--模态框-->
+            <div class="modal fade" id="indentifier" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                添加收件人
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <button id='select-all' class="btn btn-primary">选择全部</button>
+                            <button id='deselect-all' class="btn btn-default">移除全部</button>
+                            <p><span>所有联系人</span><span style="padding-left: 45%">收件人</span></p>
+
+                            <select id='my-select' multiple='multiple'>
+                                @{
+    foreach (var temp in @ViewBag.Group)
+    {
+
+        foreach (var s in @ViewBag.Count)
+        {
+            if (s.Key == temp.department)
+            {
+                //@s.Value
+
+
+                foreach (var temp1 in @ViewBag.Receiver)
+                {
+                    if (temp.department == temp1.department)
+                    {
+                        var lab = @temp.name + "（" + s.Value + "）";
+                        <optgroup label="@lab">
+                            <option value="@temp1.value">@temp1.text</option>
+                        </optgroup>
+                    }
+                }
+
+            }
+        }
+    }
+                                }
+                            </select>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modal_select_ok" data-dismiss="modal">
+                                确定
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <script>
+                $("#indentifier").modal(options);
+                $('#indentifier').modal('show').css({
+                    width: 'auto',
+                    'margin-left': function () {
+                        return -($(this).width() / 2);
+                    }
+                });
+                //点击确定按钮，获取到选中的值，把它们放到input中
+
+            </script>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Approver, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Editor("tmp", new { htmlAttributes = new { @class = "form-control", @dataprovide = "typeahead" } })
+                    <button type="button" name="AddApprover" id="AddApprover" class="btn btn-primary">添加</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("已选择审核人员", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Approver, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Approver, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Approver, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.Approver, (IEnumerable<SelectListItem>)ViewBag.List2, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Approver, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/AuditTemplate/AuditStepIndex?id=@ViewBag.TemplateId";
+    }
+    //$('#tmp').typeahead
+    //     ({
+    //         source: function (query, process) {
+    //             $.ajax({
+    //                 url: '/AuditTemplate/GetApprovers',
+    //                 type: 'POST',
+    //                 data: { number: query },
+    //                 success: function (data) {
+    //                     if (data.success == true) {
+    //                         process(data.data);
+    //                     }
+    //                 }
+    //             })
+    //         },
+    //     });
+
+    //$("#AddApprover").click(function () {
+    //    var approver = $("#Approver").val() + $("#tmp").val() + ";";
+    //    $("#Approver").val(approver);
+    //    $("#tmp").val("");
+    //});
+
+    /*<选择收件人*/
+    $('#my-select').multiSelect({ selectableOptgroup: true });
+    $('#select-all').click(function () {
+        $('#my-select').multiSelect('select_all');
+        return false;
+    });
+    $('#deselect-all').click(function () {
+        $('#my-select').multiSelect('deselect_all');
+        return false;
+    });
+    $("#modal_select_ok").click(function () {
+        //获得所有选中的值
+        var selectedValues = [];
+        $("#my-select :selected").each(function () {
+            selectedValues.push($(this).val());
+        });
+        // alert(selectedValues);
+        //把它们放到页面的文本框中
+        $("#Approver").val(selectedValues);
+        ///注：以下方法只能获得第一个选中的值，不能获得所有选中的值
+        //alert($("#my-select option:selected").attr("value"));
+    });
+    /*选择收件人>*/
+</script>

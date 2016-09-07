@@ -1,0 +1,35 @@
+﻿<html>
+
+<head>
+    <title>Test</title>
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.2.js"></script>
+</head>
+<body>
+    <h1>Test Ajax</h1>
+    <form>
+        <input type="text" name="PhoneNumber" id="PhoneNumber" />
+        <button id="code" value="Get Message"/>Get Message
+    </form>
+
+    <script>
+    $('#code').click(function () {
+        var phone = $('#PhoneNumber').val();
+        $.ajax({
+            url: '/Test/Test',
+            data: JSON.stringify({ PhoneNumber: phone }),
+            type: 'POST',
+            success: function (data) {
+                alert("success");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus);
+            },
+            //    dataType: 'json'
+        });
+    });
+    </script>
+</body>
+
+</html>

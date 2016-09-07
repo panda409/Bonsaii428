@@ -1,0 +1,142 @@
+﻿@model IEnumerable<BonsaiiModels.MenuViewModel>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>高纬度科技</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="~/Scripts/UI/css/main.css" rel="stylesheet" />
+</head>
+<body >
+    <div class="body-wrap">
+        <header class="navbar navbar-static-top" id="top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">
+                        <img src="~/Scripts/UI/images/logo.png" />
+                    </a>
+                    <!-- <h2 class="title">标题</h2> -->
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/Menu/Index" class="icon-item" title="功能模块设置"  target="content">
+                            <i class="mdi mdi-plus"></i>
+                            
+                        </a>
+                    </li>
+
+                    @*<li>
+                        <a href="#" class="icon-item">
+                            <i class="mdi mdi-bell"></i>
+                            <span class="badge bgc-red-500">24</span>
+                        </a>
+                    </li>*@
+                    <li>
+                        <a href="/SystemMessage/Index" target="content" class="icon-item">
+                            <i class="mdi mdi-bell"></i>
+                            @if (@ViewBag.Mess != 0)
+                            {
+                                <span class="badge bgc-red-500">@ViewBag.Mess</span>
+                            }
+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Home/SystemSetting" target="content" class="icon-item">
+                            <i class="mdi mdi-settings"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Account/ForgotPassword" target="_self" class="icon-item" title="修改密码 ">
+                            <i class="mdi mdi-account-box"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Account/LogOff" class="icon-item" title="退出系统">
+                            <i class="mdi mdi-power"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="item-avatar">
+                            <img src="~/Scripts/UI/images/avatar.png" alt="" id="pic" />
+                            <span class="text">超级管理员</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div class="main-wrap">
+            <div class="sider">
+                <div class="scroll-wrap">
+                    <ul class="nav left-nav">
+
+                         @foreach (var item in Model)
+                         {
+                          <li>
+                              <a><i class="@item.ParentClass"></i>@item.ParentName</a>
+                              <ul class="nav sub">
+                                  @foreach (var tmp in item.MenuNodes)
+                                  {
+                                      <li><a class="link" href="@tmp.Href" target="content">@tmp.Name</a></li>
+                                  }
+                              </ul>
+                          </li>   
+                         }
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <!-- 主内容开始 -->
+            
+                <!-- 主内容结束 -->
+                <!--测试iframe-->
+                <iframe scrolling="no" frameborder="0"
+                        style="width:100%;border:none;margin-left:0px;margin-top:0px;overflow:hidden;"
+                        name="content" id="content"
+                        src="/EChart/EChart"
+                        onload="this.height=800"></iframe>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+    <script src="~/Scripts/UI/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Scripts/UI/lib/scroll-bar/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/UI/js/app.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/longfor.js"></script>
+
+</body>
+
+</html>
+<script>
+    
+  
+ 
+    $("#settingBG").click(function () {
+        window.location.href = "/Home/SettingBG";
+    });
+    function reinitIframe() {
+        var iframe = document.getElementById("content");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+            var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+            var height = Math.max(bHeight, dHeight);
+            iframe.height = height;
+        } catch (ex) { }
+    }
+    window.setInterval("reinitIframe()", 200);
+
+    $("#pic").css("cursor", "pointer").click(function () {
+        window.location.href = "/Account/ForgotPassword";
+    });
+
+</script>
+@*<div class="footer-w">
+    <span>©2015 高维度科技有限公司 备案号:粤ICP备08006149号</span>
+
+    <span class="tel-d">客服电话：400-000-0000</span>
+</div>*@

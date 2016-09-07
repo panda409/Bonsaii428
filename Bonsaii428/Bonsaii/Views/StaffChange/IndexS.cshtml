@@ -1,0 +1,263 @@
+﻿@model IEnumerable<Bonsaii.Models.StaffChange>
+
+@{
+    ViewBag.Title = "人事变更管理";
+}
+
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">人事管理</a></li>
+        <li><a href="#">@ViewBag.Title</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="/StaffChange/Create"><i class="fa fa-plus"></i>新增</a>
+        <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+
+    </div>
+</div>
+
+
+<div class="card p">
+
+    <div class="table-header">
+        <ul class="h-forms pull-left">
+            <li>每页显示</li>
+            <li><input type="text" class="form-control short"></li>
+            <li>条</li>
+        </ul>
+        <ul class="h-forms pull-right">
+            <li><input type="text" class="form-control"></li>
+            <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+        </ul>
+    </div>
+
+    <div class="main-table mt">
+
+        <table class="table " id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th class="sorting_disabled">
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillTypeNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillTypeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BillNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Position)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EffectiveDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuditStatusName)
+                    </th>
+            <th>操作</th>
+            </tr>
+            </thead>
+
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillTypeNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BillNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EffectiveDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuditStatusName)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("查看", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "Delete", new { id = item.Id })|
+                            @Html.ActionLink("查看变更信息", "Look", new { staffChangeId = item.Id, id = item.StaffNumber })*@
+                            @*@Html.ActionLink("查看变更信息", "Look", new { staffChangeId = item.Id, id = item.StaffNumber })*@
+                            @*<a href="/StaffChange/Details/@item.Id" class="icon fa fa-search bgc-blue-500"></a>*@
+
+                            <a href="/StaffChange/Look?id=@item.StaffNumber&staffChangeId=@item.Id" class="icon fa fa-list-ol bgc-blue-500" title="变更信息"></a>
+                            <a href="/StaffChange/Edit/@item.Id" class="icon fa fa-edit bgc-blue-500" title="编辑"></a>
+                            <a href="/StaffChange/Details/@item.Id" class="icon fa fa-search bgc-blue-500" title="详情"></a>
+                            <a href="/StaffChange/Delete/@item.Id" class="icon fa fa-trash bgc-red-500" title="删除"></a>
+                        
+                            @*<span class="icon fa fa-search bgc-blue-500"></span>@Html.ActionLink("查看", "Details", new { id = item.Id }) |
+                                <span class="icon fa fa-edit bgc-blue-500"></span>@Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                                <span class="icon fa fa-trash bgc-red-500"></span>@Html.ActionLink("删除", "Delete", new { id = item.Id })*@
+                            @*@if (item.AuditStatus == 0)*@
+                            @*@*{*@
+                                @*<a href="/StaffChange/Submit/@item.Id" class="icon fa fa-hand-o-up bgc-blue-500"></a>*@
+                                 @*<span class="icon fa fa-hand-o-up bgc-blue-500"></span>@Html.ActionLink("提交", "Submit", new { id = item.Id })*@
+                            @*}*@
+                            @*@if (item.AuditStatus == 6)
+                            {
+                                var str = "|";
+                                @str
+                                <span class="glyphicon glyphicon-hand-up"></span>@Html.ActionLink("通过", "ManualAudit", new { id = item.Id, flag = 1 })
+
+                                @str
+
+                                <
+                                <span class="glyphicon glyphicon-hand-down"></span>@Html.ActionLink("不通过", "ManualAudit", new { id = item.Id, flag = 0 })
+
+                            }*@
+
+                        </td>
+                    </tr>
+                }
+
+                @{
+                    int num = Model.Count();
+
+                }
+            </tbody>
+        </table>
+
+
+        <div class="table-footer">
+            <nav class="pull-left">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            上一页
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">10</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            下一页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="pull-right pt">
+                <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<script>
+
+        //$("#upchevron").click(function () {
+        //    if ($("#upspan").attr("class") == "glyphicon glyphicon-chevron-up") {
+        //        $('#upspan').prop('class', "glyphicon glyphicon-chevron-down");
+        //    }
+        //    else {
+        //        $('#upspan').prop('class', "glyphicon glyphicon-chevron-up");
+        //    }
+        //});
+        $("#add").click(function () {
+        window.location.href = "/StaffChange/Create"
+        });
+
+    $("#refresh").click(function(){
+    window.location.reload();
+    });
+
+    $("#rootcheckbox").change(
+        function () {
+            if ($('#rootcheckbox').is(":checked")) {
+                $('.brancheckbox').prop('checked', true);
+            }
+
+            else
+                // $('.brancheckbox').attr("checked",false);//
+                $('.brancheckbox').removeAttr("checked");
+        }
+        );
+
+    $(".Id").click(function () {
+        attr("yes");
+
+    }
+    );
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "order": [[3, "desc"]],
+            "language": {
+                "lengthMenu": "每页显示 _MENU_ 记录",
+                "zeroRecords": "没有找到记录",
+                "info": "显示第_PAGE_页 共 _PAGES_页",
+                "infoEmpty": "无可用记录",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search": "搜索",
+                "paginate": {
+                    "first": "首页",
+                    "last": "尾页",
+                    "next": "下一页",
+                    "previous": "上一页"
+                },
+            }
+        });
+    });
+
+</script>
+

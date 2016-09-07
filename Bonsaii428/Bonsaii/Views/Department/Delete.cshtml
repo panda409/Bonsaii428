@@ -1,0 +1,150 @@
+﻿@model Bonsaii.Models.DepartmentViewModel
+
+@{
+    ViewBag.Title = "删除部门";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@using (Html.BeginForm("Delete", "Department", FormMethod.Post, new { @id = " longfor_form" }))
+{ 
+     @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">组织结构</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/Department/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+    @*<h2>删除</h2>
+
+        <h3>你确定删除?</h3>*@
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+        @{Html.EnableClientValidation(true);}
+        @{Html.EnableUnobtrusiveJavaScript();}
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+            
+                @Html.HiddenFor(model => model.DepartmentId)
+                @*<dt>
+                    @Html.DisplayNameFor(model => model.DepartmentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DepartmentId)
+                </dd>*@
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DepartmentAbbr)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DepartmentAbbr)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentDepartmentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ParentDepartmentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffSize)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StaffSize)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DepartmentOrder)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DepartmentOrder)
+                </dd>
+                @foreach (var temp in @ViewBag.List)
+                {
+                    <dt>
+                        @Html.DisplayName((string)temp.Description)
+                    </dt>
+
+                    <dd>
+                        @temp.Value
+                    </dd>
+                }
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+            </dl>
+            <script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/Department/Index";
+    }
+            </script>
+
+            @if (ViewBag.stopDelete == 1)
+            {
+                <script>
+
+                    $("#delete").click(function () {
+
+                        alert("该部门不能被删除！");
+                        return false;
+
+                    });
+                    $("#delete1").click(function () {
+
+                        alert("该部门不能被删除！");
+                        return false;
+
+                    });
+                </script>
+            }
+            else
+            {
+                <script>
+
+                    $("#delete").click(function () {
+
+                        $("#longfor_form").submit();
+
+                    });
+                    $("#delete1").click(function () {
+
+                        $("#longfor_form").submit();
+
+                    });
+                </script>
+            }
+
+        </div>
+
+
+    </div> }
+
+
+

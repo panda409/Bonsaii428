@@ -1,0 +1,72 @@
+﻿@model Bonsaii.Models.BrandTemplateReserve
+
+@{
+    ViewBag.Title = "创建模板字段";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+
+@using (Html.BeginForm("BTemplateReserveCreate", "BrandTemplateModel", FormMethod.Post, new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="BrandTemplateId" id="BrandTemplateId" value="@ViewBag.TemplateId" />
+    <div class="form-horizontal">
+        <div class="content">
+            <!-- 主内容开始 -->
+            <div class="control-bar card bor-b">
+                <ul class="breadcrumb pull-left pv">
+                    <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                    <li><a href="#">组织结构</a></li>
+                    <li><a href="#">@ViewBag.Title</a></li>
+                </ul>
+                <div class="h-list pull-right pv">
+                    <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                    <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                    <a href="/BrandTemplateModel/BTemplateReserveIndex/@ViewBag.TemplateId"><i class="fa fa-backward"></i>返回</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FieldId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(model => model.FieldId, (IEnumerable<SelectListItem>)ViewBag.List2, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FieldId, "", new { @class = "text-danger", @id = "fieldId" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-3">
+                        <input type="submit" value="保存" id="submitForm" class="btn btn-primary" />
+                        <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+
+
+
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script type="text/javascript">
+            function tz() {
+                window.location.href = "/BrandTemplateModel/BTemplateReserveIndex" + "/@ViewBag.TemplateId";
+            }
+            $("#back").click(function () {
+                window.location.href = "/BrandTemplateModel/BTemplateReserveIndex"
+            });
+            $("#refresh").click(function () {
+                window.location.reload();
+            });
+
+         
+
+        </script>

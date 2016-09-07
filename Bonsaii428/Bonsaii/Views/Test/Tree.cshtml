@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Tree";
+}
+
+
+
+
+
+@Scripts.Render("~/bundles/treeview_js")
+@Styles.Render("~/bundles/treeview_css")
+<h2>Test Tree</h2>
+<div id="tree"></div>
+
+<script>
+    function getTree() {
+        // Some logic to retrieve, or generate tree structure 
+        var tree = [
+  {
+      text: "Parent 1",
+      state: {
+          checked: false,
+      },
+      nodes: [
+        {
+            text: "Child 1",
+            nodes: [
+              {
+                  text: "Grandchild 1"
+              },
+              {
+                  text: "Grandchild 2"
+              }
+            ]
+        },
+        {
+            text: "Child 2"
+        }
+      ]
+  },
+  {
+      text: "Parent 2"
+  },
+  {
+      text: "Parent 3"
+  },
+  {
+      text: "Parent 4"
+  },
+  {
+      text: "Parent 5"
+  }
+        ];
+        return tree;
+    }
+
+    $('#tree').treeview({ data: getTree() });
+</script>
+

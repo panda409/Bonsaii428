@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Bonsaii.Models.Works.WorkTimes>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="#">请假管理</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="#"><i class="fa fa-plus"></i>新增</a>
+        <a href="#"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+<div class="card p ">
+    <div class="main-table mt">
+        <table class="table table-striped table-hover table-bordered display" id="example" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="checkbox-wrap">
+                        <input type="checkbox" id="t1"><label for="t1"></label>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Works.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OvettimeHours)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AheadMinutes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BackMinutes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LateMinutes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveEarlyMinutes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsAheadToOvertime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsBackToOvertime)
+                    </th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            @{
+                int index = 0;
+            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    index = index + 1;
+                    <tr>
+                        <td class="checkbox-wrap"><input type="checkbox" id="item_@index"><label for="item_@index"></label></td>
+                        <td>
+                            @index
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Works.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OvettimeHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AheadMinutes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BackMinutes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LateMinutes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveEarlyMinutes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsAheadToOvertime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsBackToOvertime)
+                        </td>
+                        <td>
+                            <a href="#" class="icon fa fa-edit bgc-blue-500"></a>
+                            <a href="#" class="icon fa fa-trash bgc-red-500"></a>
+                        </td>
+                        @*<td>
+                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("查看详情", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

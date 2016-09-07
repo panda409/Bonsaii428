@@ -1,0 +1,162 @@
+﻿@model IEnumerable<BonsaiiModels.CompanyPush>
+
+    @{
+        ViewBag.Title = "主页";
+    //Layout = "~/Views/Home/IndexMain.cshtml";
+    }
+    <script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+    <script src="~/Scripts/longfor.js"></script>
+  
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">推送信息</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="add"><i class="fa fa-plus"></i>新增</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="#"><i class="fa fa-print"></i>输出</a>
+            </div>
+        </div>
+
+
+        <div class="card panel-box">
+            <div class="table-header">
+                <ul class="h-forms pull-left">
+                    <li>每页显示</li>
+                    <li><input type="text" class="form-control short"></li>
+                    <li>条</li>
+                </ul>
+                <ul class="h-forms pull-right">
+                    <li><input type="text" class="form-control"></li>
+                    <li><button class="btn btn-primary"><i class="fa fa-search"></i>搜索</button></li>
+                </ul>
+
+            </div>
+            <div class="main-table mt">
+                <table class="table table-bordered" style="table-layout: fixed;">
+                    <tr>
+                        <th class="checkbox-wrap">
+                            <input type="checkbox" id="item_0"><label for="item_0"></label>
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Target)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TagTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Tag)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RecordTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RecordPerson)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PersonName)
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="checkbox-wrap">
+                                <input type="checkbox" id="item_0"><label for="item_0"></label>
+                            </td>
+@if (@item.Target.Length > 10)
+{
+    <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="@item.Target">@item.Target</td>
+}
+else
+{
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Target)
+                            </td>
+}
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+                          
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TagTitle)
+                            </td>
+                           
+@if (@item.Tag.Length > 10)
+{
+    <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="@item.Tag">@item.Tag</td>
+}
+else
+{
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tag)
+                            </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RecordTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RecordPerson)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PersonName)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("查看", "Details", new { id = item.Id }, new { target = "_blank" }) |
+                                @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                                @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div class="table-footer">
+                    <nav class="pull-left">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    上一页
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">...</a></li>
+                            <li><a href="#">10</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    下一页
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="pull-right pt">
+                        <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $("#add").click(function () {
+            window.location.href = "/CompanyPush/Create"
+        });
+        $("#refresh").click(function () {
+            window.location.reload();
+        });
+    </script>
+

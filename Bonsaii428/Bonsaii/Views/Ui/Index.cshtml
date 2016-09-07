@@ -1,0 +1,109 @@
+﻿@model Bonsaii.Models.BillPropertyModels
+@{
+    ViewBag.Title = "新增单据";
+}
+
+@using (Html.BeginForm("Create", "Ui", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="/BillPropertyModels/Index">设置单据性质</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="back"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/BillPropertyModels/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">新建单据</h4>
+        <div class="form-horizontal">
+
+
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="A" class="filld-in" name="A" />
+                        <label for="A">A</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="B" class="filld-in" name="B" />
+                        <label for="B">B</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="C" class="filld-in" name="C" />
+                        <label for="C">C</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="D" class="filld-in" name="D" />
+                        <label for="D">D</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="E" class="filld-in" name="E" />
+                        <label for="E">E</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="F" class="filld-in" name="F" />
+                        <label for="F">F</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="G" class="filld-in" name="G" />
+                        <label for="G">G</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="horizontal">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="H" class="filld-in" name="H" />
+                        <label for="H">H</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/BillPropertyModels/Index');">取消</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+
+

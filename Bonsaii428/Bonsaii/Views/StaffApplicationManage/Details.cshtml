@@ -1,0 +1,116 @@
+﻿@model Bonsaii.Models.StaffApplication
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StaffApplications</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTypeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillTypeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HopeLeaveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HopeLeaveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuditStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuditStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplyDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if(Model.AuditStatus =="未审核")
+    { 
+          @Html.ActionLink("审核通过", "Details", new { id = Model.Id,flag=1}) 
+          @Html.ActionLink("审核不通过", "Details", new { id = Model.Id, flag = 0 })
+          @Html.ActionLink("返回列表", "List", new { listchoose = 0 })
+    }
+    else if (Model.AuditStatus != "未审核" && Model.AuditStatus != "未提交")
+    {
+        @Html.ActionLink("返回列表", "List", new { listchoose = 1 })
+    }
+
+  
+</p>

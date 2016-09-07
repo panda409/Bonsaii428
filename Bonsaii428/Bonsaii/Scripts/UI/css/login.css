@@ -1,0 +1,193 @@
+﻿@charset "UTF-8";
+/* ***********主要颜色变量************ */
+/*** Colors ***/
+/*** Forms ***/
+/* @import "setting/colors";
+@import "setting/spacing";
+@import "icons/fontawesome/font-awesome";
+@import "icons/mdi/materialdesignicons"; */
+/* line 20, ../../sass/login.scss */
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* line 26, ../../sass/login.scss */
+.login-body {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  background: #2196F3;
+
+  background: -webkit-linear-gradient(top, #2196F3, #9870E6);
+  background: -moz-linear-gradient(top, #2196F3, #9870E6);
+  background: -ms-linear-gradient(top, #2196F3, #9870E6);
+  background: -o-linear-gradient(top, #2196F3, #9870E6);
+  background: linear-gradient(to bottom, #2196F3, #9870E6);
+
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#2196F3,endcolorstr=#9870E6,gradientType=0);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Microsoft Yahei";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 39, ../../sass/login.scss */
+.login-body::before {
+  z-index: -1;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #2196F3;
+  /* IE Fallback */
+  background: rgba(46, 204, 113, 0.8);
+
+  width: 100%;
+  height: 100%;
+}
+/* line 51, ../../sass/login.scss */
+.login-body .form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  width: 300px;
+  margin: -140px 0 0 -190px;
+  padding: 30px 40px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* line 61, ../../sass/login.scss */
+.login-body .form h2 {
+  margin: 0 0 20px;
+  line-height: 1;
+  color: #2196F3;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+}
+/* line 69, ../../sass/login.scss */
+.login-body .form input {
+  outline: none;
+  display: block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #DCE7F4;
+  color: #ccc;
+  font-family: "Roboto";
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+}
+/* line 88, ../../sass/login.scss */
+.login-body .form input:focus {
+  color: #333;
+  border: 1px solid #2196F3;
+}
+/* line 94, ../../sass/login.scss */
+.login-body .form .button {
+  cursor: pointer;
+  border-radius: 3px;
+  background: #2196F3;
+  outline: none;
+  display: block;
+  text-align: center;
+  padding: 10px 15px;
+  border: 0;
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 14px;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+}
+/* line 110, ../../sass/login.scss */
+.login-body .form .button:hover {
+  background: #0c7cd5;
+}
+/* line 113, ../../sass/login.scss */
+.login-body .form .button.btn-outline {
+  border: 1px solid #2196F3;
+  color: #2196F3;
+  background: transparent;
+  margin-top: 15px;
+}
+/* line 118, ../../sass/login.scss */
+.login-body .form .button.btn-outline:active {
+  background: #2196F3;
+  color: #fff;
+}
+
+/* line 126, ../../sass/login.scss */
+.form-row {
+  margin-top: 10px;
+}
+/* line 20, ../../sass/bourbon/addons/_clearfix.scss */
+.form-row::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 129, ../../sass/login.scss */
+.form-row .checkbox {
+  float: left;
+}
+/* line 132, ../../sass/login.scss */
+.form-row .checkbox label {
+  padding: 10px 10px 10px 24px;
+  position: relative;
+  display: block;
+  font-size: 14px;
+  color: #666;
+}
+/* line 139, ../../sass/login.scss */
+.form-row .checkbox input {
+  width: 16px;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+/* line 146, ../../sass/login.scss */
+.form-row .get-password {
+  float: right;
+  font-size: 14px;
+  color: #2196F3;
+  padding: 10px 0;
+}
+
+/* line 156, ../../sass/login.scss */
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}

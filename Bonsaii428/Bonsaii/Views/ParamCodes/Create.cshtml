@@ -1,0 +1,151 @@
+﻿@model Bonsaii.Models.ParamCodes
+
+@{
+    ViewBag.Title = "创建编码规则";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class=" navbar-header">
+    <span class="glyphicon glyphicon-home"></span><a class="mypagebarindex" href="index.html"> 主页 </a>-系统设置-@ViewBag.Title
+</div>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="row col-md-offset-0">
+        <br>
+        <div class="row col-md-offset-0">
+        </div>
+    </div>
+    <br />
+
+    @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" style="padding-left:0px;padding-right:0px;width:99%">
+                    <div class="panel-heading">
+                        <h4 class="panel-title col-md-11" style="width:80%">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseOne" style="text-decoration: none;">
+                                创建编码规则
+                            </a>
+                        </h4>
+                        <button type="button" class="btn btn-infogreen" id="back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;返回
+                        </button>
+                        <button type="submit" class="btn btn-infogreen">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;保存
+                        </button>
+                        <button id="refresh" type="button" class="btn btn-infogreen"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                        <button type="button" id="downchevron" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseOne" class="btn btn-infogreen " style="display:none">
+                            <span class="glyphicon glyphicon-chevron-down"></span>&nbsp;展开
+                        </button>
+
+                        <button type="button" id="upchevron" data-toggle="collapse" data-parent="#accordion"
+                                href="#collapseOne" class="btn btn-infogreen  " @*style="position:fixed;margin-right:1px;margin-left:1px"*@>
+                            <span class="glyphicon glyphicon-chevron-up" id="upspan"></span>&nbsp;折叠
+                        </button>
+
+
+                    </div>
+
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ParamName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @*@Html.EditorFor(model => model.CodeMethod, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.DropDownListFor(model => model.ParamName, (IEnumerable<SelectListItem>)ViewBag.List2, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ParamName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CodeMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @*@Html.EditorFor(model => model.CodeMethod, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.DropDownListFor(model => model.CodeMethod, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CodeMethod, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+  
+}
+
+
+<script src="~/Scripts/shangJS/CodeValidate.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#CodeMethod').change(function () {
+            $('#Code ~ span').text("");
+            var method = $('#CodeMethod').val();
+            var tmp;
+            if (method == '日编+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "YYYYMMDD**";
+            }
+            if (method == '月编+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "YYYYMM****";
+            }
+            if (method == '流水') {
+                $('#Code').removeAttr('readOnly');
+            }
+            if (method == '手动设置') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "";
+            }
+            if (method == '部门缩写+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "**********";
+            }
+            $('#Code').val(tmp);
+            $('#Code').attr('value', tmp);
+
+        });
+
+        $('#Code').blur(function () {
+            var code = $('#Code').val();
+            var reg = /^[a-zA-Z]{0,8}\**$/;
+            var regLen = /([A-Za-z]|\*){10}/;
+            if (regLen.test(code) && reg.test(code)) {
+                return
+            }
+            else {
+                $('#Code ~ span').text("流水编码格式输入错误");
+            }
+        });
+    });
+
+
+    $("#back").click(function () {
+        window.location.href = "/ParamCodes/Index"
+    });
+    $("#refresh").click(function(){
+        window.location.reload();
+    });
+
+</script>
+

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JPush Demo</title>
+    <link href="~/Content/JpushDemo.css" rel="stylesheet" />
+    <script src="~/Scripts/JpushMd5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div class="configuration">
+        <div class="row">
+            <label>App Key:</label><input type="text" id="appKey" />
+        </div>
+        <div class="row">
+            <label>Master Secret:</label><input type="text" id="secretKey" />
+        </div>
+    </div>
+    <textarea id="json"></textarea>
+    <div>
+        <input type="button" id="send" value="Send Push" />
+    </div>
+    <script>
+        var hashCode = "";
+        $(document).ready(function () {
+            $("#send").click(function (e) {
+                $.ajax({
+                    url: "/JPush.ashx?method=SendPushMessage&code=" + hex_md5($("#json").val() + hashCode),
+                    async: true,
+                    data: $("#json").val(),
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (e) { },
+                    error: function (e) { },
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
+

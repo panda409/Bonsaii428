@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Bonsaii.Models.StaffApplication>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@*<h2>待处理的离职申请单</h2>*@
+
+
+<p>
+    @Html.ActionLink("返回", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BillTypeNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HopeLeaveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaveReason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillTypeNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplyDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HopeLeaveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaveType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaveReason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuditStatus)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+            @Html.ActionLink("详细信息", "Details", new { id=item.Id })
+            @Html.ActionLink("删除", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

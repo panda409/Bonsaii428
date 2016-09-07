@@ -1,0 +1,121 @@
+﻿@model BonsaiiModels.BindCodeViewModel
+
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Scripts/UI/css/main.css" rel="stylesheet">
+@using (Html.BeginForm("Edit", "AppManage", FormMethod.Post, new {  @id = Model.Id }))
+{
+    @Html.AntiForgeryToken()
+   <div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">App管理</a></li>
+            <li><a href="#">解除绑定</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            @*<a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>*@
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/AppManage/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+        </div>
+    </div>
+</div>
+<div>
+    <div class="card panel-box">
+        <h1>你确认解除绑定吗？</h1>
+        <h4 class="title">@ViewBag.Title</h4>
+        <dl class="dl-horizontal">
+                @Html.HiddenFor(model=>model.Id)
+                <dt>
+                    @Html.DisplayNameFor(model => model.StaffNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StaffNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RealName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RealName)
+                </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Position)
+            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BindingCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BindingCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Phone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BindTag)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BindTag)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LastTime)
+                </dd>
+
+
+
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="确认" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+</dd>
+
+            </dl>
+
+        </div>
+    </div>
+}
+        <script>
+            function tz() {
+                window.location.href = "/AppManage/Index";
+            }
+            $("#back").click(function () {
+                window.location.href = "/AppManage/Index";
+            });
+            $("#refresh").click(function () {
+                window.location.reload();
+            });
+        </script>

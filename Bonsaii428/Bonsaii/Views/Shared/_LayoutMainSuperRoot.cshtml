@@ -1,0 +1,71 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盆景企业管理平台</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/Content/jquery-accordion-menu.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-accordion-menu.js"></script>
+</head>
+<body>
+
+    @Html.Partial("_LayoutHeaderPartial")
+
+    <section>
+        <div class="menu collapse in" id="menu">
+
+            <div id="jquery-accordion-menu" class="jquery-accordion-menu">
+                @* <div class="jquery-accordion-menu-header" id="form"></div>*@
+                <ul id="demo-list">
+                    <li>
+                        <a href="#">平台管理</a>
+                        <ul class="submenu">
+                            <li>@Html.ActionLink("用户管理", "AdminIndex", "SuperRoot")</li>
+                            <li>@Html.ActionLink("企业审核","AuditCompany","SuperRoot")</li>
+                            <li>@Html.ActionLink("找回密码申请审核", "PasswordApply", "SuperRoot")</li>
+                            <li>@Html.ActionLink("意见反馈", "IndexAdvice", "SuperRoot")</li>
+                            <li>@Html.ActionLink("数据订阅", "SubscribeListIndex", "SuperRoot")</li>
+                            <li>@Html.ActionLink("APP广告管理", "AppAds", "SuperRoot")</li>    
+                            <li>@Html.ActionLink("推送信息", "Index", "PlatformPush")</li>   
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container-fluid main" style="margin-top:15px;"> @RenderBody()</div>
+
+    </section>
+    @Html.Partial("_LayoutFooterPartial")
+
+
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+
+        });
+
+        $(function () {
+            //顶部导航切换
+            $("#demo-list li").click(function () {
+                $("#demo-list li.active").removeClass("active")
+                $(this).addClass("active");
+            })
+        })
+    </script>
+</body>
+</html>

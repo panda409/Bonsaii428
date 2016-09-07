@@ -1,0 +1,168 @@
+﻿@model Bonsaii.Models.Recruitments
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/Scripts/bootstrap3-typeahead.js"></script>
+@*<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>*@
+<h2>Create</h2>
+<link href="~/Scripts/Upload/fileinput.css" rel="stylesheet" />
+<link href="~/Scripts/Upload/default.css" rel="stylesheet" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Recruitments</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BillType, new { htmlAttributes = new { @class = "form-control", @dataprovider = "typeahead" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BillCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentName, (IEnumerable<SelectListItem>)ViewBag.DepartmentsList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Position, (IEnumerable<SelectListItem>)ViewBag.PositionsList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RequiredNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RequiredNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RequiredNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.Gender, (IEnumerable<SelectListItem>)ViewBag.GendersList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.MaritalStatus, (IEnumerable<SelectListItem>)ViewBag.MaritalStatusList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EducationBackground, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.EducationBackground, (IEnumerable<SelectListItem>)ViewBag.EduBackgroundsList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Major, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.ListBoxFor(model => model.Major, (IEnumerable<SelectListItem>)ViewBag.MajorsList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WorkExperience, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WorkExperience, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Skill, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Skill, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Skill, "", new { @class = "text-danger" })    
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Others, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <form enctype="multipart/form-data">
+                    <input type="file" class="file form-control" id="test-upload" multiple/>
+                        <div id="errorBlock" class="help-block"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script>
+    /*员工工号搜索*/
+    $('#BillType').typeahead
+            ({
+                source:
+                    function (query, process) {
+                        $.ajax({
+                            url: '/Recruitments/BillTypeSearch',
+                            type: 'POST',
+                            data: { number: query },
+                            success: function (data) {
+                                console.info("data=" + data);
+                                if (data.success === true) {
+                                    console.info(data.data)
+                                    /*下拉菜单*/
+                                    process(data.data);
+                                }
+                            }
+                        })
+                    },
+            });
+</script>
+
+<script src="~/Scripts/Upload/fileinput.js"></script>
+<script src="~/Scripts/Upload/fileinput_locale_zh.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#test-upload").fileinput({
+            'showPreview': false,
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            'elErrorContainer': '#errorBlock'
+        });
+    });
+</script>

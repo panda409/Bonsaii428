@@ -1,0 +1,326 @@
+﻿@model Bonsaii.Models.Works.Works
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Scripts/jqgrid/ui.jqgrid.css" rel="stylesheet" />
+<link href="~/Scripts/jqgrid/animate.min.css" rel="stylesheet" />
+<link href="~/Scripts/jqgrid/style.min.css" rel="stylesheet" />
+<style>
+    /* Additional style to fix warning dialog position */
+    #alertmod_table_list_2 {
+        top: 900px !important;
+    }
+</style>
+<h2>新建</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" id="WorkId" name="WorkId" value=@ViewBag.Id />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsAutoWork, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsAutoWork)
+                    @Html.ValidationMessageFor(model => model.IsAutoWork, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AutoWorkHours, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AutoWorkHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AutoWorkHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AutoWorkExtraToOvertime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AutoWorkExtraToOvertime)
+                    @Html.ValidationMessageFor(model => model.AutoWorkExtraToOvertime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsOverDays, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsOverDays)
+                    @Html.ValidationMessageFor(model => model.IsOverDays, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalWorkHours, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalWorkHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalWorkHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalOvertimeHours, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalOvertimeHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalOvertimeHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LatePunishment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LatePunishment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LatePunishment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="wrapper wrapper-content  animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox ">
+
+                        <div class="ibox-content">
+
+                            <div class="jqGrid_wrapper">
+                                <table id="table_list_2"></table>
+                                <div id="pager_list_2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="新建" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#AutoWorkHours").attr("readOnly", "readOnly");
+        $("#IsAutoWork").change(function () {
+            if ($("#IsAutoWork").is(":checked")) {
+                $("#AutoWorkHours").removeAttr("readOnly");
+            }
+            else {
+                $("#AutoWorkHours").attr("readOnly", "readOnly");
+            }
+        });
+
+    });
+
+
+
+</script>
+
+
+ <!-- Peity -->
+<script src="~/Scripts/jqgrid/jquery.petty.min.js"></script>
+<!-- jqGrid -->
+<script src="~/Scripts/jqgrid/grid.locale-cn.js"></script>
+<script src="~/Scripts/jqgrid/jquery.jqGrid.min.js"></script>
+<!-- 自定义js -->
+<script src="~/Scripts/jqgrid/content.min.js"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $.jgrid.defaults.styleUI = "Bootstrap";
+
+        $("#table_list_2").jqGrid({
+        //    url: "/Test/GetRows",
+      //      editurl: "/Test/AddRow",
+            //     data: a,
+            datatype: "json",
+            mtype: "post",
+            height: 450,
+            autowidth: true,
+            shrinkToFit: true,
+            rowNum: 20,
+            rowList: [10, 20, 30],
+            colNames: ["序号", "上班时间", "下班时间", "正班时数", "加班时数", "提前分钟", "推后分钟", "迟到分钟", "早退分钟", "提前计加班", "推迟计加班"],
+            colModel: [{
+                name: "id",
+                index: "id",
+                editable: true,
+                width: 60,
+                sorttype: "int",
+                search: true
+            },
+            {
+                name: "starttime",
+                index: "invdate",
+                editable: true,
+                width: 90,
+                sorttype: "date",
+                formatter: "date"
+            },
+            {
+                name: "endtime",
+                index: "name",
+                editable: true,
+                width: 100
+            },
+            {
+                name: "hours",
+                index: "amount",
+                editable: true,
+                width: 80,
+                align: "right",
+                sorttype: "float",
+                formatter: "number"
+            },
+            {
+                name: "extrahours",
+                index: "tax",
+                editable: true,
+                width: 80,
+                align: "right",
+                sorttype: "float"
+            },
+            {
+                name: "aheadminiutes",
+                index: "total",
+                editable: true,
+                width: 80,
+                align: "right",
+                sorttype: "float"
+            },
+                             {
+                                 name: "moveminiutes",
+                                 index: "id",
+                                 editable: true,
+                                 width: 60,
+                                 sorttype: "int",
+                                 search: true
+                             },
+
+            {
+                name: "lateminutes",
+                index: "id",
+                editable: true,
+                width: 60,
+                sorttype: "int",
+                search: true
+            },
+            {
+                name: "leaveearly",
+                index: "id",
+                editable: true,
+                width: 60,
+                sorttype: "int",
+                search: true
+            },
+            {
+                name: "aheadtoovertime",
+                index: "id",
+                editable: true,
+                width: 60,
+                sorttype: "int",
+                search: true
+            },
+{
+    name: "latetoovertime",
+    index: "note",
+    editable: true,
+    width: 100,
+    sortable: false
+}],
+
+            postData: {
+                test: "Helo"
+            },
+            pager: "#pager_list_2",
+            viewrecords: true,
+            caption: "员工技能管理",
+            add: true,
+            edit: true,
+            addtext: "Add",
+            edittext: "Edit",
+            hidegrid: false
+        });
+        $("#table_list_2").setSelection(4, true);
+        /**
+        jqGrid的Navigator的配置文件的格式为：
+        jQuery("#grid_id").jqGrid('navGrid','#gridpager',{parameters},prmEdit, prmAdd, prmDel, prmSearch, prmView);
+
+        */
+        $("#table_list_2").jqGrid("navGrid", "#pager_list_2", {
+            edit: true,
+            //     add: true,
+
+            search: true,
+            //添加addfunc的话，则不会调用默认的add的对话框形式的函数，而是调用自己定义的函数形式
+            addfunc: openAdding,
+            delfunc: delRecord,
+        },
+
+        {
+            height: 200,
+            reloadAfterSubmit: true
+        });
+        $(window).bind("resize",
+        function () {
+            var b = $(".jqGrid_wrapper").width();
+            $("#table_list_1").setGridWidth(b);
+            $("#table_list_2").setGridWidth(b)
+        })
+    });
+
+
+    function openAdding() {
+        $("#table_list_2").jqGrid("editGridRow", "new", {
+            addCaption: "俺就是个测试而已",
+            url: "/Test/TestAdd",
+            //定义需要额外发送到服务器端的数据
+            editData: {
+                WorkId: 1,
+                name: "helo"
+            },
+        });
+    }
+    //删除函数，delfunc会把选择的删除行的行id作为参数传递到该函数中
+    function delRecord(e) {
+        $("#table_list_2").jqGrid("delGridRow", e, {
+            url: "/Test/DeleteRow",
+        });
+    }
+
+
+</script>

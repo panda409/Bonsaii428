@@ -1,0 +1,244 @@
+﻿@model BonsaiiModels.HolidayTables
+
+@{
+    ViewBag.Title = "新建部门假日";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+<link href="~/Content/css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.multi-select.js" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">假日管理</a></li>
+            <li><a href="#">设置部门假日</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/HolidayTables/DepartmentIndex" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">设定部门假日</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.DepartmentsList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+            <div class="form-group">
+                <!--触发模态框-->
+                <a href="javascript:void(0)" title="点击添加收件人" data-toggle="modal" data-target="#indentifier">
+                    @Html.LabelFor(model => model.DptIds, htmlAttributes: new { @class = "control-label col-md-2", @style = "color:#2196F3;cursor:pointer" })
+                </a>
+                <div class="col-md-3" data-toggle="modal" data-target="#indentifier" href="javascript:void(0)">
+                    @Html.EditorFor(model => model.DptIds, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DptIds, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <!--模态框-->
+            <div class="modal fade" id="indentifier" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                添加收件人
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <button id='select-all' class="btn btn-primary">选择全部</button>
+                            <button id='deselect-all' class="btn btn-default">移除全部</button>
+                            <p><span>所有联系人</span><span style="padding-left: 45%">收件人</span></p>
+
+                            <select id='my-select' multiple='multiple'>
+                                @{
+    foreach (var temp in @ViewBag.Group)
+    {
+
+        @*   var lab = @temp.name + "（" + temp.value + "）";
+            <optgroup label="@lab">*@
+                            <option value="@temp.value">@temp.text</option>
+                        @*</optgroup>*@
+  
+
+            
+        }
+    }
+                                }
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modal_select_ok" data-dismiss="modal">
+                                确定
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <script>
+                $("#indentifier").modal(options);
+                $('#indentifier').modal('show').css({
+                    width: 'auto',
+                    'margin-left': function () {
+                        return -($(this).width() / 2);
+                    }
+                });
+                //点击确定按钮，获取到选中的值，把它们放到input中
+
+            </script>
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartHour, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StartHour, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StartHour, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndHour, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.EndHour, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EndHour, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.Type, (IEnumerable<SelectListItem>)ViewBag.list, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="bonsaii_back('/WorkManages/DepartmentIndex');">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("返回列表", "DepartmentIndex")
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy/mm/dd',
+            weekStart: 0,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    });
+
+</script>
+
+<script>
+    $.ajax({
+        url: '/StaffSkill/StaffSearch',
+        type: 'POST',
+        success: function (data) {
+            $('#StaffNumber').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+                onSelect: function (val, rec) {//得到选择的值
+                    $.ajax({
+                        url: "./StaffNumber",
+                        type: 'POST',
+                        data: { number: val },
+                        success: (function (data) {
+                            $("#Department").val(data[0].DepartmentName);
+                        }
+                        )
+                    })
+                }
+            })
+        }
+    });
+
+    /*<选择收件人*/
+    $('#my-select').multiSelect({ selectableOptgroup: true });
+    $('#select-all').click(function () {
+        $('#my-select').multiSelect('select_all');
+        return false;
+    });
+    $('#deselect-all').click(function () {
+        $('#my-select').multiSelect('deselect_all');
+        return false;
+    });
+    $("#modal_select_ok").click(function () {
+        //获得所有选中的值
+        var selectedValues = [];
+        $("#my-select :selected").each(function () {
+            selectedValues.push($(this).val());
+        });
+        // alert(selectedValues);
+        //把它们放到页面的文本框中
+        $("#DptIds").val(selectedValues);
+        ///注：以下方法只能获得第一个选中的值，不能获得所有选中的值
+        //alert($("#my-select option:selected").attr("value"));
+    });
+    /*选择收件人>*/
+</script>

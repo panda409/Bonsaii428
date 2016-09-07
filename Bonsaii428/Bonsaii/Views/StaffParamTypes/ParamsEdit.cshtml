@@ -1,0 +1,100 @@
+﻿@model Bonsaii.Models.StaffParam
+
+@{
+    ViewBag.Title = "修改人事基本参数";
+}
+@using (Html.BeginForm("ParamsEdit", "StaffParamTypes", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">系统设置</a></li>
+            <li><a href="/StaffParams/Index">基础数据管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/StaffParamTypes/ParamsIndex?id=@Model.StaffParamTypeId" id="back"><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+
+    <div class="card panel-box">
+        <h4 class="title">新建单据</h4>
+        <div class="form-horizontal">
+            @Html.Hidden("A", Model.IsDefault)
+
+
+            @Html.HiddenFor(model => model.Id)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffParamOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StaffParamOrder, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsDefault, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        <input type="checkbox" id="IsDefault" class="filld-in" name="IsDefault" value="False" />
+                        <label for="IsDefault"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffParamTypeId, "参数类型", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownList("StaffParamTypeId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StaffParamTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz();">取消</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+<script>
+    $("#back").click(function () {
+        window.location.href = "/StaffParams/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+</script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    function tz() {
+        window.location.href = "/StaffParamTypes/ParamsIndex" + "/@Model.StaffParamTypeId";
+    }
+    $(document).ready(function () {
+        var a = $("#A").val();
+        if (a == "True") {
+            $("#IsDefault").prop("checked", true);
+            $("#IsDefault").val("True");
+        }
+    });
+</script>

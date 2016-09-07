@@ -1,0 +1,247 @@
+﻿@model Bonsaii.Models.StaffSkillViewModel
+
+@{
+    ViewBag.Title = "创建员工技能";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+
+@{Html.EnableClientValidation(true);}
+@{Html.EnableUnobtrusiveJavaScript();}
+@using (Html.BeginForm("Create", "StaffSkill", FormMethod.Post, new { enctype = "multipart/form-data", @id = "longfor_form" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="content">
+            <!-- 主内容开始 -->
+            <div class="control-bar card bor-b">
+                <ul class="breadcrumb pull-left pv">
+                    <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                    <li><a href="#">员工技能管理</a></li>
+                    <li><a href="#">@ViewBag.Title</a></li>
+                </ul>
+                <div class="h-list pull-right pv">
+                    <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                    <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                    <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BillTypeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+
+                    @Html.EditorFor(model => model.StaffNumber, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SkillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.SkillNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @* <input name="SkillNumber" class="form-control" id="order_status1" style="width:190px;" value="2" />*@
+
+                    @*@Html.DropDownListFor(model => model.SkillNumber, (IEnumerable<SelectListItem>)ViewBag.staffSkill, new { @class = "form-control" })<a href="~/StaffParams/Create" class="btn btn-success glyphicon glyphicon-plus">增加技能</a>*@
+                    @Html.ValidationMessageFor(model => model.SkillNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ValidDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input name="ValidDate" value="@ViewBag.date" class="form-control" />
+
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.ValidDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <script type="text/javascript">
+
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'yyyy/mm/dd',
+                    weekStart: 0,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0
+                });
+
+            </script>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SkillRemark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.SkillRemark, 4, 120, new  { @class = "form-control"  })
+                    @Html.ValidationMessageFor(model => model.SkillRemark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*遍历，显示那些自定义的字段*@
+            @foreach (var x in @ViewBag.fieldList)
+        {
+                <div class="form-group">
+                    @*<label>x.Description</label>*@
+                    @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.Editor((string)(x.FieldName), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => x, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+        }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+}
+
+
+
+@section Scripts {
+
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+}
+<script>
+    function tz() {
+        window.location.href = "/StaffSkill/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/StaffSkill/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    var billTypeNumber = "24";
+    $.ajax({
+        url: '/StaffSkill/BillTypeNumberSearch',
+        type: 'POST',
+        data: { name: billTypeNumber },
+        success: function (data) {
+            $('#BillTypeNumber').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+             //   onSelect: function (val, rec) {//得到选择的值
+                    //$.ajax({
+                    //    url: "./BillTypeNumber",
+                    //    type: 'POST',
+                    //    data: { number: val },
+                    //    success: (function (data) {
+                    //        $("#BillNumber").val(data[0].billNumber);
+                    //    })
+                    //});
+
+             //   }
+            });
+
+
+
+        }
+
+    });
+
+    //选择出技能列表------start
+    $.ajax({
+        url: '/StaffSkill/SkillNumberSearch',
+        type: 'POST',
+        success: function (data) {
+           
+            $('#SkillNumber').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+                onSelect: function (val, rec) {
+
+                }
+            });
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isDefault == true) {
+                    //$('#SkillNumber').val(data[i].id);
+                    //$('#SkillNumber').attr("text",data[i].text);
+                }
+            }
+        }
+    });
+    //选择出技能列表------end
+
+    $.ajax({
+        url: '/StaffSkill/StaffSearch',
+        type: 'POST',
+        success: function (data) {
+
+            $('#StaffNumber').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+                onSelect: function (val, rec) {//得到选择的值
+                    $.ajax({
+                        url: "./StaffNumber",
+                        type: 'POST',
+                        data: { number: val },
+                        success: (function (data) {
+                            $("#Department").val(data[0].DepartmentName);
+
+                        })
+                    });
+                }
+               
+            });
+
+
+        }
+
+
+    });
+   
+</script>

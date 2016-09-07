@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "查询工作日历";
+
+}
+<link href="~/Scripts/clndr/clndr.css" rel="stylesheet" />
+<script src="~/Scripts/clndr/underscore.js"></script>
+<script src="~/Scripts/clndr/moment.js"></script>
+<script src="~/Scripts/clndr/clndr.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+<div class="control-bar card bor-b">
+    <ul class="breadcrumb pull-left pv">
+        <li><a href="Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+        <li><a href="#">考勤管理</a></li>
+        <li><a href="#">工作日历</a></li>
+    </ul>
+    <div class="h-list pull-right pv">
+        <a href="#"><i class="fa fa-plus"></i>新增</a>
+        <a href="#"><i class="fa fa-refresh"></i>刷新</a>
+        <a href="#"><i class="fa fa-print"></i>输出</a>
+    </div>
+</div>
+
+
+
+<div class="card p ">
+    <div class="main-table mt">
+        <div class="form-group" style="width:600px;margin:30px auto">
+            <div class="col-md-3" style="width:300px">
+                @Html.Editor("StaffNumber", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <button id="calendar-btn">查看日历</button>
+        </div>
+
+
+        <div id="calendar" class="cal1"></div>
+
+        <div style="margin-left:40%"><img src="~/files/color.png"/></div>
+        <div class="table-footer">
+            <nav class="pull-left">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            上一页
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">10</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            下一页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="pull-right pt">
+                <span class="mr">第 1 页 </span>总共<span class="tc-red-500 ph">18</span>页
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function getStaffNumber() {
+        return $("#StaffNumber").val().split(" ")[0];
+    }
+    // 初始化一个日历对象
+    var theCalendarInstance = $('#calendar').clndr({
+        
+        template: $('#calendar-template').html(),
+
+        daysOfTheWeek:['周日','周一','周二','周三','周四','周五','周六'],
+        events: [
+        ],
+        clickEvents: {
+            click: function (target) {
+                AfterClick(target, getStaffNumber());
+            },
+            onMonthChange: function (month) {
+                //注意这个month可以通过前台调试看到有什么内容的啊！！！
+                AfterChange(month._d.getFullYear(), month._d.getMonth(), 0, getStaffNumber());
+            }
+        }
+    });
+    var AfterClick = function (target,StaffNumber) {
+        if (target.element.className.match(/[a-z]*next-month[a-z]*/g) != null || target.element.className.match(/[a-z]*last-month[a-z]*/g) != null) {
+            $("#today_work_state").text("只能查询本月日历！");
+            return;
+        }
+        $.ajax({
+            url: "/Calendar/GetWorkTime",
+            data: {
+                date: target.date._i,
+                flag: 0,
+                number: StaffNumber
+            },
+            type: 'POST',
+            success: function (data) {
+                if (data.flag == 1) {
+                    var str = "上班时间：";
+                    for (var tmp in data.data) {
+                        str += data.data[tmp] + "    ";
+                    }
+                    $("#today_work_state").text(str);
+                }
+                else if (data.flag == 2)
+                    $("#today_work_state").text("当前没有该员工的详情");
+                else
+                    $("#today_work_state").text("今天是休息日");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("ajax提交失败！");
+            }
+        });
+    }
+
+    //针对这个月份，去掉上个月和下个月显示出的天数，提交ajax，获得这个月的具体上班、休息情况
+    //number代表员工工号
+    var AfterChange = function (year, month, flag, number) {
+        var last_month = $(".last-month");
+        var next_month = $(".next-month");
+
+        $(".last-month > div").remove();
+        $(".next-month > div").remove();
+
+        $.ajax({
+            url: '/Calendar/GetWorkDays',
+            type: 'POST',
+            data: {
+                year: year,
+                month: month+1,         //在前台获取的getMonth()方法中得到的月份是从零开始的，为了和数据库中的日期比较，要加1
+                flag: flag,
+                number: number
+            },
+            success: function (data) {
+                for (var i = 1; i <= data.LastDay; i++) {
+                    var divName = "#day" + i + "in_month";
+
+                    //         $(divName).text(data.Days[i - 1]);
+
+                    if (data.Days[i - 1] == "工作")
+                        $(divName).parent().parent().css('background-color', '#00FFFF');
+                    if (data.Days[i - 1] == "休息")
+                        $(divName).parent().parent().css('background-color', '#FF3333');
+                    if (data.Days[i - 1] == "请假")
+                        $(divName).parent().parent().css('background-color', '#00FF33');
+                }
+            }
+        });
+    }
+    /*员工工号搜索*/
+    $.ajax({
+        url: '/StaffSkill/StaffSearch',
+        type: 'POST',
+        success: function (data) {
+            $('#StaffNumber').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+                onSelect: function (val, rec) {//得到选择的值
+                    $.ajax({
+                        url: "./StaffNumber",
+                        type: 'POST',
+                        data: { number: val },
+                        success: (function (data) {
+                        }
+                        )
+                    })
+                }
+            })
+        }
+    });
+
+    $(document).ready(function () {
+        $("#calendar-btn").click(function () {
+            var currentDate = new Date();
+            theCalendarInstance.setYear(currentDate.getFullYear());
+            theCalendarInstance.setMonth(currentDate.getMonth());
+            AfterChange(currentDate.getFullYear(), currentDate.getMonth(), 0, getStaffNumber());
+        })
+    });
+
+
+
+</script>
+
+

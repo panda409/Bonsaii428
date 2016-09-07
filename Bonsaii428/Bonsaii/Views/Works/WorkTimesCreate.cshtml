@@ -1,0 +1,183 @@
+﻿@model Bonsaii.Models.Works.WorkTimes
+
+@{
+    ViewBag.Title = "创建班次时间段";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/bootstrap-select.js"></script>
+@using (Html.BeginForm("WorkTimesCreate", "Works", FormMethod.Post, new { enctype = "multipart/form-data", @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">考勤管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <input type="hidden" name="WorkId" id="WorkId" value="@ViewBag.WorkId"/>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/Works/WorkTimesIndex?id=@ViewBag.WorkId "><i class="fa fa-backward"></i>返回</a>
+        </div>
+    </div>
+    <div class="card panel-box">
+        <h4 class="title">创建班次时间段</h4>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="hh ii" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="input-group date form_date" data-date="" data-date-format="hh ii" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+
+                        <span class="input-group-addon"><span class="fa fa-remove glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+
+                    </div>@Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WorkHours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.WorkHours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.WorkHours, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OvettimeHours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.OvettimeHours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OvettimeHours, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AheadMinutes, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.AheadMinutes, new { htmlAttributes = new { @class = "form-control", @placeholder = "提前**分钟打卡有效" } })
+                    @Html.ValidationMessageFor(model => model.AheadMinutes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BackMinutes, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.BackMinutes, new { htmlAttributes = new { @class = "form-control", @placeholder = "延迟**分钟打卡有效" } })
+                    @Html.ValidationMessageFor(model => model.BackMinutes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LateMinutes, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.LateMinutes, new { htmlAttributes = new { @class = "form-control", @placeholder = "迟到分钟数小于**不计迟到" } })
+                    @Html.ValidationMessageFor(model => model.LateMinutes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LeaveEarlyMinutes, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.LeaveEarlyMinutes, new { htmlAttributes = new { @class = "form-control", @placeholder = "早退分钟小**分钟不计早退" } })
+                    @Html.ValidationMessageFor(model => model.LeaveEarlyMinutes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.IsAheadToOvertime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsAheadToOvertime)
+                        @Html.ValidationMessageFor(model => model.IsAheadToOvertime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsAheadToOvertime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="horizontal">
+                    <div class="col-md-3">
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="IsAheadToOvertime" class="filld-in" name="IsAheadToOvertime" />
+                            <label for="IsAheadToOvertime"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.IsBackToOvertime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsBackToOvertime)
+                        @Html.ValidationMessageFor(model => model.IsBackToOvertime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsBackToOvertime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="horizontal">
+                    <div class="col-md-3">
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="IsBackToOvertime" class="filld-in" name="IsBackToOvertime" />
+                            <label for="IsBackToOvertime"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $('.form_date').datetimepicker({
+                    language: 'zh-CN',
+                    format: 'hh:ii',
+                    weekStart: 0,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 0,
+                    minView: 4,
+                    forceParse: 0
+                });
+            });
+
+        </script>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/Works/WorkTimesIndex" + "/@ViewBag.WorkId";
+    }
+</script>

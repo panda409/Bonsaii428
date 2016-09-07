@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "考勤数据统计";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<ul class="nav nav-tabs">
+    <li><a href="" data-toggle="tab" id="active" target="content">日考勤明细</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="B">月考勤明细</a></li>
+    <li><a href="" data-toggle="tab" target="content" id="C">打卡记录</a></li></ul>
+<div class="content">
+    <!-- 主内容开始 -->
+    <!-- 主内容结束 -->
+    <!--测试iframe-->
+    <iframe scrolling="auto" frameborder="0"
+            style="overflow-x:scroll;width:100%;border:none;margin-left:0px;margin-top:0px;"
+            name="content" id="content"
+            src="/EveryDaySignInDates/Index"
+            onload="this.height=800"></iframe>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $("#active").tab("show");
+    $("#active").click(function () {
+        window.frames["content"].document.location = "/EveryDaySignInDates/Index";
+    });
+    $("#B").click(function(){
+        window.frames["content"].document.location = "/MonthSignIndates/Index";
+    });
+    $("#C").click(function () {
+        window.frames["content"].document.location = "/OriginalSignInData/Index";
+    });
+</script>

@@ -1,0 +1,295 @@
+﻿@model IEnumerable<Bonsaii.Models.WeekTag>
+@Html.ActionLink("部门假日表", "IndexDepartment")<br />
+@Html.ActionLink("个人假日表", "IndexStaff")
+@*@Html.ActionLink("创建公司假日表","CreateCompany")*@
+@*@Html.ActionLink("创建部门假日表", "CreateDepartment")
+@Html.ActionLink("创建个人假日表", "CreatePerson")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Range)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week6)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week7)
+        </th>
+
+
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        foreach (var temp in @ViewBag.departmentList)
+        {
+            if (temp.Number == item.Id && temp.Value != null)
+            {
+                <tr>
+
+                    <td>
+                        @temp.Value
+                    </td>         
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nian)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Week7)
+                    </td>
+
+
+                    <td>
+                        @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("详细信息", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>
+<div class="sang_Calender" id="a">
+    <button class="btn btn-primary sang_Calender" id="btn">click</button>
+    <button class="btn btn-primary sang_Calender" id="btn1">clickq</button>
+</div>
+<div class="sang_Calender" id="test">
+    <button class="btn btn-success sang_Calender" id="test1">Test</button>
+</div>
+<script src="~/Scripts/datetime.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+@*<script>
+    $(document).ready(function () {
+
+        $("#test").click(function () {
+            var d = new Date()
+            $("#table1").toggle();
+            var temp = d.getMonth() + 1;
+            var nian = $("#y").text();
+            var staffNumber = "00000121";
+            $.ajax({
+                url: "WeekTag/ResultHoliday",
+                type: 'POST',
+                data: { month: temp, year: nian, staffNumber: staffNumber },
+                success: (function (data) {
+                    console.info(data);
+                    for (var n = 0; n < 31; n++) {
+                        if (data[n].Tag.trim() == "1") {
+                            $("#id" + (n + 1)).append("<br>休息").css({ 'color': 'red' });
+                        }
+                    }
+
+                })
+            });
+        });
+
+        $("#a").click(function () {
+            var d = new Date()
+            $("#table1").toggle();
+            var temp = d.getMonth() + 1;
+            var nian = $("#y").text();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: { month: temp, year: nian },
+                success: (function (data) {
+                    console.info(data);
+                    for (var n = 0; n < 31; n++) {
+                        if (data[n].Tag.trim() == "1") {
+                            $("#id" + (n + 1)).append("<br>休息").css({ 'color': 'red' });
+                        }
+                    }
+
+                })
+            })
+        })
+        $("#monthR").click(function () {
+
+
+            var temp = $("#m").text();
+            if ($("#m").text() != "10") {
+                temp = temp.replace("0", "");
+            }
+            var nian = $("#y").text();
+            var test = (new Date()).getDay();
+            console.info(nian);
+            console.info(test);
+            var test1 = (new Date()).getMonth();
+            console.info(test1);
+            //temp++;
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: { month: temp, year: nian },
+                success: (function (data) {
+                    console.info(data);
+                    console.info(temp);
+                    for (var n = 0; n < 31; n++) {
+                        if (data[n].Tag.trim() == "1") {
+                            $("#id" + (n + 1)).append("<br>休息").css({ 'color': 'red' });
+                        }
+                    }
+                })
+            })
+        })
+
+        $("#monthL").click(function () {
+
+            var temp = $("#m").text();
+            if ($("#m").text() != "10") {
+                temp = temp.replace("0", "");
+            }
+            var nian = $("#y").text();
+            //temp--;
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: { month: temp, year: nian },
+                success: (function (data) {
+                    console.info(data);
+                    console.info(temp);
+                    for (var n = 0; n < 31; n++) {
+                        if (data[n].Tag.trim() == "1") {
+                            $("#id" + (n + 1)).append("<br>休息").css({ 'color': 'red' });
+                        }
+                    }
+                })
+            })
+        })
+        $("#yearR").click(function () {
+            // $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+
+                })
+            })
+        })
+        $("#yearL").click(function () {
+            // $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+
+                })
+            })
+        })
+    })
+
+
+</script>*@

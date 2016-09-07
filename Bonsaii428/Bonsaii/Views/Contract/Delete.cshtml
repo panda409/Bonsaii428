@@ -1,0 +1,185 @@
+﻿@model Bonsaii.Models.ContractViewModel
+
+@{
+    ViewBag.Title = "删除合同资料";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@using (Html.BeginForm("Delete", "Contract", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">合同资料管理</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/Contract/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+        </div>
+    </div>
+</div>
+<div>
+    <div class="card panel-box">
+        <h4 class="title">@ViewBag.Title</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BillTypeNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillTypeNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BillTypeName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillTypeName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BillNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstParty)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstParty)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SecondParty)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SecondParty)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SignDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SignDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DueDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractObject)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractObject)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AuditStatusName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AuditStatusName)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractAttachmentName)
+            </dt>
+
+            <dd>
+                @if (Model.ContractAttachmentName != null)
+                {
+                    <a href="@Url.Action("Download", new { id = Model.Id })">
+
+                        @Html.DisplayFor(model => model.ContractAttachmentName)
+                    </a>
+                }
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+            @foreach (var temp in @ViewBag.fieldValueList)
+            {
+                <dt>@Html.DisplayName((string)temp.Description)</dt>
+                <dd>@temp.Value</dd>
+            } 
+           
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>  
+           
+        </dl>
+
+    </div>
+</div> }
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/Contract/Index";
+    }
+    $("#delete1").click(function () {
+
+        $("#longfor_form").submit();
+
+    });
+</script>

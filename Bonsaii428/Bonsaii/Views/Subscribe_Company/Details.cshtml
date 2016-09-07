@@ -1,0 +1,35 @@
+﻿@model BonsaiiModels.Subscribe.Subscribe_Company
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subscribe_Company</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SubScribeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubScribeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

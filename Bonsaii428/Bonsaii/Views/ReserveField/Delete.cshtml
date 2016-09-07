@@ -1,0 +1,90 @@
+﻿@model Bonsaii.Models.ReserveField
+
+@{
+    ViewBag.Title = "删除自定义字段";
+}
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card bor-b">
+        <ul class="breadcrumb pull-left pv">
+            <li><a href="/Home/IndexMain"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">设计自定义字段</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv">
+            <a href="#" id="longforSave"><i class="fa fa-remove"></i>删除</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="/ReserveField/Index"><i class="fa fa-backward"></i>返回</a>
+
+        </div>
+    </div>
+</div>
+<div class="card panel-box">
+    <h4 class="title">@ViewBag.Title</h4>
+    @{Html.EnableClientValidation(true);}
+    @{Html.EnableUnobtrusiveJavaScript();}
+    <form method="post" action="/ReserveField/Delete?id=@Model.Id" id="longfor_form">
+        @Html.AntiForgeryToken()
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TableName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TableName.TableDescription)
+                    @*@Html.DisplayFor(model => model.TableName)*@
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FieldName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FieldName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @if (Model.Status)
+                    {
+                        <input type="checkbox" id="Status" disabled="disabled" checked="checked"><label for="Status"></label>
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="Status" disabled="disabled"><label for="Status"></label>
+
+                    }
+                </dd>
+                <dt>
+
+
+                </dt>
+
+                <dd>
+                    <input type="submit" value="删除" class="btn btn-primary" id="delete" /> <button type="button" class="btn btn-outline" onclick="    tz()">取消</button>
+                </dd>
+            </dl>
+        </div>
+    </form>
+</div>
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/ReserveField/Index";
+    }
+</script>

@@ -1,0 +1,88 @@
+﻿@model Bonsaii.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@Scripts.Render("~/bundles/jsTree_js")
+@Styles.Render("~/bundles/jsTree_css")
+
+
+
+<h2>创建管理员</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>创建管理员</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("选择管理员所属角色", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div id="role_tree" style="margin-top:20px;width:20%;" class="proton-demo"></div>
+            </div>
+            <input type="hidden" name="userRoles" id="userRoles" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" id="test" value="创建">
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Role/GetAllRoles',
+            type: 'POST',
+            success: function (data) {
+                $('#role_tree').jstree({
+                    'plugins': ["wholerow", "checkbox"],
+                    'core': {
+                        'data': data,
+                        'themes': {
+                            'name': 'proton',
+                            'responsive': true
+                        }
+                    }
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("验证码获取失败！请稍后重新尝试");
+            },
+        });
+    });
+
+    $('#test').click(function () {
+        var nodes = $('#role_tree').jstree("get_checked");
+        var ids = "";
+        $.each(nodes, function (i, n) {
+            ids += n + ",";
+        });
+        $('#userRoles').attr("value", ids);
+        alert(ids);
+    });
+</script>

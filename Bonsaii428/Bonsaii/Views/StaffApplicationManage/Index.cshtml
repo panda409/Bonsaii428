@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Bonsaii.Models.StaffApplication>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>离职申请管理</h2>
+
+<ul class="list-group col-md-12">
+    <li class=" list-group-item">
+        @Html.ActionLink("待处理的离职申请单", "List", new { listchoose = 0 })
+    </li>
+    <li class=" list-group-item">
+        @Html.ActionLink("已处理的离职申请单", "List", new { listchoose = 1 })
+    </li>
+</ul>

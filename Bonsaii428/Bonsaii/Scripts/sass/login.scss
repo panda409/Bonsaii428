@@ -1,0 +1,113 @@
+//变量设置
+
+@import "setting/var-color";
+@import "setting/variable";
+
+//公共输出样式
+/* @import "setting/colors";
+@import "setting/spacing";
+@import "icons/fontawesome/font-awesome";
+@import "icons/mdi/materialdesignicons"; */
+
+//第三方Sass库
+@import "bourbon/bourbon";
+
+//我的自定义宏
+@import "mixins/mymixins";
+@import "mixins/_xmixins";
+
+html,body{
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+.login-body {
+	width: 100%;
+	height: 100%;
+  background: $primary ; 
+  @include x-linear-gradient(to bottom,$primary,#2DCCC4) ;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Microsoft Yahei";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &::before {
+    z-index: -1;
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: $primary; /* IE Fallback */
+    background: rgba(46,204,113,.8);
+    width: 100%;
+    height: 100%;
+  }
+
+  .form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(#fff, .9);
+    width: 300px;
+    margin: -140px 0 0 -190px;
+    padding: 40px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(#000,.2);
+    & h2 {
+      margin: 0 0 20px;
+      line-height: 1;
+      color: $primary;
+      font-size: 18px;
+      font-weight: 400;
+      text-align: center;
+    }
+    & input {
+      outline: none;
+      display: block;
+      width: 100%;
+      margin: 0 0 20px;
+      padding: 10px 15px;
+      background: rgba(#fff, .2);
+      border: 1px solid $form-border-color-blue;
+      color: #ccc;
+      font-family: "Roboto";
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      font-size: 14px;
+      border-radius: 3px;
+      
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      @include transition(.3s);
+      &:focus {
+        color: #333;
+        border: 1px solid $primary;
+      }
+    }
+    
+    & .button {
+      cursor: pointer;
+      border-radius: 3px;
+      background: $primary;
+      outline: none;
+      display: block;
+      text-align: center;
+      padding: 10px 15px;
+      border: 0;
+      color: #fff;
+      font-family: "Roboto";
+      font-size: 14px;
+      text-decoration: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      @include transition(.3s);
+      &:hover {
+        background: darken($primary, 10%)
+      }
+    }
+  }
+}

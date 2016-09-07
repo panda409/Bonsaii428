@@ -1,0 +1,144 @@
+﻿@model Bonsaii.Models.Department
+
+@{
+    ViewBag.Title = "创建部门";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+
+@using (Html.BeginForm("Create", "Department", FormMethod.Post,
+  new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="content">
+            <!-- 主内容开始 -->
+            <div class="control-bar card bor-b">
+                <ul class="breadcrumb pull-left pv">
+                    <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                    <li><a href="#">组织结构</a></li>
+                    <li><a href="#">@ViewBag.Title</a></li>
+                </ul>
+                <div class="h-list pull-right pv">
+                    <a href="#" id="longforSave"><i class="fa fa-save"></i>保存</a>
+                    <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                    <a href="#" id="back"><i class="fa fa-backward"></i>返回</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+          
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*<div class="form-group">
+                @Html.HiddenFor(model => model.DepartmentOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.HiddenFor(model => model.DepartmentOrder, new { htmlAttributes = new { @class = "form-control ", @placeholder = "部门编号" } })
+                    @Html.ValidationMessageFor(model => model.DepartmentOrder, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control ", @placeholder = "部门编号" } })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "部门名称" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentAbbr, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.DepartmentAbbr, new { htmlAttributes = new { @class = "form-control", @placeholder = "缩写用来进行员工工号设置" } })
+                    @Html.ValidationMessageFor(model => model.DepartmentAbbr, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParentDepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ParentDepartmentId, new { htmlAttributes = new { @class = "form-control", @placeholder = "上级部门" } })
+                    @Html.ValidationMessageFor(model => model.ParentDepartmentId, "", new { @class = "text-danger" })
+                    @*@Html.DropDownListFor(model => model.ParentDepartmentId, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control" })*@
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffSize, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StaffSize, new { htmlAttributes = new { @class = "form-control", @placeholder = "编制人数" } })
+                    @Html.ValidationMessageFor(model => model.StaffSize, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @* 多行文本框，宽度为280px，高度为4行，这里为啥输入120我并不知道。试的。 *@
+                    @Html.TextAreaFor(model => model.Remark, 4, 120, new { @class = "form-control", @placeholder = "备注说明" })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*遍历，显示那些自定义的字段*@
+            @foreach (var x in @ViewBag.recordList)
+            {
+                <div class="form-group">
+                    @*<label>x.Description</label>*@
+                    @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.Editor((string)(x.FieldName), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => x, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            }
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="保存" id="submitForm" class="btn btn-primary" />
+                    <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </div>
+            </div>
+           
+        </div>
+
+    </div>
+}
+
+
+<script src="~/Scripts/bootstrap-select.js"></script>
+
+<script>
+    function tz() {
+        window.location.href = "/Department/Index";
+    }
+    $("#back").click(function () {
+        window.location.href = "/Department/Index"
+    });
+    $("#refresh").click(function () {
+        window.location.reload();
+    });
+    $.ajax({
+        url: './DepartmentAndCompanySearch',
+        type: 'POST',
+        success: function (data) {
+            $('#ParentDepartmentId').bootstrapSelect({
+                data: data,
+                downBorder: true,
+                multiple: false,//多选
+            });
+        }
+    });
+</script>

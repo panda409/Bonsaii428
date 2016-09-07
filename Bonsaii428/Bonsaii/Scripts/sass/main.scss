@@ -1,0 +1,29 @@
+
+//变量设置
+
+@import "setting/var-color";
+@import "setting/variable";
+
+//主框架
+@import "bootstrap/bootstrap";
+
+//公共输出样式
+@import "setting/colors";
+@import "setting/spacing";
+@import "icons/fontawesome/font-awesome";
+@import "icons/mdi/materialdesignicons";
+
+//第三方Sass库
+@import "bourbon/bourbon";
+@import "mixins/lost";
+@import "mixins/_xmixins";
+
+//我的自定义宏
+@import "mixins/mymixins";
+
+//页面内容样式
+@import "theme";
+@import "common/header";
+@import "common/sider";
+@import "public";
+@import "styles";

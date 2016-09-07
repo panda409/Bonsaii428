@@ -1,0 +1,221 @@
+﻿@model BonsaiiModels.Subscribe.SubscribeAndWarning
+
+@{
+    ViewBag.Title = "删除数据订阅预警";
+}
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+@using (Html.BeginForm("Delete", "SubscribeAndWarning", FormMethod.Post, new { @id = "longfor_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        <!-- 主内容开始 -->
+        <div class="control-bar card bor-b">
+            <ul class="breadcrumb pull-left pv">
+                <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+                <li><a href="#">数据订阅预警</a></li>
+                <li><a href="#">@ViewBag.Title</a></li>
+            </ul>
+            <div class="h-list pull-right pv">
+                <a href="#" id="delete1"><i class="fa fa-remove"></i>删除</a>
+                <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+                <a href="/SubscribeAndWarning/Index" id="back"><i class="fa fa-backward"></i>返回</a>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card panel-box">
+            <h4 class="title">@ViewBag.Title</h4>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EventName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EventName)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Receiver)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Receiver)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SendToApp)
+                </dt>
+
+                <dd>
+                    @if (Model.SendToApp)
+                    {
+                        <input type="checkbox" id="Root_@Model" disabled="disabled" checked="checked"><label for="Root_@Model"></label>
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="Root_@Model" disabled="disabled"><label for="Root_@Model"></label>
+
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsEmail)
+                </dt>
+
+                <dd>
+                    @if (Model.IsEmail)
+                    {
+                        <input type="checkbox" id="Root_@Model" disabled="disabled" checked="checked"><label for="Root_@Model"></label>
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="Root_@Model" disabled="disabled"><label for="Root_@Model"></label>
+
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CirculateMethod)
+                </dt>
+
+                <dd>
+
+                    @{
+
+                    string cm = null;
+                    if (Model.CirculateMethod == 0)
+                    {
+                        cm = "仅一次";
+
+                    }
+                    if (Model.CirculateMethod == 1)
+                    {
+                        cm = "每日";
+                    }
+
+                    }
+
+                    @Html.DisplayFor(model => cm)
+                </dd>
+
+
+
+                @{
+    if (Model.CirculateMethod == 0)
+    {
+        <dt>
+            @Html.DisplayNameFor(model => model.OnlyOneDate)
+        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.OnlyOneDate)
+                    </dd>
+
+    }
+    else
+    {
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+                    <dd id="startdate">
+                        @{
+        if (Model.StartDate != null)
+        {
+            var startCut = Model.StartDate.ToString().Substring(0, 9);
+            @Html.DisplayFor(model => startCut)
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.StartDate)
+        }
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RemindDate)
+                    </dt>
+
+                    <dd>
+                        @{
+        if (Model.RemindDate != null)
+        {
+            var remainCut = Model.RemindDate.ToString().Substring(0, 5);
+            @Html.DisplayFor(model => remainCut)
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.RemindDate)
+        }
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </dt>
+
+                    <dd>
+                        @{
+        if (Model.EndDate != null)
+        {
+            var endCut = Model.EndDate.ToString().Substring(0, 9);
+            @Html.DisplayFor(model => endCut)
+
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.EndDate)
+        }
+                        }
+                    </dd>
+
+
+    }
+
+                }
+
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAvailable)
+                </dt>
+
+                <dd>
+                    @if (Model.IsAvailable)
+                    {
+                        <input type="checkbox" id="Root_@Model" disabled="disabled" checked="checked"><label for="Root_@Model"></label>
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="Root_@Model" disabled="disabled"><label for="Root_@Model"></label>
+
+                    }
+
+                </dd>
+                <dd>
+                    <a href="/SubscribeAndWarning/Edit/@Model.Id"><input type="submit" value="编辑" class="btn btn-primary" /></a> <button type="button" class="btn btn-outline" onclick="tz()">取消</button>
+                </dd>
+            </dl>
+
+
+
+        </div>
+    </div> }
+<script>
+    $("#refresh").click(function () {
+        window.location.reload();
+    })
+    function tz() {
+        window.location.href = "/SubscribeAndWarning/Index";
+    }
+    $("#delete1").click(function () {
+
+        $("#longfor_form").submit();
+
+    });
+</script>

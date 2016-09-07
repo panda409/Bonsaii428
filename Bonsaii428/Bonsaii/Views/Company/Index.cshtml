@@ -1,0 +1,194 @@
+﻿@model Bonsaii.Models.Company
+
+@{
+   
+    ViewBag.Title = "企业信息";
+}
+
+
+<div class="content">
+    <!-- 主内容开始 -->
+    <div class="control-bar card">
+        <ul class="breadcrumb pull-left">
+            <li><a href="#"><i class="fa fa-home"></i>主页</a></li>
+            <li><a href="#">系统设置</a></li>
+            <li><a href="#">@ViewBag.Title</a></li>
+        </ul>
+        <div class="h-list pull-right pv" id="menubutton">
+            <a href="#" id="edit"><i class="fa fa-edit"></i>编辑</a>
+            <a href="#" id="refresh"><i class="fa fa-refresh"></i>刷新</a>
+            <a href="#"><i class="fa fa-print"></i>输出</a>
+        </div>
+    </div>
+</div>
+    <div class="card p+ mt+">
+        <h4 class="title">@ViewBag.Title</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TelNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TelNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessLicense)
+            </dt>
+            <dd>
+                @if (Model.BusinessLicense != null)
+                {
+                   
+                        <img width="420" height="594" src="@Url.Action("GetImage1", "Company",
+        new { Model.CompanyId})" />
+                   
+                }
+            </dd>
+            @*<dt>
+        @Html.DisplayNameFor(model => model.UserName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.UserName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.ParentCompany)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ParentCompany)
+    </dd>
+    <dt>
+                @Html.DisplayNameFor(model => model.ParentCompanyId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParentCompanyId)
+            </dd>*@
+            <dt>
+                @Html.DisplayNameFor(model => model.ShortName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ShortName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EnglishName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EnglishName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LegalRepresentative)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LegalRepresentative)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EstablishDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EstablishDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Url)
+            </dt>
+            <dd>
+                <a  name="Url" href=@Model.Url target="_blank">@Model.Url</a>
+               @*@Html.DisplayFor(model => model.Url, new { @target = "_parent" })*@
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Logo)
+            </dt>
+            <dd>
+                @*@Html.DisplayFor(model => model.Logo)*@
+                @if (Model.Logo != null)
+                {
+                    <div style="float:left;margin-right:20px">
+                        <img width="130" height="150" src="@Url.Action("GetImage", "Company",
+        new { Model.CompanyId})" />
+                    </div>
+                }
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+           @* <dt>
+        @Html.DisplayNameFor(model => model.IsGroupCompany)
+    </dt>
+    <dd class="checkbox-wrap">
+        @if (Model.IsGroupCompany)
+        {
+            <input type="checkbox" id="IsGroupCompany" disabled="disabled" checked="checked"><label for="IsGroupCompany"></label>
+        }
+        else
+        {
+            <input type="checkbox" id="IsGroupCompany" disabled="disabled"><label for="IsGroupCompany"></label>
+
+        }
+
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.GroupCompanyNumber)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.GroupCompanyNumber)
+    </dd>*@
+        </dl>
+        @if(ViewBag.alertMessage == true) { 
+        <script>
+            alert("修改公司名称成功，重新登录后生效");
+        </script>
+        }
+    </div>
+    <!-- 主内容结束 -->
+
+
+<script src="~/Scripts/UI/lib/jquery/jquery.min.js"></script>
+<script src="~/Scripts/longfor.js"></script>
+<script type="text/javascript">
+    /*采用事件委托，对click事件进行了优化*/
+    $("#menubutton").bind("click", function (e) {
+        var target = e.target;
+        $target = $(target);
+        if($target.is("#edit")) {
+            window.location.href = "/Company/Edit"
+        }
+        if($target.is("#refresh")) {
+            window.location.reload();
+        }
+        if ($target.is("#test")) {
+            var str = "";
+            $("input[name='roles']:checkbox").each(function () {
+                if ($(this).is(":checked"))
+                    str += $(this).val() + ",";
+            })
+            str = str.substring(0, str.length - 1);
+            $('#SelectedRoles').attr('value', str);
+        }
+    }
+    );
+   
+</script>
+
+
+
+
+
+

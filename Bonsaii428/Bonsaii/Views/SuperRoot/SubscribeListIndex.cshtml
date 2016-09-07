@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BonsaiiModels.SubscribeList>
+
+@{
+    ViewBag.Title = "SubscribeListIndex";
+    Layout = "~/Views/Shared/_LayoutMainSuperRoot.cshtml";
+}
+
+
+<h2>数据订阅</h2>
+
+<p>
+    @Html.ActionLink("新建", "SubscribeListCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscribeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SQL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSQLLegal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MessContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubscribeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SQL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSQLLegal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessContent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAvailable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "SubscribeListEdit", new { id = item.Id }) |
+            @Html.ActionLink("查看", "SubscribeListDetails", new { id = item.Id }) |
+            @Html.ActionLink("删除", "SubscribeListDelete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
